@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B77B1F56-87EA-49C1-8C7A-2B9B3A520E50}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>fun3D.My.MyApplication</StartupObject>
+    <RootNamespace>fun3D</RootNamespace>
+    <AssemblyName>fun3D</AssemblyName>
+    <MyType>WindowsForms</MyType>
+    <ManifestCertificateThumbprint>13C66E3905467CC8A0BCEB6B34F684C1EF9C842A</ManifestCertificateThumbprint>
+    <ManifestKeyFile>fun3D_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>true</SignManifests>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>fun3d.ico</ApplicationIcon>
+    <PublishUrl>C:\Documents and Settings\Ana\My Documents\Visual Studio 2005\Projects\fun3D\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <CreateWebPageOnPublish>false</CreateWebPageOnPublish>
+    <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>fun3D.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>fun3D.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="csgl, Version=1.4.1.0, Culture=neutral, PublicKeyToken=d8fb3bdb88c36cd4">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\WINDOWS\system32\csgl.dll</HintPath>
+    </Reference>
+    <Reference Include="Eval3, Version=1.1.3004.39235, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Eval3.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3D, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="Microsoft.DirectX.Direct3DX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cf3D.Designer.vb">
+      <DependentUpon>cf3D.vb</DependentUpon>
+    </Compile>
+    <Compile Include="cf3D.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cfShow3d.Designer.vb">
+      <DependentUpon>cfShow3d.vb</DependentUpon>
+    </Compile>
+    <Compile Include="cfShow3d.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassCA.vb" />
+    <Compile Include="ClassDynamicParametri.vb" />
+    <Compile Include="ClassFrame.vb" />
+    <Compile Include="ClassISO.vb" />
+    <Compile Include="ClassLight.vb" />
+    <Compile Include="ClassParametri.vb" />
+    <Compile Include="ClassScena.vb" />
+    <Compile Include="ClassU.vb" />
+    <Compile Include="ClassUV.vb" />
+    <Compile Include="dfAbout.Designer.vb">
+      <DependentUpon>dfAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dfAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dfCA.Designer.vb">
+      <DependentUpon>dfCA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dfCA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dfPredefined.Designer.vb">
+      <DependentUpon>dfPredefined.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dfPredefined.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dfUVLista.Designer.vb">
+      <DependentUpon>dfUVLista.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dfUVLista.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dsProjekat.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsProjekat.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsProjekat.vb">
+      <DependentUpon>dsProjekat.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EvalFunctions.vb" />
+    <Compile Include="fSplash.Designer.vb">
+      <DependentUpon>fSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="fSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mdTools.vb" />
+    <Compile Include="mf.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mf.Designer.vb">
+      <DependentUpon>mf.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="tfNavigacija.Designer.vb">
+      <DependentUpon>tfNavigacija.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tfNavigacija.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tfOsobine.Designer.vb">
+      <DependentUpon>tfOsobine.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tfOsobine.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tfValueInspector.Designer.vb">
+      <DependentUpon>tfValueInspector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tfValueInspector.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="cf3D.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>cf3D.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cfShow3d.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>cfShow3d.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dfAbout.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>dfAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dfCA.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>dfCA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dfPredefined.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>dfPredefined.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dfUVLista.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>dfUVLista.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fSplash.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>fSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mf.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>mf.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tfNavigacija.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tfNavigacija.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tfOsobine.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tfOsobine.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="tfValueInspector.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>tfValueInspector.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fun3D_TemporaryKey.pfx" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fun3d.ico" />
+    <None Include="dsProjekat.xsc">
+      <DependentUpon>dsProjekat.xsd</DependentUpon>
+    </None>
+    <None Include="dsProjekat.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsProjekat.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="dsProjekat.xss">
+      <DependentUpon>dsProjekat.xsd</DependentUpon>
+    </None>
+    <Content Include="licence.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\PropertiesHS.png" />
+    <None Include="Resources\newUV.png" />
+    <None Include="Resources\newUVp.png" />
+    <None Include="Resources\DeleteHS.png" />
+    <None Include="Resources\ActualSizeHS.png" />
+    <None Include="Resources\FunctionHS.png" />
+    <None Include="Resources\splash.png" />
+    <None Include="Resources\about.png" />
+    <Content Include="help\1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\3.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\4.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\5.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\6.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\7.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\8.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\9.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\ActualSizeHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\DeleteHS.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\newUV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\newUVp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="help\stil.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\newU.png" />
+    <None Include="Resources\DataContainer_NewRecordHS.png" />
+    <None Include="Resources\PlayHS.png" />
+    <None Include="Resources\DataContainer_MovePreviousHS.png" />
+    <None Include="Resources\DataContainer_MoveNextHS.png" />
+    <None Include="Resources\newCA.png" />
+    <None Include="Resources\editCA.png" />
+    <Content Include="lp.htm" />
+    <None Include="Resources\CopyHS.png" />
+    <None Include="Resources\PasteHS.png" />
+    <None Include="Resources\Edit_UndoHS.png" />
+    <None Include="Resources\Edit_RedoHS.png" />
+    <Content Include="samples\smpCube.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpDiamond.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpKlein.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpRiple.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\checkdef.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\glassblur.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\glassflat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\glasssky.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\glasstry.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\glasstry.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\kohinor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\PRTColorLights.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\SimpleLighting.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\skybox.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\cell.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\cellS.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\p1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\sharp.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpCatenoidHelicoid.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpEnneper.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpKuen.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpCatalan.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpHyperbolicHelicoid.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="samples\smpTorus.f3d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\smpsh.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\strongline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="shaders\textureDefault.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="somerights20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="util\conv3ds.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
