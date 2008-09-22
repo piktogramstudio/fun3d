@@ -1,0 +1,14 @@
+/* CSS Document */
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: medium;
+	color: #000000;
+}
+body {
+	background-color: #FFFFFF;
+}
+.Naslov {
+	font-size: large;
+	font-weight: bold;
+	color: #000000;
+}
