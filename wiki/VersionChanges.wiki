@@ -9,5 +9,6 @@
   * CA levels color gradient added
   * CA ground shadows added
   * Evaluating method changed
+  * CA copy/paste
 
 ===============================================
