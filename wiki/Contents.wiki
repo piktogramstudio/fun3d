@@ -1,4 +1,4 @@
 #summary Contents.
 
-*[HowToJoin How to join]
-*[VersionChanges Version Changes]
+* [HowToJoin How to join]
+* [VersionChanges Version Changes]
