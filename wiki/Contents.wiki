@@ -1,4 +1,5 @@
 #summary Contents.
+#labels Featured
 
  * [HowToJoin How to join]
  * [VersionChanges Version Changes]
