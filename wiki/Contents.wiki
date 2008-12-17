@@ -3,3 +3,4 @@
 
  * [HowToJoin How to join]
  * [VersionChanges Version Changes]
+ * [BugReport Bug Report]
