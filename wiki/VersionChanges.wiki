@@ -1,7 +1,13 @@
 #summary Fun3D Version Changes.
 #labels Featured
 
-== What's new in Fun3D v.1.0.310 since 1.0.309 ==
+== What's new in Fun3D v.1.0.311 since 1.0.310 ==
+
+  * Load file with 3D curve bug fixed
+
+
+
+=== What's new in Fun3D v.1.0.310 since 1.0.309 ===
 
   * Spacial parametric (u) curve module improved
   * Line width property for u curve added
