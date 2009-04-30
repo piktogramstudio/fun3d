@@ -1,7 +1,15 @@
 #summary Fun3D Version Changes.
 #labels Featured
 
-== What's new in Fun3D v.1.0.312 since 1.0.311 ==
+== What's new in Fun3D v.1.0.315 since 1.0.312 ==
+
+  * Changing color property bug fixed
+  * UV parametric surface evaluation perfomance improved
+  * UV parametric surface rendering perfomance improved
+  * Wide changes about speed and memory usage
+
+
+=== What's new in Fun3D v.1.0.312 since 1.0.311 ===
 
   * Minimize crash bug fixed
   * 2D curves samples added
