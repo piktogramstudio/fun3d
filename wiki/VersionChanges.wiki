@@ -3,6 +3,11 @@
 
 == What's new in Fun3D v.1.0.402 since 1.0.400 ==
 
+  * UV surfaces 'out of memory' bug fixed
+
+
+=== What's new in Fun3D v.1.0.402 since 1.0.400 ===
+
   * ISO Surfaces DXF export
   * ISO Surfaces color and transparency
 
