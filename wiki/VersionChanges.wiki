@@ -1,10 +1,15 @@
 #summary Fun3D Version Changes.
 #labels Featured
 
-== What's new in Fun3D v.1.0.405 since 1.0.404 ==
+== What's new in Fun3D v.1.0.406 since 1.0.405 ==
+
+  * 3DS file import bugs fixed
+  * L-systems combined with 3ds imported files
+
+
+=== What's new in Fun3D v.1.0.405 since 1.0.404 ===
 
   * Cellular automata improved
-
 
 === What's new in Fun3D v.1.0.404 since 1.0.403 ===
 
