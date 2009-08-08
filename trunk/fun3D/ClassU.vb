@@ -470,7 +470,7 @@ Public Class ClassU
         ee.Language = "vbscript"
         ee.AllowUI = True
 
-        ee.AddCode(Me.parametriCode)
+        'ee.AddCode(Me.parametriCode)
 
         ee.AddObject("mathis", New EvalFunctions, True)
         ee.AddObject("uv", Me, True)
