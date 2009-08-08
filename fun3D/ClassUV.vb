@@ -63,7 +63,7 @@ Public Class ClassUV
     Dim lineW As Byte = 1
     Dim mhatch As Drawing2D.HatchStyle
     Dim brojProlaza As Integer = 0
-    Dim indices As New List(Of Int32)
+    Public indices As New List(Of Int32)
     <System.NonSerialized()> _
     Public UVMesh As Mesh
     <System.NonSerialized()> _
