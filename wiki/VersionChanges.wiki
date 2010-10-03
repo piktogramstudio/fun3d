@@ -1,12 +1,16 @@
 #summary Fun3D Version Changes.
 #labels Featured
 
-== What's new in Fun3D v.1.0.410 since 1.0.409 ==
+== What's new in Fun3D v.1.0.411 since 1.0.410 ==
+
+  * Cracking Structure added
+
+=== What's new in Fun3D v.1.0.410 since 1.0.409 ===
 
   * CA space between cells in x, y & z direction
   * x64 version (not fully tested)
 
-== What's new in Fun3D v.1.0.409 since 1.0.405 ==
+=== What's new in Fun3D v.1.0.409 since 1.0.405 ===
 
   * CA - cells from mesh feature added
   * Undo/Redo fixed
