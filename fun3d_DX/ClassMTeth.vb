@@ -13,7 +13,12 @@ Imports Microsoft.DirectX
 			Public val As Double() = New Double(7) {}
 		End Class
 
-		'
+    '   Converted from C code ref. http://local.wasp.uwa.edu.au/~pbourke/geometry/polygonise/
+    '   Polygonising a scalar field
+    '   Also known as: "3D Contouring", "Marching Cubes", "Surface Reconstruction" 
+    '   by Paul Bourke (http://local.wasp.uwa.edu.au/~pbourke/geometry/)
+    '   May 1994
+
 '           Polygonise a tetrahedron given its vertices within a cube
 '           This is an alternative algorithm to polygonisegrid.
 '           It results in a smoother surface but more triangular facets.

@@ -6,14 +6,19 @@ Imports Microsoft.DirectX
 
 	Public Class ClassMCube
 
-		'
-'   Given a grid cell and an isolevel, calculate the triangular
-'   facets required to represent the isosurface through the cell.
-'   Return the number of triangular facets, the array "triangles"
-'   will be loaded up with the vertices at most 5 triangular facets.
-'	0 will be returned if the grid cell is either totally above
-'   of totally below the isolevel.
-'
+    '   Converted from C code ref. http://local.wasp.uwa.edu.au/~pbourke/geometry/polygonise/
+    '   Polygonising a scalar field
+    '   Also known as: "3D Contouring", "Marching Cubes", "Surface Reconstruction" 
+    '   by Paul Bourke (http://local.wasp.uwa.edu.au/~pbourke/geometry/)
+    '   May 1994
+
+    '   Given a grid cell and an isolevel, calculate the triangular
+    '   facets required to represent the isosurface through the cell.
+    '   Return the number of triangular facets, the array "triangles"
+    '   will be loaded up with the vertices at most 5 triangular facets.
+    '	0 will be returned if the grid cell is either totally above
+    '   of totally below the isolevel.
+    '
 
 		Public Function Polygonise(grid As ClassMTeth.GRIDCELL, isolevel As Double, ByRef triangles As ClassMTeth.TRIANGLE()) As Integer
 			Dim i As Integer, ntriang As Integer
