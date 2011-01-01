@@ -96,6 +96,7 @@ Partial Class mf
         Me.PropertiesReaderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NURBSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LightsPropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
@@ -108,7 +109,6 @@ Partial Class mf
         Me.P3D = New System.Windows.Forms.Panel()
         Me.rtbConsole = New System.Windows.Forms.RichTextBox()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -695,6 +695,15 @@ Partial Class mf
         Me.LightsPropertiesToolStripMenuItem.Text = "Lights properties"
         Me.LightsPropertiesToolStripMenuItem.Visible = False
         '
+        'ConsoleToolStripMenuItem
+        '
+        Me.ConsoleToolStripMenuItem.Checked = True
+        Me.ConsoleToolStripMenuItem.CheckOnClick = True
+        Me.ConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
+        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.ConsoleToolStripMenuItem.Text = "Console"
+        '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContentsToolStripMenuItem, Me.toolStripSeparator5, Me.AboutToolStripMenuItem})
@@ -790,15 +799,6 @@ Partial Class mf
         Me.Splitter1.Size = New System.Drawing.Size(825, 3)
         Me.Splitter1.TabIndex = 8
         Me.Splitter1.TabStop = False
-        '
-        'ConsoleToolStripMenuItem
-        '
-        Me.ConsoleToolStripMenuItem.Checked = True
-        Me.ConsoleToolStripMenuItem.CheckOnClick = True
-        Me.ConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
-        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.ConsoleToolStripMenuItem.Text = "Console"
         '
         'mf
         '

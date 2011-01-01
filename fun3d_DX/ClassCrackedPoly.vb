@@ -19,7 +19,6 @@ Public Class ClassCrackedPoly
     
     Public c As Color = Drawing.Color.Red
     Public t As Byte = 255
-    Public Shared Event bufferRefreshed()
     Dim ct As crackingType = crackingType.NormalExtrude
     Dim lc As Color = color.Black
     <Category("2. Appearance")> _
@@ -283,7 +282,7 @@ Public Class ClassCrackedPoly
         Catch ex As Exception
 
         End Try
-        RaiseEvent bufferRefreshed()
+        rEventBufferRefreshed()
     End Sub
     Public Sub refreshBufferMI()
         Me.refreshBuffer(dev)
