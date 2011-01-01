@@ -312,19 +312,19 @@ Public Class ClassCA
             g2 = Me.llevelColor.G
             b2 = Me.llevelColor.B
             If r1 > r2 Then
-                r = r2 + Int(((r1 - r2) / Me.nOfLevels) * level)
+                r = CByte(r2 + Int(((r1 - r2) / Me.nOfLevels) * level))
             Else
-                r = r1 + Int(((r2 - r1) / Me.nOfLevels) * level)
+                r = CByte(r1 + Int(((r2 - r1) / Me.nOfLevels) * level))
             End If
             If g1 > g2 Then
-                g = g2 + Int(((g1 - g2) / Me.nOfLevels) * level)
+                g = CByte(g2 + Int(((g1 - g2) / Me.nOfLevels) * level))
             Else
-                g = g1 + Int(((g2 - g1) / Me.nOfLevels) * level)
+                g = CByte(g1 + Int(((g2 - g1) / Me.nOfLevels) * level))
             End If
             If b1 > b2 Then
-                b = b2 + Int(((b1 - b2) / Me.nOfLevels) * level)
+                b = CByte(b2 + Int(((b1 - b2) / Me.nOfLevels) * level))
             Else
-                b = b1 + Int(((b2 - b1) / Me.nOfLevels) * level)
+                b = CByte(b1 + Int(((b2 - b1) / Me.nOfLevels) * level))
             End If
             Return Color.FromArgb(r, g, b)
         End Get
@@ -478,7 +478,7 @@ Public Class ClassCA
         For a = 0 To Me.xFields - 1
             For b = 0 To Me.yFields - 1
                 Randomize()
-                Me.matrice(0).Add(CInt(Int((1 * Rnd()) + 0.35)))
+                Me.matrice(0).Add(CByte(Int((1 * Rnd()) + 0.35)))
             Next
         Next
     End Sub
@@ -498,11 +498,11 @@ Public Class ClassCA
         m = Matrix.RotationYawPitchRoll(0, 0, 0)
         mm.Translate(Me.xpolozaj, Me.ypolozaj, Me.zpolozaj)
         m = Matrix.Multiply(mm, m)
-        mm.RotateX(Me.xRotation * Math.PI / 180)
+        mm.RotateX(CSng(Me.xRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateY(Me.yRotation * Math.PI / 180)
+        mm.RotateY(CSng(Me.yRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateZ(Me.zRotation * Math.PI / 180)
+        mm.RotateZ(CSng(Me.zRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
         ' ------------------
         Dim b As Byte
@@ -539,6 +539,7 @@ Public Class ClassCA
         Dim pi, p, plen As Integer
         plen = Me.matrice.Count * Me.matrice(0).Count
         pi = 0
+        Dim matrica As List(Of Byte)
         For Each matrica In Me.matrice
             bi = 0 : mi = 0
             For Each b In matrica
@@ -551,7 +552,7 @@ Public Class ClassCA
                         Dim i As Integer
                         Dim vMesh, tMesh As Vector3
                         Dim m1 As Matrix
-                        tMesh = New Vector3((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2, Int(mi / Me.xFields) * l1 + l / 2, ni * h1 + h / 2)
+                        tMesh = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2), CSng(Int(mi / Me.xFields) * l1 + l / 2), ni * h1 + h / 2)
                         mm.Translate(tMesh)
                         m1 = Matrix.Multiply(mm, m)
                         Try
@@ -588,7 +589,7 @@ Public Class ClassCA
                     Me.subset.Add(level)
 
                     ' Calculate cube coordinates 
-                    v(0) = New Vector3((mi - Int(mi / Me.xFields) * Me.xFields) * w1, Int(mi / Me.xFields) * l1, ni * h1)
+                    v(0) = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1), CSng(Int(mi / Me.xFields) * l1), ni * h1)
                     v(1) = New Vector3(v(0).X + w, v(0).Y, v(0).Z)
                     v(2) = New Vector3(v(0).X + w, v(0).Y + l, v(0).Z)
                     v(3) = New Vector3(v(0).X, v(0).Y + l, v(0).Z)
@@ -843,7 +844,7 @@ Public Class ClassCA
 
 
         Try
-            Me.CAMesh = New Mesh(c / 3, c, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
+            Me.CAMesh = New Mesh(CInt(c / 3), c, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
             Me.CAMesh.SetVertexBufferData(vvv, LockFlags.None)
             Me.CAMesh.SetIndexBufferData(ind, LockFlags.None)
             Me.CAMesh.ComputeNormals()
@@ -887,51 +888,51 @@ Public Class ClassCA
                 Dim ukupnoZivih As Byte = 0
                 If p0 >= 0 And p0 <= endP And Int((p0 + 1) / Me.xFields) * xFields <> (p0 + 1) Then
                     If Me.matrice(ln - 1)(p0) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 1
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(1)
                     End If
                 End If
                 If p1 >= 0 And p1 <= endP Then
                     If Me.matrice(ln - 1)(p1) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 2
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(2)
                     End If
                 End If
                 If p2 >= 0 And p2 <= endP And Int(p2 / Me.xFields) * xFields <> p2 Then
                     If Me.matrice(ln - 1)(p2) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 4
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(4)
                     End If
                 End If
                 If p3 >= 0 And p3 <= endP And (p3 - Int(p3 / Me.xFields) * xFields) <> (Me.xFields - 1) Then
                     If Me.matrice(ln - 1)(p3) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 8
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(8)
                     End If
 
                 End If
                 If p4 >= 0 And p4 <= endP And Int(p4 / Me.xFields) * xFields <> p4 Then
                     If Me.matrice(ln - 1)(p4) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 16
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(16)
                     End If
                 End If
                 If p5 >= 0 And p5 <= endP And (p5 - Int(p5 / Me.xFields) * xFields) <> (Me.xFields - 1) Then
                     If Me.matrice(ln - 1)(p5) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 32
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(32)
                     End If
                 End If
                 If p6 >= 0 And p6 <= endP Then
                     If Me.matrice(ln - 1)(p6) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 64
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(64)
                     End If
                 End If
                 If p7 >= 0 And p7 <= endP And Int(p7 / Me.xFields) * xFields <> p7 Then
                     If Me.matrice(ln - 1)(p7) > 0 Then
-                        ukupnoZivih += 1
-                        k = k Or 128
+                        ukupnoZivih += CByte(1)
+                        k = k Or CByte(128)
                     End If
                 End If
                 If conway Then
@@ -943,7 +944,7 @@ Public Class ClassCA
                         Me.matrice(ln).Add(b)
                     End If
                 Else
-                    If k And Me.Rule Then
+                    If CBool(k And Me.Rule) Then
                         Me.matrice(ln).Add(Not b)
                     Else
                         Me.matrice(ln).Add(0)
@@ -974,14 +975,15 @@ Public Class ClassCA
         h1 = h + Me.spcZ
         ni = 0
         level = 0
+        Dim matrica As List(Of Byte)
         For Each matrica In Me.matrice
             bi = 0 : mi = 0
             For Each b In matrica
-                pp((mi - Int(mi / Me.xFields) * Me.xFields), Int(mi / Me.xFields), ni) = New Vector3((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2, Int(mi / Me.xFields) * l1 + l / 2, ni * h1 + h / 2)
+                pp(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = New Vector3(CInt((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2), CInt(mi / Me.xFields) * l1 + l / 2, ni * h1 + h / 2)
                 If b > 0 Then
-                    pi((mi - Int(mi / Me.xFields) * Me.xFields), Int(mi / Me.xFields), ni) = 1
+                    pi(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = 1
                 Else
-                    pi((mi - Int(mi / Me.xFields) * Me.xFields), Int(mi / Me.xFields), ni) = 0
+                    pi(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = 0
                 End If
                 mi += 1
             Next
@@ -1059,7 +1061,7 @@ Public Class ClassCA
         Dim c1 As Integer
         c1 = vvv.Length
         Dim ind() As Int32 = Me.iBuffer.ToArray
-        ISOMesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
+        ISOMesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
         Try
             ISOMesh.SetVertexBufferData(vvv, LockFlags.None)
             ISOMesh.SetIndexBufferData(ind, LockFlags.None)
@@ -1081,11 +1083,11 @@ Public Class ClassCA
         m = Matrix.RotationYawPitchRoll(0, 0, 0)
         mm.Translate(Me.xpolozaj, Me.ypolozaj, Me.zpolozaj)
         m = Matrix.Multiply(mm, m)
-        mm.RotateX(Me.xRotation * Math.PI / 180)
+        mm.RotateX(CSng(Me.xRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateY(Me.yRotation * Math.PI / 180)
+        mm.RotateY(CSng(Me.yRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateZ(Me.zRotation * Math.PI / 180)
+        mm.RotateZ(CSng(Me.zRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
         Dim ii As Integer
         Dim v As New CustomVertex.PositionNormalTextured
