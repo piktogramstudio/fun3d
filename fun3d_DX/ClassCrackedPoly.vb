@@ -118,8 +118,8 @@ Public Class ClassCrackedPoly
             Dim i As Integer
             Dim s() As String
             For i = 0 To value.Length - 1
-                s = value(i).Split(":")
-                Me.polyVertices.Add(New Vector3(Val(s(0)), Val(s(1)), Val(s(2))))
+                s = value(i).Split(CChar(":"))
+                Me.polyVertices.Add(New Vector3(CSng(Val(s(0))), CSng(Val(s(1))), CSng(Val(s(2)))))
             Next
         End Set
     End Property
@@ -153,19 +153,19 @@ Public Class ClassCrackedPoly
                     rv1 = Vector3.Cross(shp(1) - shp(0), shp(2) - shp(0))
                     rv1.Normalize()
                     rv1.Multiply(extr)
-                    rv.Multiply(1 / shp.Count)
+                    rv.Multiply(CSng(1 / shp.Count))
                     rv = Vector3.TransformCoordinate(rv1, Matrix.Translation(rv))
                 Case crackingType.ZAxisExtrude
-                    rv.Multiply(1 / shp.Count)
+                    rv.Multiply(CSng(1 / shp.Count))
                     rv.Z = extr
                 Case crackingType.NonInverseNormalExtrude
                     rv1 = Vector3.Cross(shp(1) - shp(0), shp(2) - shp(0))
                     rv1.Normalize()
                     rv1.Multiply(Math.Abs(extr))
-                    rv.Multiply(1 / shp.Count)
+                    rv.Multiply(CSng(1 / shp.Count))
                     rv = Vector3.TransformCoordinate(rv1, Matrix.Translation(rv))
                 Case crackingType.NonInverseZAxisExtrude
-                    rv.Multiply(1 / shp.Count)
+                    rv.Multiply(CSng(1 / shp.Count))
                     rv.Z = Math.Abs(extr)
             End Select
 
@@ -236,7 +236,7 @@ Public Class ClassCrackedPoly
         Next
         Dim ind() As Int32 = ibf.ToArray
 
-        Me.mesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, cf3D.device)
+        Me.mesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, cf3D.device)
 
         Try
             Me.mesh.SetVertexBufferData(vvv, LockFlags.None)
