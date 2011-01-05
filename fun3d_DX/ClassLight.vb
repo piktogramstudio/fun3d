@@ -4,9 +4,9 @@ Imports System.ComponentModel
 <System.Serializable()> _
 Public Class ClassLight
     Dim pType As LightType = LightType.Point
-    Dim pDiffuse = System.Drawing.Color.Gray
-    Dim pAmbient = System.Drawing.Color.Gray
-    Dim pSpecular = System.Drawing.Color.White
+    Dim pDiffuse As Color = System.Drawing.Color.Gray
+    Dim pAmbient As Color = System.Drawing.Color.Gray
+    Dim pSpecular As Color = System.Drawing.Color.White
     Public pPosition As New Vector3(0, 0, -500)
     Public pDirection As New Vector3(0, 0, 0)
     Dim pEnabled As Boolean = True
@@ -35,8 +35,8 @@ Public Class ClassLight
             Return Me.pPosition.X.ToString + ";" + Me.pPosition.Y.ToString + ";" + Me.pPosition.Z.ToString
         End Get
         Set(ByVal value As String)
-            Dim lv() As String = value.Split(";")
-            Me.pPosition = New Vector3(Val(lv(0)), Val(lv(1)), Val(lv(2)))
+            Dim lv() As String = value.Split(CChar(";"))
+            Me.pPosition = New Vector3(CSng(Val(lv(0))), CSng(Val(lv(1))), CSng(Val(lv(2))))
         End Set
     End Property
     <Category("Position")> _
@@ -45,8 +45,8 @@ Public Class ClassLight
             Return Me.pDirection.X.ToString + ";" + Me.pDirection.Y.ToString + ";" + Me.pDirection.Z.ToString
         End Get
         Set(ByVal value As String)
-            Dim lv() As String = value.Split(";")
-            Me.pDirection = New Vector3(Val(lv(0)), Val(lv(1)), Val(lv(2)))
+            Dim lv() As String = value.Split(CChar(";"))
+            Me.pDirection = New Vector3(CSng(Val(lv(0))), CSng(Val(lv(1))), CSng(Val(lv(2))))
         End Set
     End Property
     <Category("Appearance")> _
