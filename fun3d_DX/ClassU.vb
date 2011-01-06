@@ -345,7 +345,6 @@ Public Class ClassU
     Public Sub refreshBuffer()
 
         Dim p As ClassParametri
-        Dim dp As ClassDynamicParametri
         Dim cd As String = ""
         Dim vba As New Microsoft.VisualBasic.VBCodeProvider()
         Dim cp As New CodeDom.Compiler.CompilerParameters()
