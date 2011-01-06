@@ -177,7 +177,7 @@ Public Class ClassPacking
         While Me.cMesh.Count < Me.maxM And badAtmp < Me.maxAtmp
             If Me.dmrai * (badAtmp / Me.dmrai) = Me.dmrai * Int(badAtmp / Me.dmrai) Then Me.maxRT = (Me.maxRT - Me.minR) / Me.dmraisf + Me.minR
             badAtmp += 1
-            Me.rEventProgress(Int(100 * Me.cMesh.Count / Me.maxM), Me.cMesh.Count.ToString + "/" + Me.maxM.ToString + " | Atmp:" + badAtmp.ToString)
+            Me.rEventProgress(CInt(100 * Me.cMesh.Count / Me.maxM), Me.cMesh.Count.ToString + "/" + Me.maxM.ToString + " | Atmp:" + badAtmp.ToString)
             Me.iterate(device)
             If My.Computer.Keyboard.CtrlKeyDown Then Exit While
         End While
@@ -185,7 +185,7 @@ Public Class ClassPacking
         If Me.pt = PackType.ngonExtruded Then
             ev = New Vector3(0, 0, maxE)
             For Each cm In Me.cMesh
-                If Me.et = ExtrusionType.random Then ev = New Vector3(0, 0, Math.Round(Me.maxE * Rnd() + Me.minE, 2, MidpointRounding.ToEven))
+                If Me.et = ExtrusionType.random Then ev = New Vector3(0, 0, CSng(Math.Round(Me.maxE * Rnd() + Me.minE, 2, MidpointRounding.ToEven)))
                 extrudeFlatMesh(ev, cm)
                 cm.refreshBuffer(device)
             Next
@@ -230,11 +230,11 @@ Public Class ClassPacking
     End Sub
     Public Function nGon(ByVal sides As Int16, ByVal radius As Single) As List(Of Vector3)
         Dim rv As New List(Of Vector3)
-        Dim angleStep As Single = Math.Round(2 * Math.PI / sides, 4, MidpointRounding.ToEven)
+        Dim angleStep As Single = CSng(Math.Round(2 * Math.PI / sides, 4, MidpointRounding.ToEven))
         Dim currentAngle As Single = 0
         Dim v As Vector3
         While currentAngle < Math.Round(2 * Math.PI, 2, MidpointRounding.ToEven)
-            v = New Vector3(radius * Math.Cos(currentAngle), radius * Math.Sin(currentAngle), 0)
+            v = New Vector3(CSng(radius * Math.Cos(currentAngle)), CSng(radius * Math.Sin(currentAngle)), 0)
             rv.Add(v)
             currentAngle += angleStep
         End While
@@ -300,14 +300,14 @@ Public Class ClassPacking
     End Sub
     Public Sub iterate(Optional ByVal device As Device = Nothing)
         Dim i As Integer
-        Dim radius As Single = Math.Round(Me.maxRT * Rnd() + Me.minR, 2, MidpointRounding.ToEven)
+        Dim radius As Single = CSng(Math.Round(Me.maxRT * Rnd() + Me.minR, 2, MidpointRounding.ToEven))
         Dim x, y, z As Single
         Dim m As ClassMesh
         Dim b, bbnd As Boolean
        
-        x = Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven)
-        y = Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven)
-        z = Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven)
+        x = CSng(Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven))
+        y = CSng(Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven))
+        z = CSng(Math.Round(2 * Me.bndR * Rnd() - Me.bndR, 2, MidpointRounding.ToEven))
         If Me.pt = PackType.ngon Or Me.pt = PackType.ngonExtruded Or Me.pt = PackType.Mesh Then
             m = triangulatedNGonMesh(nGon(ns, radius))
 
