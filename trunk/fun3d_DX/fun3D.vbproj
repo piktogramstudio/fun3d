@@ -431,6 +431,9 @@
     <None Include="dsProjekat.xss">
       <DependentUpon>dsProjekat.xsd</DependentUpon>
     </None>
+    <Content Include="hello.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="help\2_1.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
