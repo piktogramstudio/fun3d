@@ -779,22 +779,22 @@ Partial Class mf
         Me.P3D.Dock = System.Windows.Forms.DockStyle.Fill
         Me.P3D.Location = New System.Drawing.Point(0, 49)
         Me.P3D.Name = "P3D"
-        Me.P3D.Size = New System.Drawing.Size(825, 433)
+        Me.P3D.Size = New System.Drawing.Size(825, 369)
         Me.P3D.TabIndex = 6
         '
         'rtbConsole
         '
         Me.rtbConsole.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.rtbConsole.Location = New System.Drawing.Point(0, 482)
+        Me.rtbConsole.Location = New System.Drawing.Point(0, 418)
         Me.rtbConsole.Name = "rtbConsole"
-        Me.rtbConsole.Size = New System.Drawing.Size(825, 96)
+        Me.rtbConsole.Size = New System.Drawing.Size(825, 160)
         Me.rtbConsole.TabIndex = 7
         Me.rtbConsole.Text = ""
         '
         'Splitter1
         '
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter1.Location = New System.Drawing.Point(0, 479)
+        Me.Splitter1.Location = New System.Drawing.Point(0, 415)
         Me.Splitter1.Name = "Splitter1"
         Me.Splitter1.Size = New System.Drawing.Size(825, 3)
         Me.Splitter1.TabIndex = 8
