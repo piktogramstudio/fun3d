@@ -128,11 +128,11 @@ Public Class ClassFun3DObject
             m = Matrix.Multiply(mm, m)
             mm.Scale(Me.scaleX, Me.scaleY, Me.scaleZ)
             m = Matrix.Multiply(mm, m)
-            mm.RotateX(Me.xRotation * Math.PI / 180)
+            mm.RotateX(CSng(Me.xRotation * Math.PI / 180))
             m = Matrix.Multiply(mm, m)
-            mm.RotateY(Me.yRotation * Math.PI / 180)
+            mm.RotateY(CSng(Me.yRotation * Math.PI / 180))
             m = Matrix.Multiply(mm, m)
-            mm.RotateZ(Me.zRotation * Math.PI / 180)
+            mm.RotateZ(CSng(Me.zRotation * Math.PI / 180))
             m = Matrix.Multiply(mm, m)
             Return m
         End Get
