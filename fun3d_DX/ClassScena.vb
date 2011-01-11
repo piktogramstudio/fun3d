@@ -85,15 +85,15 @@ Public Class ClassScena
         Set(ByVal value As Object)
             Me.selektovaniObjekat = value
             If value.GetType Is GetType(ClassCA) Then
-                Me.selectedCA = value
+                Me.selectedCA = CType(value, ClassCA)
             ElseIf value.GetType Is GetType(ClassUV) Then
-                Me.selectedUV = value
+                Me.selectedUV = CType(value, ClassUV)
             ElseIf value.GetType Is GetType(ClassLS) Then
-                Me.selectedLS = value
+                Me.selectedLS = CType(value, ClassLS)
             ElseIf value.GetType Is GetType(ClassISO) Then
-                Me.selectedISO = value
+                Me.selectedISO = CType(value, ClassISO)
             ElseIf value.GetType Is GetType(ClassU) Then
-                Me.selectedU = value
+                Me.selectedU = CType(value, ClassU)
             End If
             RaiseEvent SelectionChanged()
         End Set
@@ -393,7 +393,7 @@ Public Class ClassScena
         Dim ISO As ClassISO
         Dim CA As ClassCA
         Dim LS As ClassLS
-        Dim HUD As ClassHUD
+        'Dim HUD As ClassHUD
         Dim CM As ClassMesh
         Dim BS As ClassBlending
         Dim CP As ClassCrackedPoly
@@ -506,13 +506,13 @@ Public Class ClassScena
         device.VertexFormat = CustomVertex.PositionColored.Format
         device.DrawUserPrimitives(PrimitiveType.LineStrip, vvv.Length, vvv)
 
-        device.VertexFormat = oldformat
+        device.VertexFormat = CType(oldformat, VertexFormats)
     End Sub
     Public Sub drawCrackedPoly(ByVal device As Direct3D.Device, ByVal CP As ClassCrackedPoly)
         If CP.triangles.Count > 0 Then
             Dim vvv() As CustomVertex.PositionColored = CP.lineBuffer.ToArray
             device.VertexFormat = CustomVertex.PositionColored.Format
-            device.DrawUserPrimitives(PrimitiveType.LineStrip, vvv.Length / 2, vvv)
+            device.DrawUserPrimitives(PrimitiveType.LineStrip, CInt(vvv.Length / 2), vvv)
             Dim oldformat As Integer
             oldformat = device.VertexFormat
             device.VertexFormat = CustomVertex.PositionNormalTextured.Format
@@ -529,8 +529,8 @@ Public Class ClassScena
                 'console.writeline(ex.Message)
             End Try
             device.VertexFormat = CustomVertex.PositionColored.Format
-            device.DrawUserPrimitives(PrimitiveType.LineList, vvv.Length / 2, vvv)
-            device.VertexFormat = oldformat
+            device.DrawUserPrimitives(PrimitiveType.LineList, CInt(vvv.Length / 2), vvv)
+            device.VertexFormat = CType(oldformat, VertexFormats)
         ElseIf CP.PolygonPoints.Count > 0 Then
             Dim v As Vector3
             Dim vvv As New List(Of CustomVertex.PositionColored)
@@ -567,9 +567,9 @@ Public Class ClassScena
             Dim oldformat As Integer
             oldformat = device.VertexFormat
             device.VertexFormat = CustomVertex.PositionColored.Format
-            device.DrawUserPrimitives(PrimitiveType.LineList, vvv.Length / 2, vvv)
+            device.DrawUserPrimitives(PrimitiveType.LineList, CInt(vvv.Length / 2), vvv)
 
-            device.VertexFormat = oldformat
+            device.VertexFormat = CType(oldformat, VertexFormats)
         ElseIf LS.Shape = ClassLS.oblik.mesh Then
             Dim cm As ClassMesh
             For Each cm In LS.meshBuffer
@@ -587,7 +587,7 @@ Public Class ClassScena
             Next
             Dim ind() As Integer = indices.ToArray
 
-            Dim box As New Mesh(c / 3, c, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
+            Dim box As New Mesh(CInt(c / 3), c, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
             Try
                 box.SetVertexBufferData(vvv1, LockFlags.None)
                 box.SetIndexBufferData(ind, LockFlags.None)
@@ -731,7 +731,7 @@ Public Class ClassScena
             device.DrawUserPrimitives(PrimitiveType.PointList, vvl.Length, vvl)
         End If
         device.VertexFormat = CustomVertex.PositionColored.Format
-        device.DrawUserPrimitives(PrimitiveType.LineList, vvl.Length / 2, vvl)
+        device.DrawUserPrimitives(PrimitiveType.LineList, CInt(vvl.Length / 2), vvl)
         'If UV.Transparency < 255 Then
         '    device.RenderState.ZBufferWriteEnable = False
         'End If
@@ -799,8 +799,16 @@ Public Class ClassScena
         vertices1(1).Color = gridColor.ToArgb
         vertices2(0).Color = gridColor.ToArgb
         vertices2(1).Color = gridColor.ToArgb
-        Dim i As Integer = 0
-        For i = minV To maxV Step gridStep
+        Dim i As Single = 0
+        For i = 0 To maxV Step gridStep
+            vertices1(0).Position = New Vector3(i, minV, 0)
+            vertices1(1).Position = New Vector3(i, maxV, 0)
+            slika.DrawUserPrimitives(PrimitiveType.LineList, 1, vertices1)
+            vertices2(0).Position = New Vector3(minV, i, 0)
+            vertices2(1).Position = New Vector3(maxV, i, 0)
+            slika.DrawUserPrimitives(PrimitiveType.LineList, 1, vertices2)
+        Next
+        For i = -gridStep To minV Step -gridStep
             vertices1(0).Position = New Vector3(i, minV, 0)
             vertices1(1).Position = New Vector3(i, maxV, 0)
             slika.DrawUserPrimitives(PrimitiveType.LineList, 1, vertices1)
@@ -842,7 +850,7 @@ Public Class ClassScena
             .AlphaTestEnable = True
             .AlphaFunction = Me.comf
             .SpecularEnable = True
-            .ReferenceAlpha = Convert.ToInt64("01000000", 16)
+            .ReferenceAlpha = Convert.ToInt32("01000000", 16)
             '.ZBufferFunction = Compare.Always
             .ZBufferWriteEnable = True
         End With
@@ -1039,7 +1047,7 @@ Public Class ClassScena
                             'console.writeline(ex.Message)
                         End Try
                     Else
-                        device.DrawUserPrimitives(PrimitiveType.LineList, vvl.Length / 2, vvl)
+                        device.DrawUserPrimitives(PrimitiveType.LineList, CInt(vvl.Length / 2), vvl)
                     End If
                 End If
             End If
