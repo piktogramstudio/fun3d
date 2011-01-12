@@ -107,25 +107,25 @@ Public Class cf3D
 
         If Not Me.gettingPoints Then
             If e.Button = Windows.Forms.MouseButtons.Middle Then
-                Me.xcam += (e.X - ex) * 0.1
-                Me.ycam += (e.Y - ey) * 0.1
+                Me.xcam += CSng((e.X - ex) * 0.1)
+                Me.ycam += CSng((e.Y - ey) * 0.1)
                 ex = e.X
                 ey = e.Y
                 tfNavigacija.valNUD = False
-                tfNavigacija.NUDxcam.Value = Me.xcam
-                tfNavigacija.NUDycam.Value = Me.ycam
+                tfNavigacija.NUDxcam.Value = CDec(Me.xcam)
+                tfNavigacija.NUDycam.Value = CDec(Me.ycam)
                 tfNavigacija.valNUD = True
             End If
             If e.Button = Windows.Forms.MouseButtons.Left Then
-                Me.angleZ -= (e.X - ex) * 0.1
-                Me.angleY += (e.Y - ey) * 0.1
+                Me.angleZ -= CSng((e.X - ex) * 0.1)
+                Me.angleY += CSng((e.Y - ey) * 0.1)
                 ex = e.X
                 ey = e.Y
                 tfNavigacija.valNUD = False
                 If Me.angleZ > 359 Or Me.angleZ < -359 Then Me.angleZ = 0
-                tfNavigacija.NUDugaoZ.Value = Me.angleZ
+                tfNavigacija.NUDugaoZ.Value = CDec(Me.angleZ)
                 If Me.angleY > 359 Or Me.angleY < -359 Then Me.angleY = 0
-                tfNavigacija.NUDugaoY.Value = Me.angleY
+                tfNavigacija.NUDugaoY.Value = CDec(Me.angleY)
                 tfNavigacija.valNUD = True
             End If
         End If
@@ -148,17 +148,17 @@ Public Class cf3D
 
     Private Sub cf3D_MouseWheel(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseWheel
         If Me.zcam + e.Delta * 0.1 < tfNavigacija.NUDzcam.Maximum And Me.zcam + e.Delta * 0.1 > tfNavigacija.NUDzcam.Minimum Then
-            Me.zcam += e.Delta * 0.1
-            tfNavigacija.NUDzcam.Value = Me.zcam
+            Me.zcam += CSng(e.Delta * 0.1)
+            tfNavigacija.NUDzcam.Value = CDec(Me.zcam)
         End If
     End Sub
 
     Public Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
         If mf.Scena.Perspective Then
-            device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), Me.Width / Me.Height, 1, 1000) 'sets field of view, aspect ratio, etc
+            device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), CSng(Me.Width / Me.Height), 1, 1000) 'sets field of view, aspect ratio, etc
             device.Transform.View = Matrix.LookAtLH(New Vector3(xcam, ycam, zcam), New Vector3(0 + xcam, 0 + ycam, zcam - 10), New Vector3(0, 1, 0)) 'position and direction
         Else
-            device.Transform.Projection = Matrix.OrthoOffCenterLH(xcam + Me.Width / 4 * zcam / 400, xcam - Me.Width / 4 * zcam / 400, ycam - Me.Height / 4 * zcam / 400, ycam + Me.Height / 4 * zcam / 400, -1000, 1000) 'sets field of view, aspect ratio, etc
+            device.Transform.Projection = Matrix.OrthoOffCenterLH(xcam + CSng(Me.Width / 4 * zcam / 400), xcam - CSng(Me.Width / 4 * zcam / 400), ycam - CSng(Me.Height / 4 * zcam / 400), ycam + CSng(Me.Height / 4 * zcam / 400), -1000, 1000) 'sets field of view, aspect ratio, etc
         End If
 
         
@@ -166,7 +166,7 @@ Public Class cf3D
 
         device.BeginScene() 'all drawings after this line
 
-        device.Transform.World = Matrix.RotationYawPitchRoll(angleX * Math.PI / 180, angleY * Math.PI / 180, angleZ * Math.PI / 180)
+        device.Transform.World = Matrix.RotationYawPitchRoll(angleX * CSng(Math.PI / 180), angleY * CSng(Math.PI / 180), angleZ * CSng(Math.PI / 180))
         Try
             mf.Scena.drawScene(device)
         Catch ex As Exception
@@ -180,20 +180,21 @@ Public Class cf3D
     Public Sub renderToTexture(ByVal obj As Object)
         Me.Timer1.Stop()
         If obj.GetType IsNot GetType(ClassUV) Then Exit Sub
+        Dim UV As ClassUV = CType(obj, ClassUV)
         If mf.Scena.Perspective Then
-            device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), Me.Width / Me.Height, 1, 1000) 'sets field of view, aspect ratio, etc
+            device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), CSng(Me.Width / Me.Height), 1, 1000) 'sets field of view, aspect ratio, etc
             device.Transform.View = Matrix.LookAtLH(New Vector3(xcam, ycam, zcam), New Vector3(0 + xcam, 0 + ycam, zcam - 10), New Vector3(0, 1, 0)) 'position and direction
         Else
-            device.Transform.Projection = Matrix.OrthoOffCenterLH(xcam + Me.Width / 4 * zcam / 400, xcam - Me.Width / 4 * zcam / 400, ycam - Me.Height / 4 * zcam / 400, ycam + Me.Height / 4 * zcam / 400, -1000, 1000) 'sets field of view, aspect ratio, etc
+            device.Transform.Projection = Matrix.OrthoOffCenterLH(xcam + CSng(Me.Width / 4 * zcam / 400), xcam - CSng(Me.Width / 4 * zcam / 400), ycam - CSng(Me.Height / 4 * zcam / 400), ycam + CSng(Me.Height / 4 * zcam / 400), -1000, 1000) 'sets field of view, aspect ratio, etc
         End If
 
         ' render to texture
         Dim surf As Surface = device.GetRenderTarget(0)
-        device.SetRenderTarget(0, obj.enviroment.GetSurfaceLevel(0))
-        device.Clear(ClearFlags.Target Or ClearFlags.ZBuffer, Color.FromArgb(obj.Transparency, mf.Scena.backgroundColor), 1.0, 0)
+        device.SetRenderTarget(0, UV.enviroment.GetSurfaceLevel(0))
+        device.Clear(ClearFlags.Target Or ClearFlags.ZBuffer, Color.FromArgb(UV.Transparency, mf.Scena.backgroundColor), 1.0, 0)
 
         device.BeginScene() 'all drawings after this line
-        device.Transform.World = Matrix.RotationYawPitchRoll(angleX * Math.PI / 180, angleY * Math.PI / 180, angleZ * Math.PI / 180)
+        device.Transform.World = Matrix.RotationYawPitchRoll(angleX * CSng(Math.PI / 180), angleY * CSng(Math.PI / 180), angleZ * CSng(Math.PI / 180))
         Try
             mf.Scena.drawScene(device)
         Catch ex As Exception
@@ -205,13 +206,13 @@ Public Class cf3D
     End Sub
     Public Sub saveSlicka(ByVal filename As String)
         Me.Timer1.Stop()
-        device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), Me.Width / Me.Height, 1, 1000) 'sets field of view, aspect ratio, etc
+        device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), CSng(Me.Width / Me.Height), 1, 1000) 'sets field of view, aspect ratio, etc
         device.Transform.View = Matrix.LookAtLH(New Vector3(xcam, ycam, zcam), New Vector3(0 + xcam, 0 + ycam, zcam - 10), New Vector3(0, 1, 0)) 'position and direction
 
         device.Clear(ClearFlags.Target Or ClearFlags.ZBuffer, mf.Scena.backgroundColor, 1.0, 0)
         Try
             device.BeginScene() 'all drawings after this line
-            device.Transform.World = Matrix.RotationYawPitchRoll(angleX * Math.PI / 180, angleY * Math.PI / 180, angleZ * Math.PI / 180)
+            device.Transform.World = Matrix.RotationYawPitchRoll(angleX * CSng(Math.PI / 180), angleY * CSng(Math.PI / 180), angleZ * CSng(Math.PI / 180))
 
             mf.Scena.drawScene(device)
             Select Case filename.Substring(filename.Length - 3, 3)
@@ -259,13 +260,13 @@ Public Class cf3D
         Dim psurf As Surface = texture.GetSurfaceLevel(0)
         device.SetRenderTarget(0, psurf)
 
-        device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), Me.Width / Me.Height, 1, 1000) 'sets field of view, aspect ratio, etc
+        device.Transform.Projection = Matrix.PerspectiveFovLH(CSng(Math.PI / 4), CSng(Me.Width / Me.Height), 1, 1000) 'sets field of view, aspect ratio, etc
         device.Transform.View = Matrix.LookAtLH(New Vector3(xcam, ycam, zcam), New Vector3(0 + xcam, 0 + ycam, zcam - 10), New Vector3(0, 1, 0)) 'position and direction
 
         device.Clear(ClearFlags.Target Or ClearFlags.ZBuffer, mf.Scena.backgroundColor, 1.0, 0)
         Try
             device.BeginScene() 'all drawings after this line
-            device.Transform.World = Matrix.RotationYawPitchRoll(angleX * Math.PI / 180, angleY * Math.PI / 180, angleZ * Math.PI / 180)
+            device.Transform.World = Matrix.RotationYawPitchRoll(angleX * CSng(Math.PI / 180), angleY * CSng(Math.PI / 180), angleZ * CSng(Math.PI / 180))
 
             mf.Scena.drawScene(device)
 
@@ -326,7 +327,7 @@ Public Class cf3D
             Dim cm As New ClassMesh
             Dim v As CustomVertex.PositionNormalTextured
             Dim i As Integer
-            Dim UV As ClassUV = mf.Scena.SelectedObject
+            Dim UV As ClassUV = CType(mf.Scena.SelectedObject, ClassUV)
             For Each v In UV.vBuffer
                 cm.vbfo.Add(v.Position)
             Next
@@ -344,7 +345,7 @@ Public Class cf3D
             Dim cm As New ClassMesh
             Dim v As CustomVertex.PositionNormalTextured
             Dim i As Integer
-            Dim ISO As ClassISO = mf.Scena.SelectedObject
+            Dim ISO As ClassISO = CType(mf.Scena.SelectedObject, ClassISO)
             For Each v In ISO.vBuffer
                 cm.vbfo.Add(v.Position)
             Next
