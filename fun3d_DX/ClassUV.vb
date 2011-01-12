@@ -555,11 +555,11 @@ Public Class ClassUV
         m = Matrix.RotationYawPitchRoll(0, 0, 0)
         mm.Translate(Me.xPolozaj, Me.yPolozaj, Me.zPolozaj)
         m = Matrix.Multiply(mm, m)
-        mm.RotateX(Me.xRotation * Math.PI / 180)
+        mm.RotateX(CSng(Me.xRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateY(Me.yRotation * Math.PI / 180)
+        mm.RotateY(CSng(Me.yRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateZ(Me.zRotation * Math.PI / 180)
+        mm.RotateZ(CSng(Me.zRotation * Math.PI / 180))
         m = Matrix.Multiply(mm, m)
         ' --------------------------------------------------
 
@@ -573,7 +573,7 @@ Public Class ClassUV
         ' --------------------------------------------------
 
         Dim ui, vi As Integer
-        Dim a, b, c, d As Single
+        Dim a, b, c, d As Integer
 
         Dim vertice As CustomVertex.PositionNormalTextured
         Dim svertice As CustomVertex.PositionNormalColored
@@ -624,7 +624,7 @@ Public Class ClassUV
             Dim exeins As Object = cr.CompiledAssembly.CreateInstance("FlyAss.Evaluator")
             Dim mi As Reflection.MethodInfo = exeins.GetType().GetMethod("Evaluate")
 
-            vbf = mi.Invoke(exeins, Nothing)
+            vbf = CType(mi.Invoke(exeins, Nothing), List(Of Vector3))
             Dim u, v As Integer
             Dim ib As New List(Of Integer)
             Dim nb As New List(Of Vector3)
@@ -643,8 +643,8 @@ Public Class ClassUV
                     vertice.Tu = u
                     vertice.Tv = v
                 Else
-                    vertice.Tu = (u - Me.minU) / (Me.maxU - Me.minU)
-                    vertice.Tv = (v - Me.minV) / (Me.maxV - Me.minV)
+                    vertice.Tu = (u - CSng(Me.minU)) / (CSng(Me.maxU) - CSng(Me.minU))
+                    vertice.Tv = (v - CSng(Me.minV)) / (CSng(Me.maxV) - CSng(Me.minV))
                 End If
                 Me.vBuffer.Add(vertice)
             Next
