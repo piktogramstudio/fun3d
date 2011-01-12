@@ -148,7 +148,7 @@ Public Class ClassMesh
 
         Dim ind() As Int32 = ibf.ToArray
 
-        Me.mesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, cf3D.device)
+        Me.mesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, cf3D.device)
 
         Try
             Me.mesh.SetVertexBufferData(vvv, LockFlags.None)
@@ -176,11 +176,11 @@ Public Class ClassMesh
         m = Matrix.Multiply(mm, m)
         mm.Scale(Me.scX, Me.scY, Me.scZ)
         m = Matrix.Multiply(mm, m)
-        mm.RotateX(Me.xRotation * Math.PI / 180)
+        mm.RotateX(Me.xRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateY(Me.yRotation * Math.PI / 180)
+        mm.RotateY(Me.yRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateZ(Me.zRotation * Math.PI / 180)
+        mm.RotateZ(Me.zRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
         
         Dim v As New CustomVertex.PositionNormalTextured
@@ -208,7 +208,7 @@ Public Class ClassMesh
 
     Public Sub New(Optional ByVal parent As Object = Nothing)
         If parent IsNot Nothing Then
-            Me.parent = parent
+            Me.parent = CType(parent, IFun3DObject)
         End If
     End Sub
 End Class
