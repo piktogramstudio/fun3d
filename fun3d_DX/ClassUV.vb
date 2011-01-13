@@ -572,7 +572,7 @@ Public Class ClassUV
         Me.subset.Clear()               ' clear subset
         ' --------------------------------------------------
 
-        Dim ui, vi As Integer
+
         Dim a, b, c, d As Integer
 
         Dim vertice As CustomVertex.PositionNormalTextured
@@ -587,7 +587,7 @@ Public Class ClassUV
         Dim vba As New Microsoft.VisualBasic.VBCodeProvider()
         Dim cp As New CodeDom.Compiler.CompilerParameters()
         Dim prmt As ClassParametri
-        Dim dp As ClassDynamicParametri
+
         cd += "Imports Microsoft.DirectX" + vbCrLf
         cd += "Imports system.collections.generic" + vbCrLf
         cd += "Imports System.Math" + vbCrLf
@@ -780,9 +780,9 @@ Public Class ClassUV
 
         Dim ind() As Int32 = indices.ToArray
         If Not coloringStress Then
-            Me.UVMesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
+            Me.UVMesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
         Else
-            Me.UVMesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalColored.Format, device)
+            Me.UVMesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalColored.Format, device)
         End If
 
 
