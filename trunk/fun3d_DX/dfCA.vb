@@ -56,8 +56,8 @@ Public Class dfCA
             Dim r As Rectangle
             For Each r In rlist
                 If r.Contains(e.Location) Then
-                    Me.paintC = Not CA.matrice(0)(rlist.IndexOf(r)) And 1
-                    CA.matrice(0)(rlist.IndexOf(r)) = Not CA.matrice(0)(rlist.IndexOf(r)) And 1
+                    Me.paintC = CBool(Not CA.matrice(0)(rlist.IndexOf(r)) And 1)
+                    CA.matrice(0)(rlist.IndexOf(r)) = CByte(Not CA.matrice(0)(rlist.IndexOf(r)) And 1)
                     'CA.refreshBuffer(cf3D.device)
                     'cf3D.Refresh()
                 End If
@@ -96,12 +96,12 @@ Public Class dfCA
     Private Sub PictureBox1_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles PictureBox1.Paint
         rlist.Clear()
         Dim h, w As Single
-        h = (e.ClipRectangle.Height - 4) / CA.yFields
-        w = (e.ClipRectangle.Width - 4) / CA.xFields
+        h = CSng((e.ClipRectangle.Height - 4) / CA.yFields)
+        w = CSng((e.ClipRectangle.Width - 4) / CA.xFields)
         Dim t, u As Integer
         u = CA.matrice(0).Count
         For t = 0 To u - 1
-            rlist.Add(New Rectangle((t - Int(t / CA.xFields) * CA.xFields) * w + 2, Int(t / CA.xFields) * h + 2, w - 2, h - 2))
+            rlist.Add(New Rectangle(CInt((t - Int(t / CA.xFields) * CA.xFields) * w + 2), CInt(Int(t / CA.xFields) * h + 2), CInt(w - 2), CInt(h - 2)))
             If CA.matrice(0)(t) > 0 Then
                 e.Graphics.FillRectangle(Brushes.Black, rlist(t))
             Else
@@ -112,13 +112,13 @@ Public Class dfCA
 
     Private Sub NumericUpDown1_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUDR.ValueChanged, NUDC.ValueChanged, NUDL.ValueChanged
         If sender Is NUDC And Me.matrixRefresh Then
-            CA.brojPoljaPoYosi = NUDC.Value
-            CA.nOfLevels = NUDL.Value
+            CA.brojPoljaPoYosi = CInt(NUDC.Value)
+            CA.nOfLevels = CInt(NUDL.Value)
         ElseIf sender Is NUDR And Me.matrixRefresh Then
-            CA.brojPoljaPoXosi = NUDR.Value
-            CA.nOfLevels = NUDL.Value
+            CA.brojPoljaPoXosi = CInt(NUDR.Value)
+            CA.nOfLevels = CInt(NUDL.Value)
         ElseIf sender Is NUDL And Me.matrixRefresh Then
-            CA.nOfLevels = NUDL.Value
+            CA.nOfLevels = CInt(NUDL.Value)
             CA.createLevels()
             CA.refreshBuffer(cf3D.device)
             cf3D.Refresh()
@@ -137,9 +137,9 @@ Public Class dfCA
 
     Private Sub NumericUpDown3_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUDLive.ValueChanged, NUDMin.ValueChanged, NUDMax.ValueChanged
         If Me.matrixRefresh Then
-            CA.toLive = Me.NUDLive.Value
-            CA.minBC = Me.NUDMin.Value
-            CA.maxBC = Me.NUDMax.Value
+            CA.toLive = CByte(Me.NUDLive.Value)
+            CA.minBC = CByte(Me.NUDMin.Value)
+            CA.maxBC = CByte(Me.NUDMax.Value)
             CA.createLevels()
             CA.refreshBuffer(cf3D.device)
             cf3D.Refresh()
