@@ -238,7 +238,6 @@
     <Compile Include="dsProjekat.vb">
       <DependentUpon>dsProjekat.xsd</DependentUpon>
     </Compile>
-    <Compile Include="EvalFunctions.vb" />
     <Compile Include="fSplash.Designer.vb">
       <DependentUpon>fSplash.vb</DependentUpon>
     </Compile>

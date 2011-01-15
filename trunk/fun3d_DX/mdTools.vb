@@ -26,42 +26,42 @@ Module mdTools
         End If
         If unknownColor >= (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4) + nRGB(5) + nRGB(6)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4) + nRGB(5) + nRGB(6))
-            rv = Color.FromArgb(255, Int(127 - 127 * (miniColorValue / nRGB(7))), 0)
+            rv = Color.FromArgb(255, CInt(127 - 127 * (miniColorValue / nRGB(7))), 0)
             Return rv
         End If
         If unknownColor >= (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4) + nRGB(5)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4) + nRGB(5))
-            rv = Color.FromArgb(255, Int(255 - 128 * (miniColorValue / nRGB(6))), 0)
+            rv = Color.FromArgb(255, CInt(255 - 128 * (miniColorValue / nRGB(6))), 0)
             Return rv
         End If
         If unknownColor >= (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3) + nRGB(4))
-            rv = Color.FromArgb(Int(127 + 128 * (miniColorValue / nRGB(5))), 255, 0)
+            rv = Color.FromArgb(CInt(127 + 128 * (miniColorValue / nRGB(5))), 255, 0)
             Return rv
         End If
         If unknownColor >= (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1) + nRGB(2) + nRGB(3))
-            rv = Color.FromArgb(Int(128 * (miniColorValue / nRGB(4))), 255, 0)
+            rv = Color.FromArgb(CInt(128 * (miniColorValue / nRGB(4))), 255, 0)
             Return rv
         End If
         If unknownColor >= (nRGB(0) + nRGB(1) + nRGB(2)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1) + nRGB(2))
-            rv = Color.FromArgb(0, 255, Int(127 - 127 * (miniColorValue / nRGB(3))))
+            rv = Color.FromArgb(0, 255, CInt(127 - 127 * (miniColorValue / nRGB(3))))
             Return rv
         End If
         If unknownColor >= (nRGB(0) + nRGB(1)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0) + nRGB(1))
-            rv = Color.FromArgb(0, 255, Int(255 - 128 * (miniColorValue / nRGB(2))))
+            rv = Color.FromArgb(0, 255, CInt(255 - 128 * (miniColorValue / nRGB(2))))
             Return rv
         End If
         If unknownColor >= (nRGB(0)) Then
             Dim miniColorValue As Single = unknownColor - (nRGB(0))
-            rv = Color.FromArgb(0, Int(127 + 128 * (miniColorValue / nRGB(1))), 255)
+            rv = Color.FromArgb(0, CInt(127 + 128 * (miniColorValue / nRGB(1))), 255)
             Return rv
         End If
         If unknownColor >= 0 Then
             Dim miniColorValue As Single = unknownColor - 0
-            rv = Color.FromArgb(0, Int(128 * (miniColorValue / nRGB(0))), 255)
+            rv = Color.FromArgb(0, CInt(128 * (miniColorValue / nRGB(0))), 255)
             Return rv
         End If
         If unknownColor < 0 Then
@@ -71,13 +71,13 @@ Module mdTools
     End Function
     Public Function angleBetween2Vectors(ByVal v1 As Vector3, ByVal v2 As Vector3) As Single
         Dim vdif As Vector3 = v2 - v1
-        Return Geometry.RadianToDegree(Math.Acos(Vector3.Dot(Vector3.Normalize(vdif), Vector3.Normalize(New Vector3(1, 0, 0)))))
+        Return Geometry.RadianToDegree(CSng(Math.Acos(Vector3.Dot(Vector3.Normalize(vdif), Vector3.Normalize(New Vector3(1, 0, 0))))))
     End Function
     Public Function angleBetween2Vectors(ByVal center As Vector3, ByVal vc1 As Vector3, ByVal vc2 As Vector3) As Single
         Dim v1 As Vector3 = vc1 - center
         Dim v2 As Vector3 = vc2 - center
         Dim vdif As Vector3 = v2 - v1
-        Return Geometry.RadianToDegree(Math.Acos(Vector3.Dot(Vector3.Normalize(v2), Vector3.Normalize(v1))))
+        Return Geometry.RadianToDegree(CSng(Math.Acos(Vector3.Dot(Vector3.Normalize(v2), Vector3.Normalize(v1)))))
     End Function
     Public Function PointsOnSameSideOfLine(ByVal p1 As Vector3, ByVal p2 As Vector3, ByVal a As Vector3, ByVal b As Vector3) As Boolean
         Dim cp1, cp2 As Vector3
@@ -165,7 +165,7 @@ Module mdTools
             t21 = p22 - (p20 - p22) * dt22 / (dt22 - dt20)
             t22 = p21 - (p20 - p21) * dt21 / (dt21 - dt20)
         End If
-        If (t11 < t21 < t12) Or (t11 < t22 < t12) Or (t11 > t21 > t12) Or (t11 > t22 > t12) Then Return True
+        If (t11 < t21 And t21 < t12) Or (t11 < t22 And t22 < t12) Or (t11 > t21 And t21 > t12) Or (t11 > t22 And t22 > t12) Then Return True
         Return False
     End Function
     Public Function ClassMeshesIntersect(ByVal m1 As ClassMesh, ByVal m2 As ClassMesh) As Boolean
@@ -188,7 +188,7 @@ Module mdTools
         Dim bHasVertexNormals As Boolean = False ' we will specify vertex normals
         Dim bHasTexCoords As Boolean = False    ' we will not specify texture coordinates
         Dim vertex_count As Integer = vertexBuffer.Length  ' 4 duplicates for different base normals
-        Dim face_count As Integer = indicesBuffer.Length / 3 ' 4 triangle sides and a quad base
+        Dim face_count As Integer = CInt(indicesBuffer.Length / 3) ' 4 triangle sides and a quad base
         Dim mesh As New OnMesh(face_count, vertex_count, bHasVertexNormals, bHasTexCoords)
 
         ' The SetVertex(), SetNormal(), SetTCoord() and SetFace() functions
@@ -242,7 +242,7 @@ Module mdTools
             While shpEnum.MoveNext()
                 rv.Add(shpEnum.Current)
             End While
-            rv.Multiply(1 / shp.Count)
+            rv.Multiply(CSng(1 / shp.Count))
         End If
         Return rv
     End Function
