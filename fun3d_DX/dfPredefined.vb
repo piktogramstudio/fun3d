@@ -22,8 +22,8 @@ Public Class dfPredefined
         Me.ListBoxSamples.Items.Clear()
         Dim f As String
         For Each f In My.Computer.FileSystem.GetFiles(My.Application.Info.DirectoryPath + "\samples", FileIO.SearchOption.SearchTopLevelOnly, "*.f3d")
-            Dim naziv() As String = f.Split("\")
-            Me.ListBoxSamples.Items.Add(naziv(naziv.Length - 1).Split(".")(0))
+            Dim naziv() As String = f.Split(CChar("\"))
+            Me.ListBoxSamples.Items.Add(naziv(naziv.Length - 1).Split(CChar("."))(0))
         Next
         cfShow3d.Dock = DockStyle.Fill
         cfShow3d.TopLevel = False
@@ -38,7 +38,7 @@ Public Class dfPredefined
         Try
             Dim mem As New IO.FileStream(My.Application.Info.DirectoryPath + "\samples\" + Me.ListBoxSamples.SelectedItem.ToString + ".f3dx", IO.FileMode.Open)
             Dim b As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            Me.Scena = b.Deserialize(mem)
+            Me.Scena = CType(b.Deserialize(mem), ClassScena)
             Me.Scena.afterPaste(cfShow3d.device)
             mem.Close()
             cfShow3d.Invalidate()
