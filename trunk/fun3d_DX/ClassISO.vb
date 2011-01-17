@@ -2,8 +2,7 @@ Imports System.Math
 Imports System.ComponentModel
 Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
-Imports MSScriptControl
-Imports CTools
+
 <System.Serializable()> _
 Public Class ClassISO
 #Region "Non Serialized Fields"
@@ -381,10 +380,10 @@ Public Class ClassISO
             Dim p1(1, 1, 1) As Single
             sns(0) = p0
             sns(1) = p1
-            Dim b As Boolean = mi.Invoke(exeins, sns)
+            Dim b As Boolean = CBool(mi.Invoke(exeins, sns))
             If b Then
-                pp = sns(0)
-                pi = sns(1)
+                pp = CType(sns(0), Vector3(,,))
+                pi = CType(sns(1), Single(,,))
             End If
             Return b
 
@@ -422,6 +421,7 @@ Public Class ClassISO
         Dim plen, pin, p As Integer
         plen = (xd + 1) * (yd + 1) * (zd + 1)
         pin = 0
+        Dim x, y, z As Single
         For z = minZ To maxZ - xs / 2 Step zs
             cz += 1
             cy = -1
@@ -495,7 +495,7 @@ Public Class ClassISO
         c1 = vvv.Length
 
         Dim ind() As Int32 = Me.iBuffer.ToArray
-        ISOMesh = New Mesh(ind.Length / 3, c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
+        ISOMesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, device)
 
         Try
             ISOMesh.SetVertexBufferData(vvv, LockFlags.None)
@@ -528,11 +528,11 @@ Public Class ClassISO
         m = Matrix.Multiply(mm, m)
         mm.Scale(Me.scX, Me.scY, Me.scZ)
         m = Matrix.Multiply(mm, m)
-        mm.RotateX(Me.xRotation * Math.PI / 180)
+        mm.RotateX(Me.xRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateY(Me.yRotation * Math.PI / 180)
+        mm.RotateY(Me.yRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
-        mm.RotateZ(Me.zRotation * Math.PI / 180)
+        mm.RotateZ(Me.zRotation * CSng(Math.PI / 180))
         m = Matrix.Multiply(mm, m)
         Dim ii As Integer
         Dim v As New CustomVertex.PositionNormalTextured
