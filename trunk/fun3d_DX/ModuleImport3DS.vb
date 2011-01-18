@@ -4,7 +4,7 @@
 ' http://www.freevbcode.com/ShowCode.asp?ID=3325
 
 Module ModuleImport3DS
-    Public FileName
+    Public FileName As String
 
     Public bDone As Boolean
     Public bRunning As Boolean
@@ -50,7 +50,7 @@ Module ModuleImport3DS
     End Structure
     Public Structure tChunk
         Public Header As Integer
-        Public Length As Long
+        Public Length As Integer
     End Structure
     Public Structure tChunkB
         Public Header As Short
@@ -113,7 +113,7 @@ Module ModuleImport3DS
         Dim tch As tChunk
         Dim I As Integer
         Try
-            nFile = FreeFile()
+            nFile = CShort(FreeFile())
             idx = 1
             FileOpen(nFile, FileName, OpenMode.Binary)
             AzzeraVar()
@@ -140,7 +140,7 @@ Module ModuleImport3DS
         End If
         Lst.ForEach(AddressOf Console.WriteLine)
     End Sub
-    Public Sub ReadChunk(ByRef fPos As Long, ByVal UseLst As Boolean, ByVal ptch As tChunk, ByRef Lst As List(Of String))
+    Public Sub ReadChunk(ByRef fPos As Integer, ByVal UseLst As Boolean, ByVal ptch As tChunk, ByRef Lst As List(Of String))
         Dim tch As tChunk
         Dim tchb As tChunkB
         Dim I As Integer
@@ -149,7 +149,9 @@ Module ModuleImport3DS
         Dim TmpLong As Integer
         Dim TmpSingle As Single
         Dim TmpStr As String
-        FileGet(nFile, tchb, fPos)
+        Dim vt As ValueType = CType(tchb, ValueType)
+        FileGet(nFile, vt, fPos)
+        tchb = CType(vt, tChunkB)
         tch.Header = tchb.Header
         tch.Length = tchb.Length
         TmpStr = ""
@@ -191,7 +193,7 @@ Module ModuleImport3DS
                             Solidi(nSolidi).Segs(0).Vertsi(I) = Vertsi(I)
                         Next
                     Else
-                        Solidi(nSolidi).nSegs = nSegs
+                        Solidi(nSolidi).nSegs = CShort(nSegs)
                         ReDim Solidi(nSolidi).Segs(nSegs)
                         For I = 0 To nSegs - 1
                             ReDim Solidi(nSolidi).Segs(I).Vertsi(lSegs(I).nVertsi)
@@ -201,7 +203,7 @@ Module ModuleImport3DS
                 End If
                 TmpStr = ""
             Case &H4110
-                nSolidi = nSolidi + 1
+                nSolidi = CShort(nSolidi + 1)
                 ReDim Preserve Solidi(nSolidi)
                 FileGet(nFile, TmpInteger)
                 nPunti = nPunti + TmpInteger
@@ -219,10 +221,10 @@ Module ModuleImport3DS
                 ' Triangoli
             Case &H4120
                 FileGet(nFile, TmpInteger)
-                nFaccie = nFaccie + CStr(TmpInteger)
-                nVertsi = CLng(TmpInteger) * 3
-                ReDim Vertsi(CLng(TmpInteger) * 3)
-                For I = 0 To CLng(TmpInteger) * 3 - 1 Step 3
+                nFaccie = nFaccie + TmpInteger
+                nVertsi = CInt(TmpInteger) * 3
+                ReDim Vertsi(CInt(TmpInteger) * 3)
+                For I = 0 To CInt(TmpInteger) * 3 - 1 Step 3
                     FileGet(nFile, Vertsi(I))
                     FileGet(nFile, Vertsi(I + 1))
                     FileGet(nFile, Vertsi(I + 2))
@@ -246,7 +248,7 @@ Module ModuleImport3DS
 
                 Next
 
-                TmpLong = fPos + 8 + 8 * CLng(TmpInteger)
+                TmpLong = fPos + 8 + 8 * CInt(TmpInteger)
                 Call ComputeNormals()
                 While TmpLong < (fPos + tch.Length)
                     ReadChunk(TmpLong, UseLst, tch, Lst)
