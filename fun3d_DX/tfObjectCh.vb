@@ -14,7 +14,7 @@ Public Class tfObjectCh
     
     Private Sub PTitle_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PTitle.MouseMove
         If e.Button = Windows.Forms.MouseButtons.Left Then
-            Me.Location = Control.MousePosition - New Point(ex, ey)
+            Me.Location = Control.MousePosition - New Size(CInt(ex), CInt(ey))
         End If
     End Sub
 
@@ -49,7 +49,7 @@ Public Class tfObjectCh
 
     Private Sub LTitle_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles LTitle.MouseMove
         If e.Button = Windows.Forms.MouseButtons.Left Then
-            Me.Location = Control.MousePosition - New Point(ex, ey)
+            Me.Location = Control.MousePosition - New Size(CInt(ex), CInt(ey))
         End If
     End Sub
 End Class
