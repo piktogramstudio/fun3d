@@ -8,7 +8,7 @@ Public Class tfOsobine
         Try
             Me.PropertyGridUV.SelectedObject = mf.Scena.SelectedObject
             Me.Refresh()
-            Me.LSelectedObjName.Text = mf.Scena.SelectedObject.Name
+            Me.LSelectedObjName.Text = CStr(mf.Scena.SelectedObject.Name)
         Catch ex As Exception
 
         End Try
