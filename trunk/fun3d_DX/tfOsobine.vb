@@ -8,9 +8,9 @@ Public Class tfOsobine
         Try
             Me.PropertyGridUV.SelectedObject = mf.Scena.SelectedObject
             Me.Refresh()
-            Me.LSelectedObjName.Text = CStr(mf.Scena.SelectedObject.Name)
+            Me.LSelectedObjName.Text = CStr(mf.Scena.SelectedObject.GetType().GetProperty("Name").GetValue(mf.Scena.SelectedObject, Nothing))
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
 
@@ -24,10 +24,11 @@ Public Class tfOsobine
 
     Private Sub PropertyGridUV_PropertyValueChanged(ByVal s As Object, ByVal e As System.Windows.Forms.PropertyValueChangedEventArgs) Handles PropertyGridUV.PropertyValueChanged
         Try
-            mf.Scena.SelectedObject.refreshBuffer()
+            Dim p() As Object = {Nothing}
+            mf.Scena.SelectedObject.GetType().GetMethod("refreshBuffer").Invoke(mf.Scena.SelectedObject, p)
             cf3D.renderToTexture(mf.Scena.SelectedObject)
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
         cf3D.Refresh()
         mf.addUndoData("Property value changed")
