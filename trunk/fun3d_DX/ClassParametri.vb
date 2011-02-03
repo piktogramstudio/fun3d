@@ -39,7 +39,12 @@ Public Class ClassParametri
             Return Me.naziv
         End Get
         Set(ByVal value As String)
-            naziv = value
+            Dim fl As String = Left(value, 1)
+            If System.Text.RegularExpressions.Regex.IsMatch(fl, "^[a-zA-Z]*$") And System.Text.RegularExpressions.Regex.IsMatch(value, "^[0-9a-zA-Z]*$") Then
+                naziv = value
+            Else
+                MsgBox("Name must start with alphabet and can contain only alphanumeric characters!")
+            End If
         End Set
     End Property
     <Category("Value")> _

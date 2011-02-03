@@ -355,8 +355,10 @@ Public Class ClassU
         cd += "Class Evaluator" + vbCrLf
         cd += "Public Function Evaluate() As List(of Vector3)" + vbCrLf
         cd += "Dim rv as New List(of Vector3)" + vbCrLf
+        cd += "Dim param as New List(of Single)" + vbCrLf
         For Each p In Me.prm
             cd += "Dim " + p.Name + " as Single = " + Str(p.value) + vbCrLf
+            cd += "param.add(" + Str(p.value) + ")" + vbCrLf
         Next
         cd += "Dim u as Single" + vbCrLf
         cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Me.UGustina + "" + vbCrLf
@@ -386,6 +388,7 @@ Public Class ClassU
             For Each ce In cr.Errors
                 'Console.WriteLine(cd)
                 Console.WriteLine(ce.ErrorText)
+                'Console.WriteLine("Line: " + ce.Line.ToString)
             Next
         End If
         Try
