@@ -25,11 +25,17 @@ Public Class tfOsobine
     Private Sub PropertyGridUV_PropertyValueChanged(ByVal s As Object, ByVal e As System.Windows.Forms.PropertyValueChangedEventArgs) Handles PropertyGridUV.PropertyValueChanged
         Try
             Dim p() As Object = {Nothing}
-            mf.Scena.SelectedObject.GetType().GetMethod("refreshBuffer").Invoke(mf.Scena.SelectedObject, p)
+            Dim mi As System.Reflection.MethodInfo = mf.Scena.SelectedObject.GetType().GetMethod("refreshBuffer")
+            If mi.GetParameters().Length > 0 Then
+                mi.Invoke(mf.Scena.SelectedObject, p)
+            Else
+                mi.Invoke(mf.Scena.SelectedObject, Nothing)
+            End If
             cf3D.renderToTexture(mf.Scena.SelectedObject)
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
+        Console.WriteLine("Value of " + e.ChangedItem.Label + " changed from " + e.OldValue.ToString + " to " + e.ChangedItem.Value.ToString)
         cf3D.Refresh()
         mf.addUndoData("Property value changed")
     End Sub
