@@ -79,7 +79,9 @@ Public Class ClassBlending
         For Each o In Me.objSet
             If o.GetType Is GetType(ClassU) Then
                 Dim UC As ClassU = CType(o, ClassU)
-                blendingLayerU.Add(UC.vectorBuffer)
+                v1 = New List(Of Vector3)
+                v1.AddRange(UC.geom.vb)
+                blendingLayerU.Add(v1)
             End If
         Next
         Dim i As Integer

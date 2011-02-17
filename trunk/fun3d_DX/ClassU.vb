@@ -4,7 +4,7 @@ Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
 <System.Serializable()> _
 Public Class ClassU
-    Private UGustina As String = "30"
+    Private UGustina As Short = 30
     Private maxU As String = "10"
     Private minU As String = "-10"
     Private funX As String = "u"
@@ -23,7 +23,7 @@ Public Class ClassU
     Public prm As New List(Of ClassParametri)
     Public dynprm As New List(Of ClassDynamicParametri)
     Public lw As Single = 2
-    Public vectorBuffer As New List(Of Vector3)
+    Public WithEvents geom As New cGeometry
     <System.NonSerialized()> _
     Public vertexBuffer As New List(Of CustomVertex.PositionColored)
     Public ht As New Hashtable()
@@ -183,12 +183,16 @@ Public Class ClassU
         End Set
     End Property
     <Category("7. U")> _
-    Public Property Udens() As String
+    Public Property Udens() As Short
         Get
             Return Me.UGustina
         End Get
-        Set(ByVal value As String)
-            Me.UGustina = value
+        Set(ByVal value As Short)
+            If 0 < value And value < 512 Then
+                Me.UGustina = value
+            Else
+                Console.WriteLine("<b>Value must be between 0 and 512!</b>")
+            End If
         End Set
     End Property
 
@@ -361,7 +365,7 @@ Public Class ClassU
             cd += "param.add(" + Str(p.value) + ")" + vbCrLf
         Next
         cd += "Dim u as Single" + vbCrLf
-        cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Me.UGustina + "" + vbCrLf
+        cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Me.UGustina.ToString + "" + vbCrLf
         cd += "For u=" + Me.minU + " To " + Me.maxU + "+uStep/2 Step uStep" + vbCrLf
         cd += "rv.add(New Vector3(" + Me.funX + "," + Me.funY + "," + Me.funZ + "))" + vbCrLf
         cd += "Next" + vbCrLf
@@ -382,7 +386,7 @@ Public Class ClassU
             Dim exeins As Object = cr.CompiledAssembly.CreateInstance("FlyAss.Evaluator")
             Dim mi As Reflection.MethodInfo = exeins.GetType().GetMethod("Evaluate")
 
-            Me.vectorBuffer = CType(mi.Invoke(exeins, Nothing), List(Of Vector3))
+            Me.geom.setPolyline(CType(mi.Invoke(exeins, Nothing), List(Of Vector3)).ToArray(), False)
         Else
             Dim ce As CodeDom.Compiler.CompilerError
             For Each ce In cr.Errors
@@ -393,8 +397,8 @@ Public Class ClassU
         End If
         Try
             Me.vertexBuffer.Clear()
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.vectorBuffer(0), Me.pColor.ToArgb))
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.vectorBuffer(Me.vectorBuffer.Count - 1), Me.pColor.ToArgb))
+            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.geom.vb(0), Me.pColor.ToArgb))
+            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.geom.vb(Me.geom.vb.Length - 1), Me.pColor.ToArgb))
         Catch ex As Exception
 
         End Try

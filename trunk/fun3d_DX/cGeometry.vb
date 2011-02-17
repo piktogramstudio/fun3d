@@ -1,5 +1,6 @@
 ﻿Imports Microsoft.DirectX
-Public Structure cGeometry
+<System.Serializable()> _
+Public Class cGeometry
     Public Event geometryChanged()
     Public vb() As Vector3
     Public nb() As Vector3
@@ -11,6 +12,10 @@ Public Structure cGeometry
         Me.ib = ib
         Me.eb = eb
         RaiseEvent geometryChanged()
+    End Sub
+    Public Sub setPolyline(ByVal vb() As Vector3, ByVal closed As Boolean)
+        Me.vb = vb
+        Me.eb = Me.getPolylineEdgesFromPointList(vb, closed)
     End Sub
     Public Function calculateNormals(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
         Dim rv As New List(Of Vector3)
@@ -32,4 +37,17 @@ Public Structure cGeometry
         Next
         Return rv.ToArray
     End Function
-End Structure
+    Public Function getPolylineEdgesFromPointList(ByVal vb() As Vector3, ByVal closed As Boolean) As Int32()
+        Dim rv As New List(Of Int32)
+        Dim i As Integer
+        For i = 0 To vb.Length - 2
+            rv.Add(i)
+            rv.Add(i + 1)
+        Next
+        If closed Then
+            rv.Add(vb.Length - 1)
+            rv.Add(0)
+        End If
+        Return rv.ToArray
+    End Function
+End Class

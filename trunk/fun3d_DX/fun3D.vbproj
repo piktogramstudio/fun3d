@@ -160,6 +160,8 @@
     <Import Include="System.Drawing" />
     <Import Include="System.Diagnostics" />
     <Import Include="System.Windows.Forms" />
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="cGeometry.vb" />
     <Compile Include="ClassMCube.vb" />
     <Compile Include="ClassMTeth.vb" />
   </ItemGroup>
@@ -588,6 +590,7 @@
     <None Include="Resources\newCP.png" />
     <None Include="Resources\newPC.png" />
     <None Include="Resources\mouseHints.png" />
+    <None Include="Resources\splash1.png" />
     <Content Include="samples\LSystems\smpSpaceStructure.f3dx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
