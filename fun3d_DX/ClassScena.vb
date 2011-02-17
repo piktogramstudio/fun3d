@@ -627,16 +627,16 @@ Public Class ClassScena
 
         Dim i As Integer = 0
         Dim pcount As Integer = 512
-        Dim tpc As Integer = UV.vectorBuffer.Count - 1
+        Dim tpc As Integer = UV.geom.vb.Length - 1
         d3l.GlLines = True
         d3l.Width = UV.lw
         d3l.Antialias = True
-        For i = 0 To tpc Step 512
-            If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
-            d3l.Begin()
-            d3l.DrawTransform(UV.vectorBuffer.GetRange(i, pcount).ToArray, lineMatrix, UV.bojaLinija)
-            d3l.End()
-        Next
+
+        If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
+        d3l.Begin()
+        d3l.DrawTransform(UV.geom.vb, lineMatrix, UV.bojaLinija)
+        d3l.End()
+
         d3l.Dispose()
         ' tacke
         If UV.Equals(Me.SelectedObject) Then
