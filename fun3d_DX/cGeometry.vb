@@ -16,6 +16,7 @@ Public Class cGeometry
     Public Sub setPolyline(ByVal vb() As Vector3, ByVal closed As Boolean)
         Me.vb = vb
         Me.eb = Me.getPolylineEdgesFromPointList(vb, closed)
+        RaiseEvent geometryChanged()
     End Sub
     Public Function calculateNormals(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
         Dim rv As New List(Of Vector3)
