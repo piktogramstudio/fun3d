@@ -10,20 +10,16 @@ Public Class ClassU
     Private funX As String = "u"
     Private funY As String = "u"
     Private funZ As String = "1"
-    Private scX As Single = 1
-    Private scY As Single = 1
-    Private scZ As Single = 1
     Private lc As Color = Color.Black
-    Private xpol As Single = 0
-    Private ypol As Single = 0
-    Private zpol As Single = 0
     Private naziv As String = "new1"
     Public a As Single = 0
     Public u As Single = 0
     Public prm As New List(Of ClassParametri)
     Public dynprm As New List(Of ClassDynamicParametri)
     Public lw As Single = 2
-    Public WithEvents geom As New cGeometry
+    Public WithEvents geom As New cGeometry()
+    Public tgeom As New cGeometry
+    Public transform As New cTransform()
     <System.NonSerialized()> _
     Public vertexBuffer As New List(Of CustomVertex.PositionColored)
     Public ht As New Hashtable()
@@ -247,28 +243,28 @@ Public Class ClassU
     <Category("6. Scale")> _
     Public Property scaleX() As Single
         Get
-            Return Me.scX
+            Return Me.transform.sx
         End Get
         Set(ByVal value As Single)
-            Me.scX = value
+            Me.transform.sx = value
         End Set
     End Property
     <Category("6. Scale")> _
     Public Property scaleY() As Single
         Get
-            Return Me.scY
+            Return Me.transform.sy
         End Get
         Set(ByVal value As Single)
-            Me.scY = value
+            Me.transform.sy = value
         End Set
     End Property
     <Category("6. Scale")> _
     Public Property scaleZ() As Single
         Get
-            Return Me.scZ
+            Return Me.transform.sz
         End Get
         Set(ByVal value As Single)
-            Me.scZ = value
+            Me.transform.sz = value
         End Set
     End Property
     <Category("4. Parameters"), DisplayName("Parameters")> _
@@ -322,28 +318,28 @@ Public Class ClassU
     <Category("5. Position"), DisplayName("X Position")> _
     Public Property xPolozaj() As Single
         Get
-            Return Me.xpol
+            Return Me.transform.tx
         End Get
         Set(ByVal value As Single)
-            Me.xpol = value
+            Me.transform.tx = value
         End Set
     End Property
     <Category("5. Position"), DisplayName("Y Position")> _
     Public Property yPolozaj() As Single
         Get
-            Return Me.ypol
+            Return Me.transform.ty
         End Get
         Set(ByVal value As Single)
-            Me.ypol = value
+            Me.transform.ty = value
         End Set
     End Property
     <Category("5. Position"), DisplayName("Z Position")> _
     Public Property zPolozaj() As Single
         Get
-            Return Me.zpol
+            Return Me.transform.tz
         End Get
         Set(ByVal value As Single)
-            Me.zpol = value
+            Me.transform.tz = value
         End Set
     End Property
     Public Sub refreshBuffer()
@@ -396,11 +392,12 @@ Public Class ClassU
             Next
         End If
         Try
+            tgeom = Me.transform.getTransformedGeometry(Me.geom)
             Me.vertexBuffer.Clear()
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.geom.vb(0), Me.pColor.ToArgb))
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(Me.geom.vb(Me.geom.vb.Length - 1), Me.pColor.ToArgb))
+            Me.vertexBuffer.Add(New CustomVertex.PositionColored(tgeom.vb(0), Me.pColor.ToArgb))
+            Me.vertexBuffer.Add(New CustomVertex.PositionColored(tgeom.vb(tgeom.vb.Length - 1), Me.pColor.ToArgb))
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
     Public Sub afterPaste(ByVal device As Device)

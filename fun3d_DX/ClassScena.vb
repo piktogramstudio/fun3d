@@ -627,14 +627,14 @@ Public Class ClassScena
 
         Dim i As Integer = 0
         Dim pcount As Integer = 512
-        Dim tpc As Integer = UV.geom.vb.Length - 1
+        Dim tpc As Integer = UV.tgeom.vb.Length - 1
         d3l.GlLines = True
         d3l.Width = UV.lw
         d3l.Antialias = True
 
         If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
         d3l.Begin()
-        d3l.DrawTransform(UV.geom.vb, lineMatrix, UV.bojaLinija)
+        d3l.DrawTransform(UV.tgeom.vb, lineMatrix, UV.bojaLinija)
         d3l.End()
 
         d3l.Dispose()
