@@ -13,6 +13,34 @@ Public Class cGeometry
         Me.eb = eb
         RaiseEvent geometryChanged()
     End Sub
+    Public Sub setGeometry(ByVal geom As cGeometry)
+        Dim i As Integer
+        ReDim Me.vb(geom.vb.Length - 1)
+        ReDim Me.eb(geom.eb.Length - 1)
+        For i = 0 To geom.vb.Length - 1
+            Me.vb(i) = geom.vb(i)
+        Next
+        Try
+            ReDim Me.nb(geom.nb.Length - 1)
+            For i = 0 To geom.nb.Length - 1
+                Me.nb(i) = geom.nb(i)
+            Next
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+        Try
+            ReDim Me.ib(geom.ib.Length - 1)
+            For i = 0 To geom.ib.Length - 1
+                Me.ib(i) = geom.ib(i)
+            Next
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+        For i = 0 To geom.eb.Length - 1
+            Me.eb(i) = geom.eb(i)
+        Next
+        RaiseEvent geometryChanged()
+    End Sub
     Public Sub setPolyline(ByVal vb() As Vector3, ByVal closed As Boolean)
         Me.vb = vb
         Me.eb = Me.getPolylineEdgesFromPointList(vb, closed)

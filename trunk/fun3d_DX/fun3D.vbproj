@@ -196,6 +196,7 @@
     <Compile Include="ClassU.vb" />
     <Compile Include="ClassUV.vb" />
     <Compile Include="ClassMesh.vb" />
+    <Compile Include="cTransform.vb" />
     <Compile Include="dfAbout.Designer.vb">
       <DependentUpon>dfAbout.vb</DependentUpon>
     </Compile>
