@@ -1,9 +1,11 @@
 ﻿Imports Microsoft.DirectX
+Imports System.ComponentModel
 <System.Serializable()> _
 Public Class cTransform
     Public Property tx As Single = 0
     Public Property ty As Single = 0
     Public Property tz As Single = 0
+    <Bindable(True)> _
     Public Property rx As Single = 0
     Public Property ry As Single = 0
     Public Property rz As Single = 0

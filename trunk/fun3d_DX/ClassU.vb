@@ -17,7 +17,7 @@ Public Class ClassU
     Public prm As New List(Of ClassParametri)
     Public dynprm As New List(Of ClassDynamicParametri)
     Public lw As Single = 2
-    Public WithEvents geom As New cGeometry()
+    Public geom As New cGeometry()
     Public tgeom As New cGeometry
     Public transform As New cTransform()
     <System.NonSerialized()> _
