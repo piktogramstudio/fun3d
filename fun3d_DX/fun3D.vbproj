@@ -152,6 +152,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="tfTransform.Designer.vb">
+      <DependentUpon>tfTransform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tfTransform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ucTransform.Designer.vb">
+      <DependentUpon>ucTransform.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucTransform.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -386,9 +398,15 @@
       <SubType>Designer</SubType>
       <DependentUpon>tfProgress.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="tfTransform.resx">
+      <DependentUpon>tfTransform.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="tfValueInspector.resx">
       <SubType>Designer</SubType>
       <DependentUpon>tfValueInspector.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucTransform.resx">
+      <DependentUpon>ucTransform.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
