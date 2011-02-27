@@ -152,6 +152,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cTrackBarPropertyEditor.vb" />
+    <Compile Include="cTransformPropertyEditor.vb" />
     <Compile Include="tfTransform.Designer.vb">
       <DependentUpon>tfTransform.vb</DependentUpon>
     </Compile>

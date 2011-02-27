@@ -2,6 +2,8 @@ Imports System.Math
 Imports System.ComponentModel
 Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
+Imports System.Drawing.Design
+
 <System.Serializable()> _
 Public Class ClassU
     Private UGustina As Short = 30
@@ -19,7 +21,8 @@ Public Class ClassU
     Public lw As Single = 2
     Public geom As New cGeometry()
     Public tgeom As New cGeometry
-    Public transform As New cTransform()
+    <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
+    Public Property transform As New cTransform()
     <System.NonSerialized()> _
     Public vertexBuffer As New List(Of CustomVertex.PositionColored)
     Public ht As New Hashtable()
@@ -211,7 +214,7 @@ Public Class ClassU
         End Set
     End Property
 
-    
+
     <Category("3. Functions"), DisplayName("X(u)")> _
     Public Property XF() As String
         Get
@@ -315,7 +318,7 @@ Public Class ClassU
             Me.alphaLevel = value
         End Set
     End Property
-    <Category("5. Position"), DisplayName("X Position")> _
+    <Category("5. Position"), DisplayName("X Position"), Editor(GetType(cTrackBarPropertyEditor), GetType(UITypeEditor))> _
     Public Property xPolozaj() As Single
         Get
             Return Me.transform.tx
