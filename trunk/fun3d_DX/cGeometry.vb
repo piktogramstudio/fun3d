@@ -21,18 +21,22 @@ Public Class cGeometry
             Me.vb(i) = geom.vb(i)
         Next
         Try
-            ReDim Me.nb(geom.nb.Length - 1)
-            For i = 0 To geom.nb.Length - 1
-                Me.nb(i) = geom.nb(i)
-            Next
+            If nb IsNot Nothing Then
+                ReDim Me.nb(geom.nb.Length - 1)
+                For i = 0 To geom.nb.Length - 1
+                    Me.nb(i) = geom.nb(i)
+                Next
+            End If
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
         Try
-            ReDim Me.ib(geom.ib.Length - 1)
-            For i = 0 To geom.ib.Length - 1
-                Me.ib(i) = geom.ib(i)
-            Next
+            If ib IsNot Nothing Then
+                ReDim Me.ib(geom.ib.Length - 1)
+                For i = 0 To geom.ib.Length - 1
+                    Me.ib(i) = geom.ib(i)
+                Next
+            End If
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try

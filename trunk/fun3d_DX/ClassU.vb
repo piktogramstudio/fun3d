@@ -54,19 +54,8 @@ Public Class ClassU
             Me.ht(key) = value
         End Set
     End Property
-    <Category("4. Parameters"), Browsable(False)> _
-    Public ReadOnly Property parametriCode() As String
-        Get
-            Dim rv As String = ""
-            Dim ppp As ClassParametri
-            For Each ppp In Me.prm
-                rv += "public " + ppp.Name + "=" + ppp.value.ToString + vbCrLf
-            Next
-            Return rv
-        End Get
-    End Property
     <Category("4. Parameters"), DisplayName("Dynamic Parameters")> _
-    Public Property dynapicParameters() As List(Of ClassDynamicParametri)
+        Public Property dynapicParameters() As List(Of ClassDynamicParametri)
         Get
             Return Me.dynprm
         End Get
@@ -195,7 +184,7 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("7. U"), DisplayName("U max")> _
+    <Category("7. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
             Return maxU
@@ -204,7 +193,7 @@ Public Class ClassU
             maxU = value
         End Set
     End Property
-    <Category("7. U"), DisplayName("U min")> _
+    <Category("7. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoU() As String
         Get
             Return minU
@@ -215,7 +204,7 @@ Public Class ClassU
     End Property
 
 
-    <Category("3. Functions"), DisplayName("X(u)")> _
+    <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property XF() As String
         Get
             Return Me.funX
@@ -224,7 +213,7 @@ Public Class ClassU
             Me.funX = value
         End Set
     End Property
-    <Category("3. Functions"), DisplayName("Y(u)")> _
+    <Category("3. Functions"), DisplayName("Y(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property YF() As String
         Get
             Return Me.funY
@@ -233,7 +222,7 @@ Public Class ClassU
             Me.funY = value
         End Set
     End Property
-    <Category("3. Functions"), DisplayName("Z(u)")> _
+    <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property ZF() As String
         Get
             Return Me.funZ
@@ -243,35 +232,8 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("6. Scale")> _
-    Public Property scaleX() As Single
-        Get
-            Return Me.transform.sx
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.sx = value
-        End Set
-    End Property
-    <Category("6. Scale")> _
-    Public Property scaleY() As Single
-        Get
-            Return Me.transform.sy
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.sy = value
-        End Set
-    End Property
-    <Category("6. Scale")> _
-    Public Property scaleZ() As Single
-        Get
-            Return Me.transform.sz
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.sz = value
-        End Set
-    End Property
     <Category("4. Parameters"), DisplayName("Parameters")> _
-    Public Property parametri() As List(Of ClassParametri)
+        Public Property parametri() As List(Of ClassParametri)
         Get
             Return Me.prm
         End Get
@@ -318,33 +280,7 @@ Public Class ClassU
             Me.alphaLevel = value
         End Set
     End Property
-    <Category("5. Position"), DisplayName("X Position"), Editor(GetType(cTrackBarPropertyEditor), GetType(UITypeEditor))> _
-    Public Property xPolozaj() As Single
-        Get
-            Return Me.transform.tx
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.tx = value
-        End Set
-    End Property
-    <Category("5. Position"), DisplayName("Y Position")> _
-    Public Property yPolozaj() As Single
-        Get
-            Return Me.transform.ty
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.ty = value
-        End Set
-    End Property
-    <Category("5. Position"), DisplayName("Z Position")> _
-    Public Property zPolozaj() As Single
-        Get
-            Return Me.transform.tz
-        End Get
-        Set(ByVal value As Single)
-            Me.transform.tz = value
-        End Set
-    End Property
+    
     Public Sub refreshBuffer()
 
         Dim p As ClassParametri

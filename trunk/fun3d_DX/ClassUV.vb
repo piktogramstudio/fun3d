@@ -2,6 +2,8 @@ Imports System.Math
 Imports System.ComponentModel
 Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
+Imports System.Drawing.Design
+
 <System.Serializable()> _
 Public Class ClassUV
     Private UGustina As Integer = 10
@@ -356,7 +358,7 @@ Public Class ClassUV
             Me.VGustina = value
         End Set
     End Property
-    <Category("8. U"), DisplayName("U max")> _
+    <Category("8. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
             Return maxU
@@ -365,7 +367,7 @@ Public Class ClassUV
             maxU = value
         End Set
     End Property
-    <Category("8. U"), DisplayName("U min")> _
+    <Category("8. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoU() As String
         Get
             Return minU
@@ -374,7 +376,7 @@ Public Class ClassUV
             minU = value
         End Set
     End Property
-    <Category("9. V"), DisplayName("V max")> _
+    <Category("9. V"), DisplayName("V max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoV() As String
         Get
             Return maxV
@@ -383,7 +385,7 @@ Public Class ClassUV
             maxV = value
         End Set
     End Property
-    <Category("9. V"), DisplayName("V min")> _
+    <Category("9. V"), DisplayName("V min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoV() As String
         Get
             Return minV
@@ -392,7 +394,7 @@ Public Class ClassUV
             minV = value
         End Set
     End Property
-    <Category("3. Functions"), DisplayName("X(u,v)")> _
+    <Category("3. Functions"), DisplayName("X(u,v)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property XF() As String
         Get
             Return Me.funX
@@ -401,7 +403,7 @@ Public Class ClassUV
             Me.funX = value
         End Set
     End Property
-    <Category("3. Functions"), DisplayName("Y(u,v)")> _
+    <Category("3. Functions"), DisplayName("Y(u,v)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property YF() As String
         Get
             Return Me.funY
@@ -410,7 +412,7 @@ Public Class ClassUV
             Me.funY = value
         End Set
     End Property
-    <Category("3. Functions"), DisplayName("Z(u,v)")> _
+    <Category("3. Functions"), DisplayName("Z(u,v)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property ZF() As String
         Get
             Return Me.funZ
@@ -420,7 +422,7 @@ Public Class ClassUV
         End Set
     End Property
     <Category("7. Scale")> _
-        Public Property scaleX() As Single
+    Public Property scaleX() As Single
         Get
             Return Me.scX
         End Get
@@ -685,7 +687,7 @@ Public Class ClassUV
                 Console.WriteLine(ce.ErrorText)
             Next
         End If
-        
+
 
         Dim vertices1 As CustomVertex.PositionColored()
 
@@ -806,7 +808,7 @@ Public Class ClassUV
             Me.enviroment = New Texture(device, 800, 600, 1, Usage.RenderTarget, Format.A8R8G8B8, 0)
             Me.enviroment.AutoGenerateFilterType = TextureFilter.Anisotropic
         Catch ex As Exception
-            console.writeline(ex.Message)
+            Console.WriteLine(ex.Message)
             Me.UVMesh = Mesh.Box(device, 10, 10, 10)
         End Try
     End Sub
