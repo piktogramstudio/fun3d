@@ -1,6 +1,7 @@
 #summary Contents.
 #labels Featured
 
+ * [HowToInstall How to Install]
  * [HowToJoin How to join]
  * [VersionChanges Version Changes]
  * [ReportBug Report Bug]
