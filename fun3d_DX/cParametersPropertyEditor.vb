@@ -1,7 +1,7 @@
 ﻿Imports System.Drawing.Design
 Imports System.ComponentModel
 Imports System.Windows.Forms.Design
-Public Class cEquationPropertyEditor
+Public Class cParametersPropertyEditor
     Inherits UITypeEditor
     Public Overrides Function GetEditStyle(ByVal context As ITypeDescriptorContext) As UITypeEditorEditStyle
         Return UITypeEditorEditStyle.DropDown
@@ -9,15 +9,11 @@ Public Class cEquationPropertyEditor
     Public Overrides Function EditValue(ByVal context As ITypeDescriptorContext, ByVal provider As IServiceProvider, ByVal value As Object) As Object
         Dim wfes As IWindowsFormsEditorService = TryCast(provider.GetService(GetType(IWindowsFormsEditorService)), IWindowsFormsEditorService)
         If wfes IsNot Nothing Then
-            Dim tb As New ucEquation
-            Try
-                tb.params = context.Instance.parametri
-            Catch ex As Exception
-                Console.WriteLine(ex.Message)
-            End Try
-            tb.TextBox1.Text = value.ToString
+            Dim tb As New ucParameters
+            tb.params = value
+            tb.context = context.Instance
             wfes.DropDownControl(tb)
-            value = tb.TextBox1.Text
+            value = tb.params
         End If
         Return value
     End Function

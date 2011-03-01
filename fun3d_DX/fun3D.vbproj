@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cEquationPropertyEditor.vb" />
+    <Compile Include="cParametersPropertyEditor.vb" />
     <Compile Include="cTrackBarPropertyEditor.vb" />
     <Compile Include="cTransformPropertyEditor.vb" />
     <Compile Include="tfEquation.Designer.vb">
@@ -171,6 +172,12 @@
       <DependentUpon>ucEquation.vb</DependentUpon>
     </Compile>
     <Compile Include="ucEquation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucParameters.Designer.vb">
+      <DependentUpon>ucParameters.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucParameters.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ucTransform.Designer.vb">
@@ -425,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucEquation.resx">
       <DependentUpon>ucEquation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucParameters.resx">
+      <DependentUpon>ucParameters.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucTransform.resx">
       <DependentUpon>ucTransform.vb</DependentUpon>
