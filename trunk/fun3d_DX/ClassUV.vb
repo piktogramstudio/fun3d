@@ -448,7 +448,7 @@ Public Class ClassUV
             Me.scZ = value
         End Set
     End Property
-    <Category("4. Parameters"), DisplayName("Parameters")> _
+    <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
     Public Property parametri() As List(Of ClassParametri)
         Get
             Return Me.prm

@@ -232,8 +232,8 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("4. Parameters"), DisplayName("Parameters")> _
-        Public Property parametri() As List(Of ClassParametri)
+    <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
+    Public Property parametri() As List(Of ClassParametri)
         Get
             Return Me.prm
         End Get
