@@ -11,7 +11,7 @@ Public Class dfImage
                 Me.Close()
             End If
         Catch ex As Exception
-            console.writeline(ex.Message)
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
 
@@ -20,4 +20,8 @@ Public Class dfImage
         Me.Close()
     End Sub
 
+    Private Sub dfImage_VisibleChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.VisibleChanged
+        Me.TBHeight.Text = cf3D.Height.ToString
+        Me.TBWidth.Text = cf3D.Width.ToString
+    End Sub
 End Class

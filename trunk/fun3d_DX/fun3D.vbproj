@@ -641,6 +641,7 @@
     <None Include="Resources\newPC.png" />
     <None Include="Resources\mouseHints.png" />
     <None Include="Resources\splash1.png" />
+    <None Include="Resources\splashfn.png" />
     <Content Include="samples\LSystems\smpSpaceStructure.f3dx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
