@@ -9,7 +9,9 @@
         Me.FLPParams.Controls.Clear()
         For Each p In params
             l = New Label()
-            l.AutoSize = True
+            l.AutoSize = False
+            l.Width = 50
+            l.TextAlign = ContentAlignment.MiddleLeft
             l.Text = p.Name
             Me.FLPParams.Controls.Add(l)
             nud = New NumericUpDown
@@ -17,15 +19,17 @@
             nud.Maximum = p.sliderMaximum
             nud.Increment = p.sliderStep
             nud.Value = p.value
-            nud.Width = 50
+            nud.Width = 45
+            nud.DecimalPlaces = 2
             b = New Binding("Value", p, "value")
             b.DataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged
             nud.DataBindings.Add(b)
+            AddHandler nud.ValueChanged, AddressOf b_Format
             Me.FLPParams.Controls.Add(nud)
         Next
     End Sub
 
-    Private Sub b_Format(ByVal sender As Object, ByVal e As System.Windows.Forms.ConvertEventArgs) Handles b.Format
+    Private Sub b_Format(ByVal sender As Object, ByVal e As System.EventArgs)
         Me.context.refreshbuffer()
         cf3D.Invalidate()
     End Sub

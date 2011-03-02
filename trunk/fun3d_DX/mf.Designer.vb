@@ -97,7 +97,6 @@ Partial Class mf
         Me.NURBSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LightsPropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TransformsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
@@ -110,7 +109,6 @@ Partial Class mf
         Me.P3D = New System.Windows.Forms.Panel()
         Me.rtbConsole = New System.Windows.Forms.RichTextBox()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.EquationEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -637,7 +635,7 @@ Partial Class mf
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavigationToolStripMenuItem, Me.ValueInspectorToolStripMenuItem, Me.PropertyInspectorToolStripMenuItem, Me.CAInspectorToolStripMenuItem, Me.RenderStatePropertiesToolStripMenuItem, Me.PropertiesReaderToolStripMenuItem, Me.NURBSToolStripMenuItem, Me.LightsPropertiesToolStripMenuItem, Me.ConsoleToolStripMenuItem, Me.TransformsToolStripMenuItem, Me.EquationEditorToolStripMenuItem})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavigationToolStripMenuItem, Me.ValueInspectorToolStripMenuItem, Me.PropertyInspectorToolStripMenuItem, Me.CAInspectorToolStripMenuItem, Me.RenderStatePropertiesToolStripMenuItem, Me.PropertiesReaderToolStripMenuItem, Me.NURBSToolStripMenuItem, Me.LightsPropertiesToolStripMenuItem, Me.ConsoleToolStripMenuItem})
         Me.ToolsToolStripMenuItem.ForeColor = System.Drawing.Color.Black
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
@@ -705,12 +703,6 @@ Partial Class mf
         Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
         Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
         Me.ConsoleToolStripMenuItem.Text = "Console"
-        '
-        'TransformsToolStripMenuItem
-        '
-        Me.TransformsToolStripMenuItem.Name = "TransformsToolStripMenuItem"
-        Me.TransformsToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.TransformsToolStripMenuItem.Text = "Transforms"
         '
         'HelpToolStripMenuItem
         '
@@ -807,12 +799,6 @@ Partial Class mf
         Me.Splitter1.Size = New System.Drawing.Size(825, 3)
         Me.Splitter1.TabIndex = 8
         Me.Splitter1.TabStop = False
-        '
-        'EquationEditorToolStripMenuItem
-        '
-        Me.EquationEditorToolStripMenuItem.Name = "EquationEditorToolStripMenuItem"
-        Me.EquationEditorToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.EquationEditorToolStripMenuItem.Text = "Equation editor"
         '
         'mf
         '
@@ -930,7 +916,5 @@ Partial Class mf
     Friend WithEvents ConsoleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents rtbConsole As System.Windows.Forms.RichTextBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
-    Friend WithEvents TransformsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EquationEditorToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
