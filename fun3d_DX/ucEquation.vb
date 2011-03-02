@@ -79,7 +79,11 @@ Public Class ucEquation
         Next
         Me.DGWParameters.Rows.Add(New Object() {"PI", Math.PI, Math.PI, Math.PI, 0})
         Me.DGWParameters.Rows.Add(New Object() {"E", Math.E, Math.E, Math.E, 0})
-        Me.DGWParameters.Rows(Me.DGWParameters.Rows.Count - 3).Selected = True
+        Try
+            Me.DGWParameters.Rows(Me.DGWParameters.Rows.Count - 3).Selected = True
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
     End Sub
     Private Sub BAddParam_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BAddParam.Click
         Try
