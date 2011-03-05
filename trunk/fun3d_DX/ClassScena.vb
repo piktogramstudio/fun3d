@@ -65,17 +65,18 @@ Public Class ClassScena
     Public Shared Event progressEnd()
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
     Dim rgbv As Integer = 0
-
+    Public Fun3DFileVersion As Integer
     Public Sub New()
         Me.LightClass.Clear()
         Me.LightClass.Add(New ClassLight)
         Me.LightClass.Add(New ClassLight)
         Me.LightClass(1).pPosition = New Vector3(0, 0, 500)
-        ' polozaj svetla za senke
+        ' Shadow light position
         Me.lv(0) = 100
         Me.lv(1) = 100
         Me.lv(2) = 300
         Me.SelectedObject = Me
+        Me.Fun3DFileVersion = 1
     End Sub
     <Browsable(False)> _
     Public Property SelectedObject() As Object
