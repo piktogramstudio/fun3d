@@ -93,10 +93,10 @@ Partial Class mf
         Me.PropertyInspectorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CAInspectorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RenderStatePropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PropertiesReaderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NURBSToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LightsPropertiesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CalculateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.toolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
@@ -635,7 +635,7 @@ Partial Class mf
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavigationToolStripMenuItem, Me.ValueInspectorToolStripMenuItem, Me.PropertyInspectorToolStripMenuItem, Me.CAInspectorToolStripMenuItem, Me.RenderStatePropertiesToolStripMenuItem, Me.PropertiesReaderToolStripMenuItem, Me.NURBSToolStripMenuItem, Me.LightsPropertiesToolStripMenuItem, Me.ConsoleToolStripMenuItem})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NavigationToolStripMenuItem, Me.ValueInspectorToolStripMenuItem, Me.PropertyInspectorToolStripMenuItem, Me.CAInspectorToolStripMenuItem, Me.RenderStatePropertiesToolStripMenuItem, Me.NURBSToolStripMenuItem, Me.LightsPropertiesToolStripMenuItem, Me.ConsoleToolStripMenuItem, Me.CalculateToolStripMenuItem})
         Me.ToolsToolStripMenuItem.ForeColor = System.Drawing.Color.Black
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
@@ -674,13 +674,6 @@ Partial Class mf
         Me.RenderStatePropertiesToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
         Me.RenderStatePropertiesToolStripMenuItem.Text = "Render State Properties"
         '
-        'PropertiesReaderToolStripMenuItem
-        '
-        Me.PropertiesReaderToolStripMenuItem.Name = "PropertiesReaderToolStripMenuItem"
-        Me.PropertiesReaderToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
-        Me.PropertiesReaderToolStripMenuItem.Text = "Properties Reader"
-        Me.PropertiesReaderToolStripMenuItem.Visible = False
-        '
         'NURBSToolStripMenuItem
         '
         Me.NURBSToolStripMenuItem.Name = "NURBSToolStripMenuItem"
@@ -703,6 +696,12 @@ Partial Class mf
         Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
         Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
         Me.ConsoleToolStripMenuItem.Text = "Console"
+        '
+        'CalculateToolStripMenuItem
+        '
+        Me.CalculateToolStripMenuItem.Name = "CalculateToolStripMenuItem"
+        Me.CalculateToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.CalculateToolStripMenuItem.Text = "Calculate"
         '
         'HelpToolStripMenuItem
         '
@@ -897,7 +896,6 @@ Partial Class mf
     Friend WithEvents P3D As System.Windows.Forms.Panel
     Friend WithEvents RenderStatePropertiesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TSBNewISO As System.Windows.Forms.ToolStripButton
-    Friend WithEvents PropertiesReaderToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CreateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewUVToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewUCurveToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -916,5 +914,6 @@ Partial Class mf
     Friend WithEvents ConsoleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents rtbConsole As System.Windows.Forms.RichTextBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
+    Friend WithEvents CalculateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class

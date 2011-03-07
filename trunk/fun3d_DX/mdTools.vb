@@ -246,4 +246,52 @@ Module mdTools
         End If
         Return rv
     End Function
+    Public Function Evaluate(ByVal equation As String, Optional ByVal parameters() As ClassParametri = Nothing) As Single
+        Dim rv As Single
+        Dim p As ClassParametri
+        Dim cd As String = ""
+        Dim vba As New Microsoft.VisualBasic.VBCodeProvider()
+        Dim cp As New CodeDom.Compiler.CompilerParameters()
+        cd += "Imports Microsoft.DirectX" + vbCrLf
+        cd += "Imports system.collections.generic" + vbCrLf
+        cd += "Imports System.Math" + vbCrLf
+        cd += "Namespace FlyAss" + vbCrLf
+        cd += "Class EvaluateEq" + vbCrLf
+        cd += "Public Function Evaluate() As Single" + vbCrLf
+        cd += "Dim rv as Single" + vbCrLf
+        If parameters IsNot Nothing Then
+            For Each p In parameters
+                cd += "Dim " + p.Name + " as Single = " + Str(p.value) + vbCrLf
+            Next
+        End If
+        cd += "rv = " + equation + vbCrLf
+        cd += "Return rv" + vbCrLf
+        cd += "End Function" + vbCrLf
+        cd += "End Class" + vbCrLf
+        cd += "End Namespace" + vbCrLf
+        ' Setup the Compiler Parameters  
+        ' Add any referenced assemblies
+        cp.ReferencedAssemblies.Add("system.dll")
+        cp.ReferencedAssemblies.Add("system.xml.dll")
+        cp.ReferencedAssemblies.Add("system.data.dll")
+        cp.ReferencedAssemblies.Add("microsoft.directx.dll")
+        cp.CompilerOptions = "/t:library"
+        cp.GenerateInMemory = True
+        Dim cr As CodeDom.Compiler.CompilerResults = vba.CompileAssemblyFromSource(cp, cd)
+        If Not cr.Errors.Count <> 0 Then
+            Dim exeins As Object = cr.CompiledAssembly.CreateInstance("FlyAss.EvaluateEq")
+            Dim mi As Reflection.MethodInfo = exeins.GetType().GetMethod("Evaluate")
+
+            rv = CType(mi.Invoke(exeins, Nothing), Single)
+        Else
+            Dim ce As CodeDom.Compiler.CompilerError
+            For Each ce In cr.Errors
+                'Console.WriteLine(cd)
+                Console.WriteLine(ce.ErrorText)
+                'Console.WriteLine("Line: " + ce.Line.ToString)
+            Next
+        End If
+        cp.TempFiles.Delete()
+        Return rv
+    End Function
 End Module

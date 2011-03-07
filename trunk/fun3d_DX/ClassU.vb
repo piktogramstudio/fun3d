@@ -338,6 +338,7 @@ Public Class ClassU
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
+        cp.TempFiles.Delete()
     End Sub
     Public Sub afterPaste(ByVal device As Device)
         Me.vertexBuffer = New List(Of CustomVertex.PositionColored)
