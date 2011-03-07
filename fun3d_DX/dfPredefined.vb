@@ -47,4 +47,12 @@ Public Class dfPredefined
         End Try
         Me.Cursor = Cursors.Default
     End Sub
+
+    Private Sub dfPredefined_ResizeBegin(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ResizeBegin
+        Me.Opacity = 0.8
+    End Sub
+
+    Private Sub dfPredefined_ResizeEnd(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.ResizeEnd
+        Me.Opacity = 1
+    End Sub
 End Class
