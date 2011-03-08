@@ -11,7 +11,7 @@ Public Class cEquationPropertyEditor
         If wfes IsNot Nothing Then
             Dim tb As New ucEquation
             Try
-                tb.params = context.Instance.parametri
+                tb.params = CType(context.Instance.parametri, List(Of ClassParametri))
             Catch ex As Exception
                 Console.WriteLine(ex.Message)
             End Try

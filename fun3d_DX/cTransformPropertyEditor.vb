@@ -10,7 +10,7 @@ Public Class cTransformPropertyEditor
         Dim wfes As IWindowsFormsEditorService = TryCast(provider.GetService(GetType(IWindowsFormsEditorService)), IWindowsFormsEditorService)
         If wfes IsNot Nothing Then
             Dim tb As New ucTransform()
-            tb.transformObject = context.Instance
+            tb.transformObject = CType(context.Instance, ClassU)
             wfes.DropDownControl(tb)
             value = tb.transformObject.transform
         End If

@@ -15,10 +15,10 @@
             l.Text = p.Name
             Me.FLPParams.Controls.Add(l)
             nud = New NumericUpDown
-            nud.Minimum = p.sliderMinimum
-            nud.Maximum = p.sliderMaximum
-            nud.Increment = p.sliderStep
-            nud.Value = p.value
+            nud.Minimum = CDec(p.sliderMinimum)
+            nud.Maximum = CDec(p.sliderMaximum)
+            nud.Increment = CDec(p.sliderStep)
+            nud.Value = CDec(p.value)
             nud.Width = 45
             nud.DecimalPlaces = 2
             b = New Binding("Value", p, "value")
