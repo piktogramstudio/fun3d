@@ -10,7 +10,7 @@ Public Class cParametersPropertyEditor
         Dim wfes As IWindowsFormsEditorService = TryCast(provider.GetService(GetType(IWindowsFormsEditorService)), IWindowsFormsEditorService)
         If wfes IsNot Nothing Then
             Dim tb As New ucParameters
-            tb.params = value
+            tb.params = CType(value, List(Of ClassParametri))
             tb.context = context.Instance
             wfes.DropDownControl(tb)
             value = tb.params
