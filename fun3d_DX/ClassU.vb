@@ -6,21 +6,19 @@ Imports System.Drawing.Design
 
 <System.Serializable()> _
 Public Class ClassU
+    Dim metaData As New sMetaData("U curve")
+    Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
     Private UGustina As Short = 30
     Private maxU As String = "10"
     Private minU As String = "-10"
     Private funX As String = "u"
     Private funY As String = "u"
     Private funZ As String = "1"
-    Private lc As Color = Color.Black
-    Private naziv As String = "new1"
-    Public a As Single = 0
     Public u As Single = 0
     Public prm As New List(Of ClassParametri)
     Public dynprm As New List(Of ClassDynamicParametri)
-    Public lw As Single = 2
     Public geom As New cGeometry()
-    Public tgeom As New cGeometry
+    Public tgeom As New cGeometry()
     <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
     Public Property transform As New cTransform()
     <System.NonSerialized()> _
@@ -33,7 +31,6 @@ Public Class ClassU
     Dim minSUm As Single = -10
     Dim maxSUm As Single = 10
     Dim stepSUm As Single = 1
-    Dim alphaLevel As Byte = 255
 #Region "Events"
     Public Shared Event bufferRefreshed()
     Public Shared Event progressStart()
@@ -55,7 +52,7 @@ Public Class ClassU
         End Set
     End Property
     <Category("4. Parameters"), DisplayName("Dynamic Parameters")> _
-        Public Property dynapicParameters() As List(Of ClassDynamicParametri)
+    Public Property dynapicParameters() As List(Of ClassDynamicParametri)
         Get
             Return Me.dynprm
         End Get
@@ -158,16 +155,28 @@ Public Class ClassU
         Me.refreshBuffer()
     End Sub
     Public Sub New(ByVal ime As String)
-        Me.naziv = ime
+        Me.metaData.Name = ime
         Me.refreshBuffer()
     End Sub
     <Category("1. Meta")> _
     Public Property Name() As String
         Get
-            Return Me.naziv
+            Return Me.metaData.Name
         End Get
         Set(ByVal value As String)
-            Me.naziv = value
+            If value = "" Then
+                value = "No name"
+            End If
+            Me.metaData.Name = value
+        End Set
+    End Property
+    <Category("1. Meta")> _
+    Public Property Description() As String
+        Get
+            Return Me.metaData.Description
+        End Get
+        Set(ByVal value As String)
+            Me.metaData.Description = value
         End Set
     End Property
     <Category("7. U")> _
@@ -179,7 +188,7 @@ Public Class ClassU
             If 0 < value And value < 512 Then
                 Me.UGustina = value
             Else
-                Console.WriteLine("<b>Value must be between 0 and 512!</b>")
+                Console.WriteLine("<b>Value must be between 1 and 511!</b>")
             End If
         End Set
     End Property
@@ -244,10 +253,10 @@ Public Class ClassU
     <Category("2. Appearance"), DisplayName("Line Color")> _
     Public Property bojaLinija() As Color
         Get
-            Return Me.lc
+            Return Me.lineAppearance.LineColor
         End Get
         Set(ByVal value As Color)
-            Me.lc = value
+            Me.lineAppearance.LineColor = value
         End Set
     End Property
 
@@ -264,23 +273,23 @@ Public Class ClassU
     <Category("2. Appearance"), DisplayName("Line Width")> _
     Public Property debljinaLinije() As Single
         Get
-            Return Me.lw
+            Return Me.lineAppearance.LineWidth
         End Get
         Set(ByVal value As Single)
-            Me.lw = value
+            Me.lineAppearance.LineWidth = value
         End Set
     End Property
 
     <Category("2. Appearance")> _
     Public Property Transparency() As Byte
         Get
-            Return Me.alphaLevel
+            Return Me.lineAppearance.LineTransparency
         End Get
         Set(ByVal value As Byte)
-            Me.alphaLevel = value
+            Me.lineAppearance.LineTransparency = value
         End Set
     End Property
-    
+
     Public Sub refreshBuffer()
 
         Dim p As ClassParametri

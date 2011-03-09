@@ -153,9 +153,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cEquationPropertyEditor.vb" />
+    <Compile Include="sLineAppearance.vb" />
     <Compile Include="cParametersPropertyEditor.vb" />
     <Compile Include="cTrackBarPropertyEditor.vb" />
     <Compile Include="cTransformPropertyEditor.vb" />
+    <Compile Include="sMetaData.vb" />
     <Compile Include="tfEquation.Designer.vb">
       <DependentUpon>tfEquation.vb</DependentUpon>
     </Compile>
