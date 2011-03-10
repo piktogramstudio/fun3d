@@ -60,9 +60,6 @@ Public Class ucTransform
 
     Private Sub TrackBar1_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles b.Format
         Me.transformObject.tgeom = Me.transformObject.transform.getTransformedGeometry(Me.transformObject.geom)
-        Me.transformObject.vertexBuffer.Clear()
-        Me.transformObject.vertexBuffer.Add(New CustomVertex.PositionColored(Me.transformObject.tgeom.vb(0), Me.transformObject.bojaTacke.ToArgb))
-        Me.transformObject.vertexBuffer.Add(New CustomVertex.PositionColored(Me.transformObject.tgeom.vb(Me.transformObject.tgeom.vb.Length - 1), Me.transformObject.bojaTacke.ToArgb))
         cf3D.Invalidate()
     End Sub
 End Class

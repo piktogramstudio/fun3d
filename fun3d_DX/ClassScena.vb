@@ -620,7 +620,6 @@ Public Class ClassScena
         device.Transform.World = oldm
     End Sub
     Public Sub drawU(ByVal device As Direct3D.Device, ByVal UV As ClassU, ByVal selected As Boolean)
-        Dim ver() As CustomVertex.PositionColored = UV.vertexBuffer.ToArray
         Dim lineMatrix = device.Transform.World * device.Transform.View * device.Transform.Projection
         ' linije
         device.VertexFormat = CustomVertex.PositionNormalColored.Format
@@ -641,7 +640,10 @@ Public Class ClassScena
         d3l.Dispose()
         ' tacke
         If UV.Equals(Me.SelectedObject) Then
-            device.RenderState.PointSize = 10
+            device.RenderState.PointSize = Me.PointSize
+            Dim ver(2) As CustomVertex.PositionColored
+            ver(0) = New CustomVertex.PositionColored(UV.tgeom.vb(0), UV.bojaLinija.ToArgb)
+            ver(1) = New CustomVertex.PositionColored(UV.tgeom.vb(UV.tgeom.vb.Length - 1), UV.bojaLinija.ToArgb)
             device.VertexFormat = CustomVertex.PositionColored.Format
             device.DrawUserPrimitives(PrimitiveType.PointList, ver.Length, ver)
         End If

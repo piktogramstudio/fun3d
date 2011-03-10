@@ -21,13 +21,10 @@ Public Class ClassU
     Public tgeom As New cGeometry()
     <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
     Public Property transform As New cTransform()
-    <System.NonSerialized()> _
-    Public vertexBuffer As New List(Of CustomVertex.PositionColored)
     Public ht As New Hashtable()
     Dim minSU As Single = -10
     Dim maxSU As Single = 10
     Dim stepSU As Single = 1
-    Dim pColor As Color = Color.Red
     Dim minSUm As Single = -10
     Dim maxSUm As Single = 10
     Dim stepSUm As Single = 1
@@ -260,15 +257,7 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("2. Appearance"), DisplayName("Point Color")> _
-    Public Property bojaTacke() As Color
-        Get
-            Return Me.pColor
-        End Get
-        Set(ByVal value As Color)
-            Me.pColor = value
-        End Set
-    End Property
+    
 
     <Category("2. Appearance"), DisplayName("Line Width")> _
     Public Property debljinaLinije() As Single
@@ -339,18 +328,10 @@ Public Class ClassU
                 'Console.WriteLine("Line: " + ce.Line.ToString)
             Next
         End If
-        Try
-            tgeom = Me.transform.getTransformedGeometry(Me.geom)
-            Me.vertexBuffer.Clear()
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(tgeom.vb(0), Me.pColor.ToArgb))
-            Me.vertexBuffer.Add(New CustomVertex.PositionColored(tgeom.vb(tgeom.vb.Length - 1), Me.pColor.ToArgb))
-        Catch ex As Exception
-            Console.WriteLine(ex.Message)
-        End Try
+        tgeom = Me.transform.getTransformedGeometry(Me.geom)
         cp.TempFiles.Delete()
     End Sub
     Public Sub afterPaste(ByVal device As Device)
-        Me.vertexBuffer = New List(Of CustomVertex.PositionColored)
         refreshBuffer()
     End Sub
 End Class
