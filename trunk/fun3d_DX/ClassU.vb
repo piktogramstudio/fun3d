@@ -8,15 +8,19 @@ Imports System.Drawing.Design
 Public Class ClassU
     Dim metaData As New sMetaData("U curve")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
+
     Private UGustina As Short = 30
     Private maxU As String = "10"
     Private minU As String = "-10"
-    Private funX As String = "u"
-    Private funY As String = "u"
-    Private funZ As String = "1"
-    Public u As Single = 0
+
+    <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    Public Property funX As String = "u"
+    <Category("3. Functions"), DisplayName("Y(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    Public Property funY As String = "u"
+    <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    Public Property funZ As String = "1"
+
     Public prm As New List(Of ClassParametri)
-    Public dynprm As New List(Of ClassDynamicParametri)
     Public geom As New cGeometry()
     Public tgeom As New cGeometry()
     <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
@@ -48,24 +52,7 @@ Public Class ClassU
             Me.ht(key) = value
         End Set
     End Property
-    <Category("4. Parameters"), DisplayName("Dynamic Parameters")> _
-    Public Property dynapicParameters() As List(Of ClassDynamicParametri)
-        Get
-            Return Me.dynprm
-        End Get
-        Set(ByVal value As List(Of ClassDynamicParametri))
-            Me.dynprm = value
-        End Set
-    End Property
-    <Category("4. Parameters")> _
-    Public Property dParam(ByVal index As Integer) As Single
-        Get
-            Return Me.dynprm(index).value
-        End Get
-        Set(ByVal value As Single)
-            Me.dynprm(index).value = value
-        End Set
-    End Property
+    
     <Category("7. U"), DisplayName("Minimum Umax Value")> _
     Public Property sliderMinimumUmax() As Single
         Get
@@ -189,7 +176,6 @@ Public Class ClassU
             End If
         End Set
     End Property
-
     <Category("7. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
@@ -208,36 +194,6 @@ Public Class ClassU
             minU = value
         End Set
     End Property
-
-
-    <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
-    Public Property XF() As String
-        Get
-            Return Me.funX
-        End Get
-        Set(ByVal value As String)
-            Me.funX = value
-        End Set
-    End Property
-    <Category("3. Functions"), DisplayName("Y(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
-    Public Property YF() As String
-        Get
-            Return Me.funY
-        End Get
-        Set(ByVal value As String)
-            Me.funY = value
-        End Set
-    End Property
-    <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
-    Public Property ZF() As String
-        Get
-            Return Me.funZ
-        End Get
-        Set(ByVal value As String)
-            Me.funZ = value
-        End Set
-    End Property
-
     <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
     Public Property parametri() As List(Of ClassParametri)
         Get
@@ -256,9 +212,6 @@ Public Class ClassU
             Me.lineAppearance.LineColor = value
         End Set
     End Property
-
-    
-
     <Category("2. Appearance"), DisplayName("Line Width")> _
     Public Property debljinaLinije() As Single
         Get
@@ -268,9 +221,8 @@ Public Class ClassU
             Me.lineAppearance.LineWidth = value
         End Set
     End Property
-
     <Category("2. Appearance")> _
-    Public Property Transparency() As Byte
+        Public Property Transparency() As Byte
         Get
             Return Me.lineAppearance.LineTransparency
         End Get
@@ -278,9 +230,7 @@ Public Class ClassU
             Me.lineAppearance.LineTransparency = value
         End Set
     End Property
-
     Public Sub refreshBuffer()
-
         Dim p As ClassParametri
         Dim cd As String = ""
         Dim vba As New Microsoft.VisualBasic.VBCodeProvider()
