@@ -10,8 +10,8 @@ Public Class ClassU
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
 
     Private UGustina As Short = 30
-    Private maxU As String = "10"
-    Private minU As String = "-10"
+    Private maxU As Single = 10
+    Private minU As Single = -10
 
     <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property funX As String = "u"
@@ -23,9 +23,10 @@ Public Class ClassU
     Public prm As New List(Of ClassParametri)
     Public geom As New cGeometry()
     Public tgeom As New cGeometry()
+
     <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
     Public Property transform As New cTransform()
-    Public ht As New Hashtable()
+
     Dim minSU As Single = -10
     Dim maxSU As Single = 10
     Dim stepSU As Single = 1
@@ -38,21 +39,6 @@ Public Class ClassU
     Public Shared Event progressEnd()
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
 #End Region
-    <Category("4. Parameters")> _
-    Public Property np(ByVal key As String) As Single
-        Get
-            Dim c As ClassParametri
-            ht.Clear()
-            For Each c In Me.prm
-                Me.ht.Add(c.Name, c.value)
-            Next
-            Return CSng(Me.ht(key))
-        End Get
-        Set(ByVal value As Single)
-            Me.ht(key) = value
-        End Set
-    End Property
-    
     <Category("7. U"), DisplayName("Minimum Umax Value")> _
     Public Property sliderMinimumUmax() As Single
         Get
@@ -179,19 +165,19 @@ Public Class ClassU
     <Category("7. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
-            Return maxU
+            Return CStr(maxU)
         End Get
         Set(ByVal value As String)
-            maxU = value
+            maxU = mdTools.Evaluate(value, Me.parametri.ToArray)
         End Set
     End Property
     <Category("7. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoU() As String
         Get
-            Return minU
+            Return CStr(minU)
         End Get
         Set(ByVal value As String)
-            minU = value
+            minU = mdTools.Evaluate(value, Me.parametri.ToArray)
         End Set
     End Property
     <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
@@ -248,8 +234,8 @@ Public Class ClassU
             cd += "param.add(" + Str(p.value) + ")" + vbCrLf
         Next
         cd += "Dim u as Single" + vbCrLf
-        cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Me.UGustina.ToString + "" + vbCrLf
-        cd += "For u=" + Me.minU + " To " + Me.maxU + "+uStep/2 Step uStep" + vbCrLf
+        cd += "Dim uStep as Single = (" + Str(Me.maxU) + "-" + Str(Me.minU) + ")/" + Me.UGustina.ToString + "" + vbCrLf
+        cd += "For u=" + Str(Me.minU) + " To " + Str(Me.maxU) + "+uStep/2 Step uStep" + vbCrLf
         cd += "rv.add(New Vector3(" + Me.funX + "," + Me.funY + "," + Me.funZ + "))" + vbCrLf
         cd += "Next" + vbCrLf
         cd += "Return rv" + vbCrLf
@@ -273,7 +259,7 @@ Public Class ClassU
         Else
             Dim ce As CodeDom.Compiler.CompilerError
             For Each ce In cr.Errors
-                'Console.WriteLine(cd)
+                Console.WriteLine(cd)
                 Console.WriteLine(ce.ErrorText)
                 'Console.WriteLine("Line: " + ce.Line.ToString)
             Next
