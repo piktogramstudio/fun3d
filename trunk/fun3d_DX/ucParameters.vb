@@ -24,7 +24,7 @@
             b = New Binding("Value", p, "value")
             b.DataSourceUpdateMode = DataSourceUpdateMode.OnPropertyChanged
             nud.DataBindings.Add(b)
-            AddHandler nud.ValueChanged, AddressOf b_Format
+            AddHandler b.Format, AddressOf b_Format
             Me.FLPParams.Controls.Add(nud)
         Next
     End Sub

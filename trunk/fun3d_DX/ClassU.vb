@@ -94,33 +94,6 @@ Public Class ClassU
             Me.stepSU = value
         End Set
     End Property
-
-    <Category("4. Parameters")> _
-    Public Property param(ByVal index As Integer) As Single
-        Get
-            Return prm(index).value
-        End Get
-        Set(ByVal value As Single)
-            prm(index).value = value
-        End Set
-    End Property
-    <Category("4. Parameters")> _
-    Public Property p(ByVal nazivParametra As String) As Single
-        Get
-            Dim rv As Single
-            Dim sp As ClassParametri
-            For Each sp In prm
-                If nazivParametra = sp.Name Then rv = sp.value
-            Next
-            Return rv
-        End Get
-        Set(ByVal value As Single)
-            Dim sp As ClassParametri
-            For Each sp In prm
-                If nazivParametra = sp.Name Then sp.value = value
-            Next
-        End Set
-    End Property
     Public Sub New()
         Me.refreshBuffer()
     End Sub
@@ -259,7 +232,7 @@ Public Class ClassU
         Else
             Dim ce As CodeDom.Compiler.CompilerError
             For Each ce In cr.Errors
-                Console.WriteLine(cd)
+                'Console.WriteLine(cd)
                 Console.WriteLine(ce.ErrorText)
                 'Console.WriteLine("Line: " + ce.Line.ToString)
             Next
