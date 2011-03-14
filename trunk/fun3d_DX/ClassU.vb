@@ -1,4 +1,3 @@
-Imports System.Math
 Imports System.ComponentModel
 Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
@@ -24,6 +23,56 @@ Public Class ClassU
     Public geom As New cGeometry()
     <Browsable(False)> _
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
+
+    <Category("1. Meta"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
+    Public Property Name() As String
+        Get
+            Return Me.metaData.Name
+        End Get
+        Set(ByVal value As String)
+            If value = "" Then
+                value = "No name"
+            End If
+            Me.metaData.Name = value
+        End Set
+    End Property
+    <Category("1. Meta"), Description("Description of the object.")> _
+    Public Property Description() As String
+        Get
+            Return Me.metaData.Description
+        End Get
+        Set(ByVal value As String)
+            Me.metaData.Description = value
+        End Set
+    End Property
+
+    <Category("2. Appearance"), DisplayName("Line Color")> _
+    Public Property bojaLinija() As Color
+        Get
+            Return Me.lineAppearance.LineColor
+        End Get
+        Set(ByVal value As Color)
+            Me.lineAppearance.LineColor = value
+        End Set
+    End Property
+    <Category("2. Appearance"), DisplayName("Line Width")> _
+    Public Property debljinaLinije() As Single
+        Get
+            Return Me.lineAppearance.LineWidth
+        End Get
+        Set(ByVal value As Single)
+            Me.lineAppearance.LineWidth = value
+        End Set
+    End Property
+    <Category("2. Appearance")> _
+    Public Property Transparency() As Byte
+        Get
+            Return Me.lineAppearance.LineTransparency
+        End Get
+        Set(ByVal value As Byte)
+            Me.lineAppearance.LineTransparency = value
+        End Set
+    End Property
 
     <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property funX As String = "u"
@@ -103,27 +152,7 @@ Public Class ClassU
         Me.metaData.Name = ime
         Me.refreshBuffer()
     End Sub
-    <Category("1. Meta")> _
-    Public Property Name() As String
-        Get
-            Return Me.metaData.Name
-        End Get
-        Set(ByVal value As String)
-            If value = "" Then
-                value = "No name"
-            End If
-            Me.metaData.Name = value
-        End Set
-    End Property
-    <Category("1. Meta")> _
-    Public Property Description() As String
-        Get
-            Return Me.metaData.Description
-        End Get
-        Set(ByVal value As String)
-            Me.metaData.Description = value
-        End Set
-    End Property
+    
     <Category("7. U")> _
     Public Property Udens() As Short
         Get
@@ -140,7 +169,7 @@ Public Class ClassU
     <Category("7. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
-            Return CStr(maxU)
+            Return Str(maxU)
         End Get
         Set(ByVal value As String)
             maxU = mdTools.Evaluate(value, Me.parametri.ToArray)
@@ -149,7 +178,7 @@ Public Class ClassU
     <Category("7. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoU() As String
         Get
-            Return CStr(minU)
+            Return Str(minU)
         End Get
         Set(ByVal value As String)
             minU = mdTools.Evaluate(value, Me.parametri.ToArray)
@@ -164,33 +193,7 @@ Public Class ClassU
             prm = value
         End Set
     End Property
-    <Category("2. Appearance"), DisplayName("Line Color")> _
-    Public Property bojaLinija() As Color
-        Get
-            Return Me.lineAppearance.LineColor
-        End Get
-        Set(ByVal value As Color)
-            Me.lineAppearance.LineColor = value
-        End Set
-    End Property
-    <Category("2. Appearance"), DisplayName("Line Width")> _
-    Public Property debljinaLinije() As Single
-        Get
-            Return Me.lineAppearance.LineWidth
-        End Get
-        Set(ByVal value As Single)
-            Me.lineAppearance.LineWidth = value
-        End Set
-    End Property
-    <Category("2. Appearance")> _
-    Public Property Transparency() As Byte
-        Get
-            Return Me.lineAppearance.LineTransparency
-        End Get
-        Set(ByVal value As Byte)
-            Me.lineAppearance.LineTransparency = value
-        End Set
-    End Property
+    
     Public Sub refreshBuffer()
         Dim p As ClassParametri
         Dim cd As String = ""
