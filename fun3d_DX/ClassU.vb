@@ -6,12 +6,24 @@ Imports System.Drawing.Design
 
 <System.Serializable()> _
 Public Class ClassU
+    Implements IFun3DObject
     Dim metaData As New sMetaData("U curve")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
 
-    Private UGustina As Short = 30
-    Private maxU As Single = 10
-    Private minU As Single = -10
+    Public UGustina As Short = 30
+    Public maxU As Single = 10
+    Public minU As Single = -10
+    Public minSU As Single = -10
+    Public maxSU As Single = 10
+    Public stepSU As Single = 1
+    Public minSUm As Single = -10
+    Public maxSUm As Single = 10
+    Public stepSUm As Single = 1
+
+    Public prm As New List(Of ClassParametri)
+    Public geom As New cGeometry()
+    <Browsable(False)> _
+    Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
 
     <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property funX As String = "u"
@@ -19,25 +31,15 @@ Public Class ClassU
     Public Property funY As String = "u"
     <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property funZ As String = "1"
-
-    Public prm As New List(Of ClassParametri)
-    Public geom As New cGeometry()
-    Public tgeom As New cGeometry()
-
     <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
     Public Property transform As New cTransform()
 
-    Dim minSU As Single = -10
-    Dim maxSU As Single = 10
-    Dim stepSU As Single = 1
-    Dim minSUm As Single = -10
-    Dim maxSUm As Single = 10
-    Dim stepSUm As Single = 1
+
 #Region "Events"
-    Public Shared Event bufferRefreshed()
-    Public Shared Event progressStart()
-    Public Shared Event progressEnd()
-    Public Shared Event progress(ByVal p As Integer, ByVal m As String)
+    Public Event bufferRefreshed() Implements IFun3DObject.bufferRefreshed
+    Public Event progressStart() Implements IFun3DObject.progressStart
+    Public Event progressEnd() Implements IFun3DObject.progressEnd
+    Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
 #End Region
     <Category("7. U"), DisplayName("Minimum Umax Value")> _
     Public Property sliderMinimumUmax() As Single
@@ -181,7 +183,7 @@ Public Class ClassU
         End Set
     End Property
     <Category("2. Appearance")> _
-        Public Property Transparency() As Byte
+    Public Property Transparency() As Byte
         Get
             Return Me.lineAppearance.LineTransparency
         End Get

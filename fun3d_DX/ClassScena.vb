@@ -55,8 +55,6 @@ Public Class ClassScena
     <Browsable(False)> _
     Public WithEvents selectedISO As ClassISO
     <Browsable(False)> _
-    Public WithEvents selectedU As ClassU
-    <Browsable(False)> _
     Public WithEvents selectedFun3DObject As IFun3DObject
     Dim selektovaniObjekat As Object
     Public Shared Event SelectionChanged()
@@ -94,7 +92,7 @@ Public Class ClassScena
             ElseIf value.GetType Is GetType(ClassISO) Then
                 Me.selectedISO = CType(value, ClassISO)
             ElseIf value.GetType Is GetType(ClassU) Then
-                Me.selectedU = CType(value, ClassU)
+                Me.selectedFun3DObject = CType(value, ClassU)
             End If
             RaiseEvent SelectionChanged()
         End Set
@@ -1189,15 +1187,15 @@ Public Class ClassScena
         RaiseEvent propertyChanged()
     End Sub
 
-    Private Sub selectedLS_progress(ByVal p As Integer, ByVal m As String) Handles selectedLS.progress, selectedCA.progress, selectedISO.progress, selectedU.progress, selectedUV.progress
+    Private Sub selectedLS_progress(ByVal p As Integer, ByVal m As String) Handles selectedLS.progress, selectedCA.progress, selectedISO.progress, selectedUV.progress
         RaiseEvent progress(p, m)
     End Sub
 
-    Private Sub selectedLS_progressEnd() Handles selectedLS.progressEnd, selectedCA.progressEnd, selectedISO.progressEnd, selectedU.progressEnd, selectedUV.progressEnd
+    Private Sub selectedLS_progressEnd() Handles selectedLS.progressEnd, selectedCA.progressEnd, selectedISO.progressEnd, selectedUV.progressEnd
         RaiseEvent progressEnd()
     End Sub
 
-    Private Sub selectedLS_progressStart() Handles selectedLS.progressStart, selectedCA.progressStart, selectedISO.progressStart, selectedU.progressStart, selectedUV.progressStart
+    Private Sub selectedLS_progressStart() Handles selectedLS.progressStart, selectedCA.progressStart, selectedISO.progressStart, selectedUV.progressStart
         RaiseEvent progressStart()
     End Sub
 
