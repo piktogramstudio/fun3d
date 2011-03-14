@@ -8,6 +8,8 @@ Public Class ClassFun3DObject
     Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
     Public Event progressEnd() Implements IFun3DObject.progressEnd
     Public Event progressStart() Implements IFun3DObject.progressStart
+
+    Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
 #Region "Prifate fields"
     Dim objName As String = "New Fun3D Object"
     Dim scX As Single = 1
