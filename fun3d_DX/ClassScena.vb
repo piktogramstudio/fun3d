@@ -632,7 +632,7 @@ Public Class ClassScena
 
         If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
         d3l.Begin()
-        d3l.DrawTransform(UV.tgeom.vb, lineMatrix, Color.FromArgb(UV.Transparency, UV.bojaLinija))
+        d3l.DrawTransform(UV.tgeom.vb, lineMatrix, Color.FromArgb(UV.Transparency, UV.LineColor))
         d3l.End()
 
         d3l.Dispose()
@@ -640,8 +640,8 @@ Public Class ClassScena
         If UV.Equals(Me.SelectedObject) Then
             device.RenderState.PointSize = Me.PointSize
             Dim ver(2) As CustomVertex.PositionColored
-            ver(0) = New CustomVertex.PositionColored(UV.tgeom.vb(0), UV.bojaLinija.ToArgb)
-            ver(1) = New CustomVertex.PositionColored(UV.tgeom.vb(UV.tgeom.vb.Length - 1), UV.bojaLinija.ToArgb)
+            ver(0) = New CustomVertex.PositionColored(UV.tgeom.vb(0), UV.LineColor.ToArgb)
+            ver(1) = New CustomVertex.PositionColored(UV.tgeom.vb(UV.tgeom.vb.Length - 1), UV.LineColor.ToArgb)
             device.VertexFormat = CustomVertex.PositionColored.Format
             device.DrawUserPrimitives(PrimitiveType.PointList, ver.Length, ver)
         End If

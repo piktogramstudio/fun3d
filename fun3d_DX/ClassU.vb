@@ -46,8 +46,8 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("2. Appearance"), DisplayName("Line Color")> _
-    Public Property bojaLinija() As Color
+    <Category("2. Appearance"), DisplayName("Line Color"), Description("The color of the curve." + vbCrLf + "Choose from palettes, enter color name or rgb color value in format ""red;green;blue"" (exp. 255;0;0 or Red)")> _
+    Public Property LineColor() As Color
         Get
             Return Me.lineAppearance.LineColor
         End Get
