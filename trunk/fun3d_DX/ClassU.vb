@@ -9,7 +9,7 @@ Public Class ClassU
     Dim metaData As New sMetaData("U curve")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
 
-    Public UGustina As Short = 30
+    Public UDensity As Short = 30
     Public maxU As Single = 10
     Public minU As Single = -10
     Public minSU As Single = -10
@@ -19,12 +19,12 @@ Public Class ClassU
     Public maxSUm As Single = 10
     Public stepSUm As Single = 1
 
-    Public prm As New List(Of ClassParametri)
     Public geom As New cGeometry()
+
     <Browsable(False)> _
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
 
-    <Category("1. Meta"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
+    <DisplayName("a. Name"), Category("1. Meta"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
     Public Property Name() As String
         Get
             Return Me.metaData.Name
@@ -36,7 +36,7 @@ Public Class ClassU
             Me.metaData.Name = value
         End Set
     End Property
-    <Category("1. Meta"), Description("Description of the object.")> _
+    <DisplayName("b. Description"), Category("1. Meta"), Description("Description of the object.")> _
     Public Property Description() As String
         Get
             Return Me.metaData.Description
@@ -46,7 +46,7 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("2. Appearance"), DisplayName("Line Color"), Description("The color of the curve." + vbCrLf + "Choose from palettes, enter color name or rgb color value in format ""red;green;blue"" (exp. 255;0;0 or Red)")> _
+    <Category("2. Appearance"), DisplayName("a. Line Color"), Description("The color of the curve." + vbCrLf + "Choose from palettes, enter color name or rgb color value in format ""red;green;blue"" (exp. 255;0;0 or Red)")> _
     Public Property LineColor() As Color
         Get
             Return Me.lineAppearance.LineColor
@@ -55,8 +55,8 @@ Public Class ClassU
             Me.lineAppearance.LineColor = value
         End Set
     End Property
-    <Category("2. Appearance"), DisplayName("Line Width")> _
-    Public Property debljinaLinije() As Single
+    <Category("2. Appearance"), DisplayName("b. Line Width"), Description("Line width on screen in pixels")> _
+    Public Property LineWidth() As Single
         Get
             Return Me.lineAppearance.LineWidth
         End Get
@@ -64,7 +64,7 @@ Public Class ClassU
             Me.lineAppearance.LineWidth = value
         End Set
     End Property
-    <Category("2. Appearance")> _
+    <DisplayName("c. Transparency"), Category("2. Appearance"), Description("Alpha value of line color between 0 transparent and 255 no transparent)")> _
     Public Property Transparency() As Byte
         Get
             Return Me.lineAppearance.LineTransparency
@@ -74,14 +74,18 @@ Public Class ClassU
         End Set
     End Property
 
-    <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    <Category("3. Functions"), DisplayName("X(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor)), Description("X(u) parametric form function. Click on button to open equation editor")> _
     Public Property funX As String = "u"
-    <Category("3. Functions"), DisplayName("Y(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    <Category("3. Functions"), DisplayName("Y(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor)), Description("Y(u) parametric form function. Click on button to open equation editor")> _
     Public Property funY As String = "u"
-    <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
+    <Category("3. Functions"), DisplayName("Z(u)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor)), Description("Z(u) parametric form function. Click on button to open equation editor")> _
     Public Property funZ As String = "1"
-    <Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor))> _
-    Public Property transform As New cTransform()
+
+    <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor)), Description("Interactive real time parameters adjustements, To add or remove parameter use equation editor in any equation property (exp. X(u))")> _
+    Public Property Parameters() As New List(Of ClassParametri)
+
+    <Category("5. Transforms"), Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor)), Description("Affine transformations of the line (rotation, position, scale)" + vbCrLf + "Click on button to open transform tool" + vbCrLf + "For mirror transform use negative scale number")> _
+    Public Property Transform As New cTransform()
 
 
 #Region "Events"
@@ -90,6 +94,7 @@ Public Class ClassU
     Public Event progressEnd() Implements IFun3DObject.progressEnd
     Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
 #End Region
+
     <Category("7. U"), DisplayName("Minimum Umax Value")> _
     Public Property sliderMinimumUmax() As Single
         Get
@@ -156,11 +161,11 @@ Public Class ClassU
     <Category("7. U")> _
     Public Property Udens() As Short
         Get
-            Return Me.UGustina
+            Return Me.UDensity
         End Get
         Set(ByVal value As Short)
             If 0 < value And value < 512 Then
-                Me.UGustina = value
+                Me.UDensity = value
             Else
                 Console.WriteLine("<b>Value must be between 1 and 511!</b>")
             End If
@@ -172,7 +177,7 @@ Public Class ClassU
             Return Str(maxU)
         End Get
         Set(ByVal value As String)
-            maxU = mdTools.Evaluate(value, Me.parametri.ToArray)
+            maxU = mdTools.Evaluate(value, Me.Parameters.ToArray)
         End Set
     End Property
     <Category("7. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
@@ -181,18 +186,10 @@ Public Class ClassU
             Return Str(minU)
         End Get
         Set(ByVal value As String)
-            minU = mdTools.Evaluate(value, Me.parametri.ToArray)
+            minU = mdTools.Evaluate(value, Me.Parameters.ToArray)
         End Set
     End Property
-    <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
-    Public Property parametri() As List(Of ClassParametri)
-        Get
-            Return Me.prm
-        End Get
-        Set(ByVal value As List(Of ClassParametri))
-            prm = value
-        End Set
-    End Property
+    
     
     Public Sub refreshBuffer()
         Dim p As ClassParametri
@@ -207,12 +204,12 @@ Public Class ClassU
         cd += "Public Function Evaluate() As List(of Vector3)" + vbCrLf
         cd += "Dim rv as New List(of Vector3)" + vbCrLf
         cd += "Dim param as New List(of Single)" + vbCrLf
-        For Each p In Me.prm
+        For Each p In Me.Parameters
             cd += "Dim " + p.Name + " as Single = " + Str(p.value) + vbCrLf
             cd += "param.add(" + Str(p.value) + ")" + vbCrLf
         Next
         cd += "Dim u as Single" + vbCrLf
-        cd += "Dim uStep as Single = (" + Str(Me.maxU) + "-" + Str(Me.minU) + ")/" + Me.UGustina.ToString + "" + vbCrLf
+        cd += "Dim uStep as Single = (" + Str(Me.maxU) + "-" + Str(Me.minU) + ")/" + Me.UDensity.ToString + "" + vbCrLf
         cd += "For u=" + Str(Me.minU) + " To " + Str(Me.maxU) + "+uStep/2 Step uStep" + vbCrLf
         cd += "rv.add(New Vector3(" + Me.funX + "," + Me.funY + "," + Me.funZ + "))" + vbCrLf
         cd += "Next" + vbCrLf

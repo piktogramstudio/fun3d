@@ -135,7 +135,7 @@ Public Class tfValueInspector
                 Dim p As ClassParametri
                 Dim tp As Integer = Me.TextBoxUmin.Top
                 Dim i As Integer = 0
-                For Each p In U.prm
+                For Each p In U.Parameters
                     Dim t1 As TextBox
                     t1 = New TextBox
                     t1.Name = "minvT" + i.ToString
@@ -235,15 +235,15 @@ Public Class tfValueInspector
             Try
                 Select Case spam(0)
                     Case "minv"
-                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).prm(CInt(spam(1))).sliderMinimum = CSng(tb.Text)
+                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Parameters(CInt(spam(1))).sliderMinimum = CSng(tb.Text)
                         Dim tb1 As NumericUpDown = CType(Me.Panel1.Controls("vB" + spam(1)), NumericUpDown)
                         tb1.Minimum = CDec(tb.Text)
                     Case "maxv"
-                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).prm(CInt(spam(1))).sliderMaximum = CSng(tb.Text)
+                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Parameters(CInt(spam(1))).sliderMaximum = CSng(tb.Text)
                         Dim tb1 As NumericUpDown = CType(Me.Panel1.Controls("vB" + spam(1)), NumericUpDown)
                         tb1.Maximum = CDec(tb.Text)
                     Case "step"
-                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).prm(CInt(spam(1))).sliderStep = CSng(tb.Text)
+                        mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Parameters(CInt(spam(1))).sliderStep = CSng(tb.Text)
                         Dim tb1 As NumericUpDown = CType(Me.Panel1.Controls("vB" + spam(1)), NumericUpDown)
                         tb1.Increment = CDec(tb.Text)
                 End Select
@@ -261,7 +261,7 @@ Public Class tfValueInspector
             cf3D.Refresh()
         Catch ex As Exception
             Try
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).prm(CInt(spam(1))).value = tb.Value
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Parameters(CInt(spam(1))).value = tb.Value
                 mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).refreshBuffer()
                 cf3D.Refresh()
             Catch ex1 As Exception
