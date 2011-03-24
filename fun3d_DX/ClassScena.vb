@@ -627,7 +627,7 @@ Public Class ClassScena
         Dim pcount As Integer = 512
         Dim tpc As Integer = UV.tgeom.vb.Length - 1
         d3l.GlLines = True
-        d3l.Width = UV.debljinaLinije
+        d3l.Width = UV.LineWidth
         d3l.Antialias = True
 
         If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
