@@ -24,7 +24,7 @@ Public Class ClassU
     <Browsable(False)> _
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
 
-    <DisplayName("a. Name"), Category("1. Meta"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
+    <Category("1. Meta"), DisplayName("a. Name"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
     Public Property Name() As String
         Get
             Return Me.metaData.Name
@@ -36,7 +36,7 @@ Public Class ClassU
             Me.metaData.Name = value
         End Set
     End Property
-    <DisplayName("b. Description"), Category("1. Meta"), Description("Description of the object.")> _
+    <Category("1. Meta"), DisplayName("b. Description"), Description("Description of the object.")> _
     Public Property Description() As String
         Get
             Return Me.metaData.Description
@@ -64,7 +64,7 @@ Public Class ClassU
             Me.lineAppearance.LineWidth = value
         End Set
     End Property
-    <DisplayName("c. Transparency"), Category("2. Appearance"), Description("Alpha value of line color between 0 transparent and 255 no transparent)")> _
+    <Category("2. Appearance"), DisplayName("c. Transparency"), Description("Alpha value of line color between 0 transparent and 255 no transparent)")> _
     Public Property Transparency() As Byte
         Get
             Return Me.lineAppearance.LineTransparency
@@ -87,6 +87,37 @@ Public Class ClassU
     <Category("5. Transforms"), Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor)), Description("Affine transformations of the line (rotation, position, scale)" + vbCrLf + "Click on button to open transform tool" + vbCrLf + "For mirror transform use negative scale number")> _
     Public Property Transform As New cTransform()
 
+    <Category("6. Parameter 'u' settings"), DisplayName("a. Density"), Description("Curve density or 'u' value step. This value is number of line segments along curve and must be between 1 and 511.")> _
+    Public Property Udens() As Short
+        Get
+            Return Me.UDensity
+        End Get
+        Set(ByVal value As Short)
+            If 0 < value And value < 512 Then
+                Me.UDensity = value
+            Else
+                Console.WriteLine("<b>Value must be between 1 and 511!</b>")
+            End If
+        End Set
+    End Property
+    <Category("6. Parameter 'u' settings"), DisplayName("b. Minimum 'u'"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor)), Description("Minimum parameter 'u' value")> _
+    Public Property Umin() As String
+        Get
+            Return Str(minU)
+        End Get
+        Set(ByVal value As String)
+            minU = mdTools.Evaluate(value, Me.Parameters.ToArray)
+        End Set
+    End Property
+    <Category("6. Parameter 'u' settings"), DisplayName("c. Maximum 'u'"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor)), Description("Maximum parameter 'u' value")> _
+    Public Property Umax() As String
+        Get
+            Return Str(maxU)
+        End Get
+        Set(ByVal value As String)
+            maxU = mdTools.Evaluate(value, Me.Parameters.ToArray)
+        End Set
+    End Property
 
 #Region "Events"
     Public Event bufferRefreshed() Implements IFun3DObject.bufferRefreshed
@@ -150,6 +181,7 @@ Public Class ClassU
             Me.stepSU = value
         End Set
     End Property
+
     Public Sub New()
         Me.refreshBuffer()
     End Sub
@@ -157,40 +189,7 @@ Public Class ClassU
         Me.metaData.Name = ime
         Me.refreshBuffer()
     End Sub
-    
-    <Category("7. U")> _
-    Public Property Udens() As Short
-        Get
-            Return Me.UDensity
-        End Get
-        Set(ByVal value As Short)
-            If 0 < value And value < 512 Then
-                Me.UDensity = value
-            Else
-                Console.WriteLine("<b>Value must be between 1 and 511!</b>")
-            End If
-        End Set
-    End Property
-    <Category("7. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
-    Public Property maksimalnoU() As String
-        Get
-            Return Str(maxU)
-        End Get
-        Set(ByVal value As String)
-            maxU = mdTools.Evaluate(value, Me.Parameters.ToArray)
-        End Set
-    End Property
-    <Category("7. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
-    Public Property minimalnoU() As String
-        Get
-            Return Str(minU)
-        End Get
-        Set(ByVal value As String)
-            minU = mdTools.Evaluate(value, Me.Parameters.ToArray)
-        End Set
-    End Property
-    
-    
+
     Public Sub refreshBuffer()
         Dim p As ClassParametri
         Dim cd As String = ""
