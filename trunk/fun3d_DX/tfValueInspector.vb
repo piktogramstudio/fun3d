@@ -118,7 +118,7 @@ Public Class tfValueInspector
                 Me.TrackBarU.Increment = CDec(U.sliderStepUmin)
                 Me.TrackBarU.Minimum = CDec(U.sliderMinimumUmin)
                 Me.TrackBarU.Maximum = CDec(U.sliderMaximumUmin)
-                Me.TrackBarU.Value = CDec(U.minimalnoU)
+                Me.TrackBarU.Value = CDec(U.Umin)
                 Me.TextBoxUmax.Text = U.sliderMaximumUmin.ToString
                 Me.TextBoxUmin.Text = U.sliderMinimumUmin.ToString
                 Me.TextBoxUstep.Text = U.sliderStepUmin.ToString
@@ -126,7 +126,7 @@ Public Class tfValueInspector
                 Me.TrackBarUm.Increment = CDec(U.sliderStepUmax)
                 Me.TrackBarUm.Minimum = CDec(U.sliderMinimumUmax)
                 Me.TrackBarUm.Maximum = CDec(U.sliderMaximumUmax)
-                Me.TrackBarUm.Value = CDec(U.maksimalnoU)
+                Me.TrackBarUm.Value = CDec(U.Umax)
                 Me.TextBoxUmaxm.Text = U.sliderMaximumUmax.ToString
                 Me.TextBoxUminm.Text = U.sliderMinimumUmax.ToString
                 Me.TextBoxUstepm.Text = U.sliderStepUmax.ToString
@@ -204,7 +204,7 @@ Public Class tfValueInspector
             cf3D.Refresh()
         Catch ex As Exception
             Try
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).minimalnoU = Me.TrackBarU.Value.ToString
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Umin = Me.TrackBarU.Value.ToString
                 mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).refreshBuffer()
                 cf3D.Refresh()
             Catch ex1 As Exception
@@ -277,7 +277,7 @@ Public Class tfValueInspector
             cf3D.Refresh()
         Catch ex As Exception
             Try
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).maksimalnoU = Me.TrackBarUm.Value.ToString
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).Umax = Me.TrackBarUm.Value.ToString
                 mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).refreshBuffer()
                 cf3D.Refresh()
             Catch ex1 As Exception
