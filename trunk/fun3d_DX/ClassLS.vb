@@ -321,7 +321,7 @@ Public Class ClassLS
         Next
     End Sub
 
-    Public Sub RefreshBuffer()
+    Public Sub refreshBuffer()
         RaiseEvent progressStart()
         Me.LineBuffer.Clear()
         Me.bufferT.Clear()

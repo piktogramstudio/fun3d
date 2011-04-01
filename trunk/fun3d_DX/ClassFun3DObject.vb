@@ -10,6 +10,8 @@ Public Class ClassFun3DObject
     Public Event progressStart() Implements IFun3DObject.progressStart
 
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
+
+    Public Property parent As Object = Nothing Implements IFun3DObject.parent
 #Region "Prifate fields"
     Dim objName As String = "New Fun3D Object"
     Dim scX As Single = 1

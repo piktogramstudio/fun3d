@@ -5,4 +5,5 @@ Public Interface IFun3DObject
     Event progress(ByVal p As Integer, ByVal m As String)
 
     Property tgeom As cGeometry
+    Property parent As Object
 End Interface
