@@ -313,7 +313,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarU.Minimum = CDec(Me.TextBoxUmin.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMinimumUmin = CSng(Me.TextBoxUmin.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMinimumUmin = Me.TextBoxUmin.Text
             Catch ex1 As Exception
 
             End Try
@@ -327,7 +327,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarU.Maximum = CDec(Me.TextBoxUmax.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMaximumUmin = CSng(Me.TextBoxUmax.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMaximumUmin = Me.TextBoxUmax.Text
             Catch ex1 As Exception
 
             End Try
@@ -341,7 +341,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarU.Increment = CDec(Me.TextBoxUstep.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderStepUmin = CSng(Me.TextBoxUstep.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderStepUmin = Me.TextBoxUstep.Text
             Catch ex1 As Exception
 
             End Try
@@ -355,7 +355,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarUm.Minimum = CDec(Me.TextBoxUminm.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMinimumUmax = CSng(Me.TextBoxUminm.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMinimumUmax = Me.TextBoxUminm.Text
             Catch ex1 As Exception
 
             End Try
@@ -369,7 +369,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarUm.Maximum = CDec(Me.TextBoxUmaxm.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMaximumUmax = CSng(Me.TextBoxUmaxm.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderMaximumUmax = Me.TextBoxUmaxm.Text
             Catch ex1 As Exception
 
             End Try
@@ -383,7 +383,7 @@ Public Class tfValueInspector
         Catch ex As Exception
             Try
                 Me.TrackBarUm.Increment = CDec(Me.TextBoxUstepm.Text)
-                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderStepUmax = CSng(Me.TextBoxUstepm.Text)
+                mf.Scena.UList(Me.ComboBoxPropertyObject.SelectedIndex - mf.Scena.UVList.Count).sliderStepUmax = Me.TextBoxUstepm.Text
             Catch ex1 As Exception
 
             End Try
