@@ -4,6 +4,7 @@ Imports System.Math
 Imports System.ComponentModel
 <System.Serializable()> _
 Public Class ClassScena
+    Implements iFun3DScene
     Private minV As Single = -100
     Private maxV As Single = 100
     Private gridStep As Single = 10
@@ -63,7 +64,7 @@ Public Class ClassScena
     Public Shared Event progressEnd()
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
     Dim rgbv As Integer = 0
-    Public Fun3DFileVersion As Integer
+    Public Property Fun3DFileVersion As Integer Implements iFun3DScene.Fun3DFileVersion
     Public Sub New()
         Me.LightClass.Clear()
         Me.LightClass.Add(New ClassLight)
@@ -125,7 +126,7 @@ Public Class ClassScena
         End Set
     End Property
     <Category("2. Appearance")> _
-        Public Property showShadows() As Boolean
+    Public Property showShadows() As Boolean
         Get
             Return Me.shadow
         End Get
@@ -203,7 +204,7 @@ Public Class ClassScena
         End Set
     End Property
     <Category("3. Light")> _
-        Public Property Highlight() As Boolean
+    Public Property Highlight() As Boolean
         Get
             Return Me.hglght
         End Get
@@ -212,7 +213,7 @@ Public Class ClassScena
         End Set
     End Property
     <Category("3. Light")> _
-        Public Property BlendOperation() As Direct3D.BlendOperation
+    Public Property BlendOperation() As Direct3D.BlendOperation
         Get
             Return Me.bo
         End Get
@@ -221,7 +222,7 @@ Public Class ClassScena
         End Set
     End Property
     <Category("3. Light")> _
-        Public Property AlphaFunction() As Direct3D.Compare
+    Public Property AlphaFunction() As Direct3D.Compare
         Get
             Return Me.comf
         End Get
@@ -596,20 +597,20 @@ Public Class ClassScena
                 box.GenerateAdjacency(CSng(0.1), adjacency)
                 box.OptimizeInPlace(MeshFlags.OptimizeVertexCache, adjacency)
             Catch ex As Exception
-                console.writeline(ex.Message)
+                Console.WriteLine(ex.Message)
             End Try
             Try
                 If Me.checkClick And Me.DoesMouseHitMesh(box, chkx, chky, device) Then
                     Me.SelectedObject = LS
                 End If
             Catch ex As Exception
-                console.writeline(ex.Message)
+                Console.WriteLine(ex.Message)
             End Try
             Try
 
                 box.DrawSubset(0)
             Catch ex As Exception
-                console.writeline(ex.Message)
+                Console.WriteLine(ex.Message)
             End Try
 
             box.Dispose()
@@ -993,7 +994,7 @@ Public Class ClassScena
                             Me.SelectedObject = ca
                         End If
                     Catch ex As Exception
-                        console.writeline(ex.Message)
+                        Console.WriteLine(ex.Message)
                     End Try
                 ElseIf ca.CAMesh IsNot Nothing Then
 
@@ -1003,7 +1004,7 @@ Public Class ClassScena
                             Me.SelectedObject = ca
                         End If
                     Catch ex As Exception
-                        console.writeline(ex.Message)
+                        Console.WriteLine(ex.Message)
                     End Try
                     Try
                         For i = 0 To ca.nOfLevels

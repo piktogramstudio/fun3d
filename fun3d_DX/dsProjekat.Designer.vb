@@ -611,7 +611,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class scenaDataTable
-        Inherits Global.System.Data.TypedTableBase(Of scenaRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -827,6 +828,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As scenaRow
             Return CType(Me.Rows.Find(New Object() {jb}),scenaRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1048,7 +1055,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class UVDataTable
-        Inherits Global.System.Data.TypedTableBase(Of UVRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -1547,6 +1555,12 @@ Partial Public Class dsProjekat
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As UVDataTable = CType(MyBase.Clone,UVDataTable)
             cln.InitVars
@@ -1867,7 +1881,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class LightsDataTable
-        Inherits Global.System.Data.TypedTableBase(Of LightsRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -2056,6 +2071,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As LightsRow
             Return CType(Me.Rows.Find(New Object() {jb}),LightsRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2257,7 +2278,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class parametriDataTable
-        Inherits Global.System.Data.TypedTableBase(Of parametriRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -2429,6 +2451,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As parametriRow
             Return CType(Me.Rows.Find(New Object() {jb}),parametriRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2621,7 +2649,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class dynParametriDataTable
-        Inherits Global.System.Data.TypedTableBase(Of dynParametriRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -2763,6 +2792,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As dynParametriRow
             Return CType(Me.Rows.Find(New Object() {jb}),dynParametriRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2943,7 +2978,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class UDataTable
-        Inherits Global.System.Data.TypedTableBase(Of URow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -3299,6 +3335,12 @@ Partial Public Class dsProjekat
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As UDataTable = CType(MyBase.Clone,UDataTable)
             cln.InitVars
@@ -3561,7 +3603,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class FramesDataTable
-        Inherits Global.System.Data.TypedTableBase(Of FramesRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -3730,6 +3773,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As FramesRow
             Return CType(Me.Rows.Find(New Object() {jb}),FramesRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3928,7 +3977,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class CADataTable
-        Inherits Global.System.Data.TypedTableBase(Of CARow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -4284,6 +4334,12 @@ Partial Public Class dsProjekat
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As CADataTable = CType(MyBase.Clone,CADataTable)
             cln.InitVars
@@ -4550,7 +4606,8 @@ Partial Public Class dsProjekat
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class MatrixDataTable
-        Inherits Global.System.Data.TypedTableBase(Of MatrixRow)
+        Inherits Global.System.Data.DataTable
+        Implements Global.System.Collections.IEnumerable
         
         Private columnjb As Global.System.Data.DataColumn
         
@@ -4669,6 +4726,12 @@ Partial Public Class dsProjekat
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByjb(ByVal jb As Integer) As MatrixRow
             Return CType(Me.Rows.Find(New Object() {jb}),MatrixRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overridable Function GetEnumerator() As Global.System.Collections.IEnumerator Implements Global.System.Collections.IEnumerable.GetEnumerator
+            Return Me.Rows.GetEnumerator
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
