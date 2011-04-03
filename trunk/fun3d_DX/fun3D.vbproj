@@ -28,7 +28,7 @@
     <OptionInfer>On</OptionInfer>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -68,7 +68,8 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
     <DocumentationFile>fun3D.xml</DocumentationFile>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <NoWarn>
+    </NoWarn>
     <PlatformTarget>x86</PlatformTarget>
     <WarningsAsErrors>
     </WarningsAsErrors>
@@ -79,7 +80,8 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Release\</OutputPath>
     <DocumentationFile>fun3D.xml</DocumentationFile>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <NoWarn>
+    </NoWarn>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RemoveIntegerChecks>true</RemoveIntegerChecks>
     <WarningsAsErrors>
@@ -91,7 +93,8 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DocumentationFile>fun3D.xml</DocumentationFile>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <NoWarn>
+    </NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <WarningsAsErrors>
@@ -101,7 +104,8 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
     <DocumentationFile>fun3D.xml</DocumentationFile>
-    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <NoWarn>
+    </NoWarn>
     <DebugType>None</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <RemoveIntegerChecks>true</RemoveIntegerChecks>
@@ -146,13 +150,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cEquationPropertyEditor.vb" />
+    <Compile Include="iFun3DScene.vb" />
     <Compile Include="sLineAppearance.vb" />
     <Compile Include="cParametersPropertyEditor.vb" />
     <Compile Include="cTrackBarPropertyEditor.vb" />
