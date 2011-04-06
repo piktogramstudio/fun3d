@@ -206,6 +206,7 @@ Public Class ClassU
     Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
 #End Region
 
+#Region "Methods"
     Public Sub New()
         Me.refreshBuffer()
     End Sub
@@ -275,5 +276,6 @@ Public Class ClassU
     Public Sub afterPaste(ByVal device As Device)
         refreshBuffer()
     End Sub
+#End Region
     ' TO DO Save data declaration
 End Class
