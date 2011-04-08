@@ -4,6 +4,7 @@ Public Interface IFun3DObject
     Event progressEnd()
     Event progress(ByVal p As Integer, ByVal m As String)
 
+    Property geom As cGeometry
     Property tgeom As cGeometry
     Property parent As Object
 End Interface

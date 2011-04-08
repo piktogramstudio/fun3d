@@ -6,6 +6,8 @@ Imports System.Drawing.Design
 
 <System.Serializable()> _
 Public Class ClassUV
+    Implements IFun3DObject
+
     Private UGustina As Integer = 10
     Private VGustina As Integer = 10
     Private maxU As String = "10"
@@ -65,13 +67,28 @@ Public Class ClassUV
     Public UVMesh As Mesh
     <System.NonSerialized()> _
     Public enviroment As Texture = Nothing
+
+
 #Region "Events"
-    Public Shared Event bufferRefreshed()
-    Public Shared Event progressStart()
-    Public Shared Event progressEnd()
-    Public Shared Event progress(ByVal p As Integer, ByVal m As String)
+    Public Event bufferRefreshed() Implements IFun3DObject.bufferRefreshed
+    Public Event progressStart() Implements IFun3DObject.progressStart
+    Public Event progressEnd() Implements IFun3DObject.progressEnd
+    Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
 #End Region
+
     Dim coloringStress As Boolean = False
+
+#Region "Uncategorised properties"
+    <Browsable(False)> _
+    Property geom As New cGeometry() Implements IFun3DObject.geom
+    <Browsable(False)> _
+    Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
+    <Browsable(False)> _
+    Public Property parent As Object = Nothing Implements IFun3DObject.parent
+    <DisplayName("Output Level Verbosity"), Description("Verbosity level of error messages output in console." + vbCrLf + "Value is between 0 (less) and 3 (more).")> _
+    Public Property VerbosityOutputLevel As Byte = 0
+#End Region
+
     <Category("2. Appearance")> _
     Public Property stress() As Boolean
         Get

@@ -9,6 +9,8 @@ Public Class ClassFun3DObject
     Public Event progressEnd() Implements IFun3DObject.progressEnd
     Public Event progressStart() Implements IFun3DObject.progressStart
 
+    Property geom As New cGeometry() Implements IFun3DObject.geom
+
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
 
     Public Property parent As Object = Nothing Implements IFun3DObject.parent

@@ -20,12 +20,12 @@ Public Class ClassU
     Public minSUm As Single = -10
     Public maxSUm As Single = 10
     Public stepSUm As Single = 1
-
-    Public geom As New cGeometry()
 #End Region
 
 #Region "Properties"
 #Region "Uncategorised properties"
+    <Browsable(False)> _
+    Property geom As New cGeometry() Implements IFun3DObject.geom
     <Browsable(False)> _
     Public Property tgeom As New cGeometry() Implements IFun3DObject.tgeom
     <Browsable(False)> _
