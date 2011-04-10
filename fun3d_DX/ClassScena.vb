@@ -655,7 +655,7 @@ Public Class ClassScena
         vertices = New CustomVertex.PositionNormalTextured(2) {}
         vertices1 = New CustomVertex.PositionNormalColored(7) {}
         Dim l As Color
-        l = UV.bojaLinija
+        l = UV.LineColor
         vertices1(0).Color = l.ToArgb
         vertices1(1).Color = l.ToArgb
         vertices1(2).Color = l.ToArgb
@@ -784,7 +784,7 @@ Public Class ClassScena
                 For i = 0 To UV.lineBuffer1.Count - 1 Step 2
                     lb(0) = UV.lineBuffer1(i)
                     lb(1) = UV.lineBuffer1(i + 1)
-                    d3l.DrawTransform(lb, lineMatrix, UV.bojaLinija)
+                    d3l.DrawTransform(lb, lineMatrix, UV.LineColor)
                 Next
                 d3l.End()
                 d3l.Dispose()

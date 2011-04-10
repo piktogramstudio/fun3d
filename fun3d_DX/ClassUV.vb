@@ -8,6 +8,12 @@ Imports System.Drawing.Design
 Public Class ClassUV
     Implements IFun3DObject
 
+#Region "Fields"
+    Dim metaData As New sMetaData("UV surface")
+    Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
+    'TODO surfaceAppearance
+#End Region
+
     Private UGustina As Integer = 10
     Private VGustina As Integer = 10
     Private maxU As String = "10"
@@ -31,7 +37,6 @@ Public Class ClassUV
     Dim zrot As Single = 0
     Dim sf As Byte = 1
     Dim fcd As Boolean = True
-    Private naziv As String = "new1"
     Public a As Single = 0
     Public u As Single = 0
     Public v As Single = 0
@@ -68,12 +73,66 @@ Public Class ClassUV
     <System.NonSerialized()> _
     Public enviroment As Texture = Nothing
 
-
 #Region "Events"
     Public Event bufferRefreshed() Implements IFun3DObject.bufferRefreshed
     Public Event progressStart() Implements IFun3DObject.progressStart
     Public Event progressEnd() Implements IFun3DObject.progressEnd
     Public Event progress(ByVal p As Integer, ByVal m As String) Implements IFun3DObject.progress
+#End Region
+
+#Region "1. Meta Properties"
+    <Category("1. Meta"), DisplayName("a. Name"), Description("Name of the object." + vbCrLf + "Recomended to be unique for easy identification.")> _
+    Public Property Name() As String
+        Get
+            Return Me.metaData.Name
+        End Get
+        Set(ByVal value As String)
+            If value = "" Then
+                value = "No name"
+            End If
+            Me.metaData.Name = value
+        End Set
+    End Property
+    <Category("1. Meta"), DisplayName("b. Description"), Description("Description of the object.")> _
+    Public Property Description() As String
+        Get
+            Return Me.metaData.Description
+        End Get
+        Set(ByVal value As String)
+            Me.metaData.Description = value
+        End Set
+    End Property
+#End Region
+
+#Region "2. Appearance Properties"
+    <Category("2. Appearance"), DisplayName("a. Line Color"), Description("The color of the curve." + vbCrLf + "Choose from palettes, enter color name or rgb color value in format ""red;green;blue"" (exp. 255;0;0 or Red)")> _
+    Public Property LineColor() As Color
+        Get
+            Return Me.lineAppearance.LineColor
+        End Get
+        Set(ByVal value As Color)
+            Me.lineAppearance.LineColor = value
+        End Set
+    End Property
+    <Category("2. Appearance"), DisplayName("b. Line Width"), Description("Line width on screen in pixels")> _
+    Public Property LineWidth() As Single
+        Get
+            Return Me.lineAppearance.LineWidth
+        End Get
+        Set(ByVal value As Single)
+            Me.lineAppearance.LineWidth = value
+        End Set
+    End Property
+    <Category("2. Appearance"), DisplayName("c. Transparency"), Description("Alpha value of line color between 0 transparent and 255 no transparent)")> _
+    Public Property Transparency() As Byte
+        Get
+            Return Me.lineAppearance.LineTransparency
+        End Get
+        Set(ByVal value As Byte)
+            Me.lineAppearance.LineTransparency = value
+            Me.alphaLevel = value
+        End Set
+    End Property
 #End Region
 
     Dim coloringStress As Boolean = False
@@ -125,15 +184,7 @@ Public Class ClassUV
             Me.selectedStyle = value
         End Set
     End Property
-    <Category("2. Appearance")> _
-    Public Property lineWidth() As Byte
-        Get
-            Return Me.lineW
-        End Get
-        Set(ByVal value As Byte)
-            Me.lineW = value
-        End Set
-    End Property
+    
     <Category("2. Appearance")> _
     Public Property Hatch() As Drawing2D.HatchStyle
         Get
@@ -312,7 +363,7 @@ Public Class ClassUV
             .XF = UV.XF
             .YF = UV.YF
             .ZF = UV.ZF
-            .bojaLinija = UV.bojaLinija
+            .LineColor = UV.LineColor
             .bojaPolja1 = UV.bojaPolja1
             .bojaPolja2 = UV.bojaPolja2
             .xPolozaj = UV.xPolozaj
@@ -344,19 +395,11 @@ Public Class ClassUV
         End With
         Me.refreshBuffer(device)
     End Sub
-    Public Sub New(ByVal ime As String, ByVal device As Device)
-        Me.naziv = ime
+    Public Sub New(ByVal name As String, ByVal device As Device)
+        Me.Name = name
         Me.refreshBuffer(device)
     End Sub
-    <Category("1. Meta")> _
-    Public Property Name() As String
-        Get
-            Return Me.naziv
-        End Get
-        Set(ByVal value As String)
-            Me.naziv = value
-        End Set
-    End Property
+
     <Category("8. U")> _
     Public Property Udens() As Integer
         Get
@@ -474,15 +517,7 @@ Public Class ClassUV
             prm = value
         End Set
     End Property
-    <Category("2. Appearance"), DisplayName("Line Color")> _
-    Public Property bojaLinija() As Color
-        Get
-            Return Me.lc
-        End Get
-        Set(ByVal value As Color)
-            Me.lc = value
-        End Set
-    End Property
+    
     <Category("2. Appearance"), DisplayName("Front Color")> _
     Public Property bojaPolja1() As Color
         Get
@@ -501,15 +536,7 @@ Public Class ClassUV
             Me.fc2 = value
         End Set
     End Property
-    <Category("2. Appearance")> _
-    Public Property Transparency() As Byte
-        Get
-            Return Me.alphaLevel
-        End Get
-        Set(ByVal value As Byte)
-            Me.alphaLevel = value
-        End Set
-    End Property
+    
     <Category("5. Position"), DisplayName("X Position")> _
     Public Property xPolozaj() As Single
         Get
@@ -712,7 +739,7 @@ Public Class ClassUV
         'Dim textureDefault As Texture = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/textureDefault.bmp")
         vertices1 = New CustomVertex.PositionColored(7) {}
         Dim l As Color
-        l = Me.bojaLinija
+        l = Me.LineColor
         vertices1(0).Color = l.ToArgb
         vertices1(1).Color = l.ToArgb
         vertices1(2).Color = l.ToArgb
