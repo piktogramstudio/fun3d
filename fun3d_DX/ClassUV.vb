@@ -390,7 +390,7 @@ Public Class ClassUV
             Catch ex As Exception
 
             End Try
-            .parametri = UV.parametri
+            .Parameters = UV.Parameters
             .dynapicParameters = UV.dynapicParameters
         End With
         Me.refreshBuffer(device)
@@ -509,7 +509,7 @@ Public Class ClassUV
         End Set
     End Property
     <Category("4. Parameters"), DisplayName("Parameters"), Editor(GetType(cParametersPropertyEditor), GetType(UITypeEditor))> _
-    Public Property parametri() As List(Of ClassParametri)
+    Public Property Parameters() As List(Of ClassParametri)
         Get
             Return Me.prm
         End Get
@@ -641,8 +641,10 @@ Public Class ClassUV
         cd += "Class Evaluator" + vbCrLf
         cd += "Public Function Evaluate() As List(of Vector3)" + vbCrLf
         cd += "Dim rv as New List(of Vector3)" + vbCrLf
+        cd += "Dim param as New List(of Single)" + vbCrLf
         For Each prmt In Me.prm
             cd += "Dim " + prmt.Name + " as Single = " + Str(prmt.value) + vbCrLf
+            cd += "param.add(" + Str(prmt.value) + ")" + vbCrLf
         Next
         cd += "Dim u, v as Single" + vbCrLf
         cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Str(Me.UGustina) + "" + vbCrLf
@@ -730,6 +732,7 @@ Public Class ClassUV
             For Each ce In cr.Errors
                 Console.WriteLine(ce.ErrorText)
             Next
+            Exit Sub
         End If
 
 
