@@ -16,10 +16,10 @@ Public Class ClassUV
 
     Private UGustina As Integer = 10
     Private VGustina As Integer = 10
-    Private maxU As String = "10"
-    Private maxV As String = "10"
-    Private minU As String = "-10"
-    Private minV As String = "-10"
+    Public maxU As Single = 10
+    Public maxV As Single = 10
+    Public minU As Single = -10
+    Public minV As Single = -10
     Private funX As String = "u"
     Private funY As String = "v"
     Private funZ As String = "1"
@@ -421,37 +421,37 @@ Public Class ClassUV
     <Category("8. U"), DisplayName("U max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoU() As String
         Get
-            Return maxU
+            Return Str(maxU)
         End Get
         Set(ByVal value As String)
-            maxU = value
+            maxU = mdTools.Evaluate(value, Me.prm.ToArray)
         End Set
     End Property
     <Category("8. U"), DisplayName("U min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoU() As String
         Get
-            Return minU
+            Return Str(minU)
         End Get
         Set(ByVal value As String)
-            minU = value
+            minU = mdTools.Evaluate(value, Me.prm.ToArray)
         End Set
     End Property
     <Category("9. V"), DisplayName("V max"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property maksimalnoV() As String
         Get
-            Return maxV
+            Return Str(maxV)
         End Get
         Set(ByVal value As String)
-            maxV = value
+            maxV = mdTools.Evaluate(value, Me.prm.ToArray)
         End Set
     End Property
     <Category("9. V"), DisplayName("V min"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
     Public Property minimalnoV() As String
         Get
-            Return minV
+            Return Str(minV)
         End Get
         Set(ByVal value As String)
-            minV = value
+            minV = mdTools.Evaluate(value, Me.prm.ToArray)
         End Set
     End Property
     <Category("3. Functions"), DisplayName("X(u,v)"), Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))> _
@@ -647,10 +647,10 @@ Public Class ClassUV
             cd += "param.add(" + Str(prmt.value) + ")" + vbCrLf
         Next
         cd += "Dim u, v as Single" + vbCrLf
-        cd += "Dim uStep as Single = (" + Me.maxU + "-" + Me.minU + ")/" + Str(Me.UGustina) + "" + vbCrLf
-        cd += "Dim vStep as Single = (" + Me.maxV + "-" + Me.minV + ")/" + Str(Me.VGustina) + "" + vbCrLf
-        cd += "For u=" + Me.minU + " To " + Me.maxU + "+uStep/2 Step uStep" + vbCrLf
-        cd += "For v=" + Me.minV + " To " + Me.maxV + "+vStep/2 Step vStep" + vbCrLf
+        cd += "Dim uStep as Single = (" + Str(Me.maxU) + "-" + Str(Me.minU) + ")/" + Str(Me.UGustina) + "" + vbCrLf
+        cd += "Dim vStep as Single = (" + Str(Me.maxV) + "-" + Str(Me.minV) + ")/" + Str(Me.VGustina) + "" + vbCrLf
+        cd += "For u=" + Str(Me.minU) + " To " + Str(Me.maxU) + "+uStep/2 Step uStep" + vbCrLf
+        cd += "For v=" + Str(Me.minV) + " To " + Str(Me.maxV) + "+vStep/2 Step vStep" + vbCrLf
         cd += "rv.add(New Vector3(" + Me.funX + "," + Me.funY + "," + Me.funZ + "))" + vbCrLf
         cd += "Next" + vbCrLf
         cd += "Next" + vbCrLf
@@ -667,12 +667,18 @@ Public Class ClassUV
         cp.CompilerOptions = "/t:library"
         cp.GenerateInMemory = True
         Dim cr As CodeDom.Compiler.CompilerResults = vba.CompileAssemblyFromSource(cp, cd)
-        Dim vbf As New List(Of Vector3)
+
         If Not cr.Errors.Count <> 0 Then
             Dim exeins As Object = cr.CompiledAssembly.CreateInstance("FlyAss.Evaluator")
             Dim mi As Reflection.MethodInfo = exeins.GetType().GetMethod("Evaluate")
 
+            ' Geometry data
+            Dim vbf As New List(Of Vector3)     ' vertex  buffer
+            Dim ebf As New List(Of Int32)       ' edges   buffer
+            Dim ibf As New List(Of Int32)       ' indices buffer
+
             vbf = CType(mi.Invoke(exeins, Nothing), List(Of Vector3))
+
             Dim u, v As Integer
             Dim ib As New List(Of Integer)
             Dim nb As New List(Of Vector3)
@@ -727,88 +733,88 @@ Public Class ClassUV
             Next
             Me.indices = ib
             'Me.nbf = nb.ToArray
+
+            Dim vertices1 As CustomVertex.PositionColored()
+
+
+            'Dim textureDefault As Texture = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/textureDefault.bmp")
+            vertices1 = New CustomVertex.PositionColored(7) {}
+            Dim l As Color
+            l = Me.LineColor
+            vertices1(0).Color = l.ToArgb
+            vertices1(1).Color = l.ToArgb
+            vertices1(2).Color = l.ToArgb
+            vertices1(3).Color = l.ToArgb
+            vertices1(4).Color = l.ToArgb
+            vertices1(5).Color = l.ToArgb
+            vertices1(6).Color = l.ToArgb
+            vertices1(7).Color = l.ToArgb
+
+            Dim u1, v1 As Integer
+
+
+            pi = 0
+            For u1 = 0 To Me.Udens - 1
+
+                For v1 = 0 To Me.Vdens - 1
+                    p = 100 * pi \ plen
+                    If Me.UGustina * Me.VGustina > 32 * 32 Then
+                        RaiseEvent progress(p, "Generating surface...")
+                    End If
+                    pi += 1
+
+                    a = u1 * (Me.Vdens + 1) + v1
+                    b = u1 * (Me.Vdens + 1) + v1 + 1
+                    c = (u1 + 1) * (Me.Vdens + 1) + v1 + 1
+                    d = (u1 + 1) * (Me.Vdens + 1) + v1
+
+
+                    ' linije
+
+                    vertices1(0).Position = Vector3.TransformCoordinate(vbf(a), m)
+                    vertices1(1).Position = Vector3.TransformCoordinate(vbf(b), m)
+                    vertices1(2).Position = Vector3.TransformCoordinate(vbf(b), m)
+                    vertices1(3).Position = Vector3.TransformCoordinate(vbf(c), m)
+                    vertices1(4).Position = Vector3.TransformCoordinate(vbf(c), m)
+                    vertices1(5).Position = Vector3.TransformCoordinate(vbf(d), m)
+                    vertices1(6).Position = Vector3.TransformCoordinate(vbf(d), m)
+                    vertices1(7).Position = Vector3.TransformCoordinate(vbf(a), m)
+                    Me.lineBuffer.Add(vertices1(0))
+                    Me.lineBuffer.Add(vertices1(1))
+                    Me.lineBuffer.Add(vertices1(2))
+                    Me.lineBuffer.Add(vertices1(3))
+                    Me.lineBuffer.Add(vertices1(4))
+                    Me.lineBuffer.Add(vertices1(5))
+                    Me.lineBuffer.Add(vertices1(6))
+                    Me.lineBuffer.Add(vertices1(7))
+
+                    Me.lineBuffer1.Add(vertices1(0).Position)
+                    Me.lineBuffer1.Add(vertices1(1).Position)
+                    Me.lineBuffer1.Add(vertices1(2).Position)
+                    Me.lineBuffer1.Add(vertices1(3).Position)
+                    Me.lineBuffer1.Add(vertices1(4).Position)
+                    Me.lineBuffer1.Add(vertices1(5).Position)
+                    Me.lineBuffer1.Add(vertices1(6).Position)
+                    Me.lineBuffer1.Add(vertices1(7).Position)
+                Next
+            Next
+            Try
+                If device IsNot Nothing Then
+                    Me.createMesh(device)
+                Else
+                    Me.createMesh(Me.UVMesh.Device)
+                End If
+            Catch ex As Exception
+
+            End Try
+
         Else
             Dim ce As CodeDom.Compiler.CompilerError
             For Each ce In cr.Errors
                 Console.WriteLine(ce.ErrorText)
             Next
-            Exit Sub
         End If
-
-
-        Dim vertices1 As CustomVertex.PositionColored()
-
-
-        'Dim textureDefault As Texture = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/textureDefault.bmp")
-        vertices1 = New CustomVertex.PositionColored(7) {}
-        Dim l As Color
-        l = Me.LineColor
-        vertices1(0).Color = l.ToArgb
-        vertices1(1).Color = l.ToArgb
-        vertices1(2).Color = l.ToArgb
-        vertices1(3).Color = l.ToArgb
-        vertices1(4).Color = l.ToArgb
-        vertices1(5).Color = l.ToArgb
-        vertices1(6).Color = l.ToArgb
-        vertices1(7).Color = l.ToArgb
-
-        Dim u1, v1 As Integer
-
-
-        pi = 0
-        For u1 = 0 To Me.Udens - 1
-
-            For v1 = 0 To Me.Vdens - 1
-                p = 100 * pi \ plen
-                If Me.UGustina * Me.VGustina > 32 * 32 Then
-                    RaiseEvent progress(p, "Generating surface...")
-                End If
-                pi += 1
-
-                a = u1 * (Me.Vdens + 1) + v1
-                b = u1 * (Me.Vdens + 1) + v1 + 1
-                c = (u1 + 1) * (Me.Vdens + 1) + v1 + 1
-                d = (u1 + 1) * (Me.Vdens + 1) + v1
-
-
-                ' linije
-
-                vertices1(0).Position = Vector3.TransformCoordinate(vbf(a), m)
-                vertices1(1).Position = Vector3.TransformCoordinate(vbf(b), m)
-                vertices1(2).Position = Vector3.TransformCoordinate(vbf(b), m)
-                vertices1(3).Position = Vector3.TransformCoordinate(vbf(c), m)
-                vertices1(4).Position = Vector3.TransformCoordinate(vbf(c), m)
-                vertices1(5).Position = Vector3.TransformCoordinate(vbf(d), m)
-                vertices1(6).Position = Vector3.TransformCoordinate(vbf(d), m)
-                vertices1(7).Position = Vector3.TransformCoordinate(vbf(a), m)
-                Me.lineBuffer.Add(vertices1(0))
-                Me.lineBuffer.Add(vertices1(1))
-                Me.lineBuffer.Add(vertices1(2))
-                Me.lineBuffer.Add(vertices1(3))
-                Me.lineBuffer.Add(vertices1(4))
-                Me.lineBuffer.Add(vertices1(5))
-                Me.lineBuffer.Add(vertices1(6))
-                Me.lineBuffer.Add(vertices1(7))
-
-                Me.lineBuffer1.Add(vertices1(0).Position)
-                Me.lineBuffer1.Add(vertices1(1).Position)
-                Me.lineBuffer1.Add(vertices1(2).Position)
-                Me.lineBuffer1.Add(vertices1(3).Position)
-                Me.lineBuffer1.Add(vertices1(4).Position)
-                Me.lineBuffer1.Add(vertices1(5).Position)
-                Me.lineBuffer1.Add(vertices1(6).Position)
-                Me.lineBuffer1.Add(vertices1(7).Position)
-            Next
-        Next
-        Try
-            If device IsNot Nothing Then
-                Me.createMesh(device)
-            Else
-                Me.createMesh(Me.UVMesh.Device)
-            End If
-        Catch ex As Exception
-
-        End Try
+        
         If Me.UGustina * Me.VGustina > 32 * 32 Then
             RaiseEvent progressEnd()
         End If
