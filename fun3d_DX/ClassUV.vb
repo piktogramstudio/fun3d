@@ -702,8 +702,30 @@ Public Class ClassUV
                 End If
                 Me.vBuffer.Add(vertice)
             Next
+
+            Dim vertices1 As CustomVertex.PositionColored()
+
+            vertices1 = New CustomVertex.PositionColored(7) {}
+            Dim l As Color
+            l = Me.LineColor
+            vertices1(0).Color = l.ToArgb
+            vertices1(1).Color = l.ToArgb
+            vertices1(2).Color = l.ToArgb
+            vertices1(3).Color = l.ToArgb
+            vertices1(4).Color = l.ToArgb
+            vertices1(5).Color = l.ToArgb
+            vertices1(6).Color = l.ToArgb
+            vertices1(7).Color = l.ToArgb
+
+            pi = 0
             For u = 0 To CInt(Me.UGustina) - 1
                 For v = 0 To CInt(Me.VGustina) - 1
+                    p = 100 * pi \ plen
+                    If Me.UGustina * Me.VGustina > 32 * 32 Then
+                        RaiseEvent progress(p, "Generating surface...")
+                    End If
+                    pi += 1
+
                     a = u * (Me.VGustina + 1) + v
                     b = u * (Me.VGustina + 1) + v + 1
                     c = (u + 1) * (Me.VGustina + 1) + v + 1
@@ -729,45 +751,6 @@ Public Class ClassUV
                     nb.Add(nv)
                     subset.Add(0)
                     subset.Add(0)
-                Next
-            Next
-            Me.indices = ib
-            'Me.nbf = nb.ToArray
-
-            Dim vertices1 As CustomVertex.PositionColored()
-
-
-            'Dim textureDefault As Texture = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/textureDefault.bmp")
-            vertices1 = New CustomVertex.PositionColored(7) {}
-            Dim l As Color
-            l = Me.LineColor
-            vertices1(0).Color = l.ToArgb
-            vertices1(1).Color = l.ToArgb
-            vertices1(2).Color = l.ToArgb
-            vertices1(3).Color = l.ToArgb
-            vertices1(4).Color = l.ToArgb
-            vertices1(5).Color = l.ToArgb
-            vertices1(6).Color = l.ToArgb
-            vertices1(7).Color = l.ToArgb
-
-            Dim u1, v1 As Integer
-
-
-            pi = 0
-            For u1 = 0 To Me.Udens - 1
-
-                For v1 = 0 To Me.Vdens - 1
-                    p = 100 * pi \ plen
-                    If Me.UGustina * Me.VGustina > 32 * 32 Then
-                        RaiseEvent progress(p, "Generating surface...")
-                    End If
-                    pi += 1
-
-                    a = u1 * (Me.Vdens + 1) + v1
-                    b = u1 * (Me.Vdens + 1) + v1 + 1
-                    c = (u1 + 1) * (Me.Vdens + 1) + v1 + 1
-                    d = (u1 + 1) * (Me.Vdens + 1) + v1
-
 
                     ' linije
 
@@ -798,6 +781,8 @@ Public Class ClassUV
                     Me.lineBuffer1.Add(vertices1(7).Position)
                 Next
             Next
+            Me.indices = ib
+
             Try
                 If device IsNot Nothing Then
                     Me.createMesh(device)
