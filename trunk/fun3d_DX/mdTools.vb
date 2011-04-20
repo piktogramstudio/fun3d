@@ -294,4 +294,240 @@ Module mdTools
         cp.TempFiles.Delete()
         Return rv
     End Function
+    Public Function openFile(ByVal fnm As String, Optional ByVal frommem As Boolean = False) As ClassScena
+        If fnm.Substring(fnm.Length - 4, 4) = "f3dx" And Not frommem Then
+            Dim rv As ClassScena = Nothing
+            Dim mem As New IO.FileStream(fnm, IO.FileMode.Open)
+            Dim bin As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
+            Dim obj As iFun3DScene
+            Try
+                obj = bin.Deserialize(mem)
+                If obj.Fun3DFileVersion < 2 Then
+                    Console.WriteLine("Old file version")
+                    Return Nothing
+                End If
+                mf.saveFile = fnm
+                rv = CType(obj, ClassScena)
+            Catch ex As Exception
+                Console.WriteLine("ERROR." + " The reason is: " + ex.ToString())
+            End Try
+            Try
+                mem.Close()
+            Catch ex As Exception
+                Console.WriteLine("ERROR." + " The reason is: " + ex.ToString())
+            End Try
+            Return rv
+        Else
+            Dim rvalue As New ClassScena
+            If Not frommem Then
+                mf.saveDataSet.Clear()
+                mf.saveDataSet.ReadXml(fnm)
+            End If
+
+            Try
+                Dim os As dsProjekat.scenaRow = mf.saveDataSet.scena(0)
+                With rvalue
+                    .Ambient = Color.FromArgb(CInt(os.AmbientColor))
+                    .backgroundColor = Color.FromArgb(CInt(os.BackgroundColor))
+                    .colorGrid = Color.FromArgb(CInt(os.GridColor))
+                    .FillMode = CType(os.FillMode, FillMode)
+                    .gridMaxV = os.GridMaxValue
+                    .gridMinV = os.GridMinValue
+                    .stepGrid = os.GridStep
+                    .Lighting = os.Lighting
+                    .Name = os.Name
+                    .ShadeMode = CType(os.ShadeMode, ShadeMode)
+                    Try
+                        .Description = os.Description
+                        .PointSize = os.pSize
+                    Catch ex As Exception
+
+                    End Try
+                    .UVList.Clear()
+                    .sceneLights.Clear()
+                End With
+                Dim ouv As dsProjekat.UVRow
+                For Each ouv In os.GetUVRows
+                    Dim UV As New ClassUV(cf3D.device)
+                    With UV
+                        .maxU = ouv.UMax
+                        .maxV = ouv.VMax
+                        .minU = ouv.UMin
+                        .minV = ouv.VMin
+                        .scaleX = ouv.XScale
+                        .scaleY = ouv.YScale
+                        .scaleZ = ouv.ZScale
+                        .Udens = ouv.UDensity
+                        .Vdens = ouv.VDensity
+                        .XF = ouv.XFun
+                        .YF = ouv.YFun
+                        .ZF = ouv.ZFun
+                        .LineColor = Color.FromArgb(CInt(ouv.LineColor))
+                        .bojaPolja1 = Color.FromArgb(CInt(ouv.FieldColor1))
+                        .bojaPolja2 = Color.FromArgb(CInt(ouv.FieldColor2))
+                        .xPolozaj = ouv.XPos
+                        .yPolozaj = ouv.YPos
+                        .zPolozaj = ouv.ZPos
+                        .Name = ouv.Name
+                        .sliderMaximumUmin = ouv.maxSU
+                        .sliderMinimumUmin = ouv.minSU
+                        .sliderStepUmin = ouv.stepSU
+                        .sliderMaximumVmin = ouv.maxSV
+                        .sliderMinimumVmin = ouv.minSV
+                        .sliderStepVmin = ouv.stepSV
+                        .sliderMaximumUmax = ouv.maxSUm
+                        .sliderMinimumUmax = ouv.minSUm
+                        .sliderStepUmax = ouv.stepSUm
+                        .sliderMaximumVmax = ouv.maxSVm
+                        .sliderMinimumVmax = ouv.minSVm
+                        .sliderStepVmax = ouv.stepSVm
+                        Try
+                            .Transparency = ouv.Transparency
+                            .xRotation = ouv.xRot
+                            .yRotation = ouv.yRot
+                            .zRotation = ouv.zRot
+                        Catch ex As Exception
+
+                        End Try
+                        .Parameters.Clear()
+                        Dim op As dsProjekat.parametriRow
+                        For Each op In ouv.GetparametriRows
+                            Dim plAdd As New ClassParametri
+                            plAdd.Name = "prmt" + op.jb.ToString + op.Name
+                            plAdd.value = op.Value
+                            plAdd.sliderMaximum = op.maxS
+                            plAdd.sliderMinimum = CSng(op.minS)
+                            plAdd.sliderStep = op.stepS
+                            .Parameters.Add(plAdd)
+                        Next
+                        Dim odp As dsProjekat.dynParametriRow
+                        For Each odp In ouv.GetdynParametriRows
+                            Dim dp As New ClassDynamicParametri
+                            dp.Name = odp.Name
+                            dp.funkcija = odp.funkcija
+                            .dynprm.Add(dp)
+                        Next
+                    End With
+                    rvalue.UVList.Add(UV)
+                Next
+                Dim ouf As dsProjekat.FramesRow
+                For Each ouf In os.GetFramesRows
+                    rvalue.sceneFrameAdd(New ClassFrame(ouf.ax, ouf.ay, ouf.az, ouf.cx, ouf.cy, ouf.cz))
+                Next
+                Dim ou As dsProjekat.URow
+                For Each ou In os.GetURows
+                    Dim U As New ClassU
+                    With U
+                        .maxU = ou.UMax
+                        .minU = ou.UMin
+                        .Transform.sx = ou.XScale
+                        .Transform.sy = ou.YScale
+                        .Transform.sz = ou.ZScale
+                        .Udens = CShort(ou.UDensity)
+                        .funX = ou.XFun
+                        .funY = ou.YFun
+                        .funZ = ou.ZFun
+                        .LineColor = Color.FromArgb(CInt(ou.LineColor))
+                        .Transform.tx = ou.XPos
+                        .Transform.ty = ou.YPos
+                        .Transform.tz = ou.ZPos
+                        .Name = ou.Name
+                        .maxSU = ou.maxSU
+                        .minSU = ou.minSU
+                        .stepSU = ou.stepSU
+                        .maxSUm = ou.maxSUm
+                        .minSUm = ou.minSUm
+                        .stepSUm = ou.stepSUm
+                        Try
+                            .Transparency = ou.Transparency
+                        Catch ex As Exception
+
+                        End Try
+                        .Parameters.Clear()
+                        Dim op As dsProjekat.parametriRow
+                        For Each op In ou.GetparametriRows
+                            Dim plAdd As New ClassParametri
+                            plAdd.Name = "prmt" + op.jb.ToString + op.Name
+                            plAdd.value = op.Value
+                            plAdd.sliderMaximum = op.maxS
+                            plAdd.sliderMinimum = CSng(op.minS)
+                            plAdd.sliderStep = op.stepS
+                            .Parameters.Add(plAdd)
+                        Next
+                    End With
+                    U.refreshBuffer()
+                    rvalue.UList.Add(U)
+                Next
+                Dim oca As dsProjekat.CARow
+                For Each oca In os.GetCARows
+                    Dim CA As New ClassCA(cf3D.device)
+                    With CA
+                        .bojaKocke = Color.FromArgb(oca.bojaKocke)
+                        .bojaLinije = Color.FromArgb(oca.bojaLinije)
+                        .h = oca.h
+                        .w = oca.w
+                        .l = oca.l
+                        .maxBC = oca.maxC
+                        .minBC = oca.minC
+                        .TurnOnCells = oca.turnOnC
+                        .Name = oca.name
+                        .nOfLevels = oca.nivoa
+                        .Rule = oca.rule
+                        .Space = oca.space
+                        .Style = CType(oca.style, ClassCA.VisualStyles)
+                        .Transparency = CByte(oca.transparency)
+                        .xFields = oca.xPolja
+                        .yFields = oca.yPolja
+                        .xPosition = oca.xPos
+                        .yPosition = oca.yPos
+                        .zPosition = oca.zPos
+                        .xRotation = oca.xRot
+                        .yRotation = oca.yRot
+                        .zRotation = oca.zRot
+                        Dim mval As dsProjekat.MatrixRow
+                        .matrice.Clear()
+                        .matrice.Add(New List(Of Byte))
+                        For Each mval In oca.GetMatrixRows
+                            .matrice(0).Add(mval.value)
+                        Next
+                    End With
+                    CA.createLevels()
+                    CA.refreshBuffer()
+                    rvalue.CAList.Add(CA)
+                Next
+                Dim ol As dsProjekat.LightsRow
+                For Each ol In os.GetLightsRows
+                    Dim l As New ClassLight
+                    With l
+                        .Ambient = Color.FromArgb(CInt(ol.Ambient))
+                        .Diffuse = Color.FromArgb(CInt(ol.Diffuse))
+                        .Specular = Color.FromArgb(CInt(ol.Specular))
+                        .Direction = ol.Direction
+                        .Position = ol.Position
+                        .Enabled = ol.Enabled
+                        .Name = ol.Name
+                        .Type = CType(ol.Type, LightType)
+                    End With
+                    rvalue.sceneLights.Add(l)
+                Next
+                If Not frommem Then
+                    tfOsobine.PropertyGridUV.SelectedObject = rvalue
+                    tfOsobine.PropertyGridUV.Refresh()
+                End If
+                Try
+                    cf3D.Invalidate()
+                Catch ex As Exception
+
+                End Try
+                mf.saveFile = fnm
+                Dim UV1 As ClassUV
+                For Each UV1 In rvalue.UVList
+                    UV1.refreshBuffer()
+                Next
+            Catch ex As Exception
+                MsgBox(ex.Message, MsgBoxStyle.Information)
+            End Try
+            Return rvalue
+        End If
+    End Function
 End Module
