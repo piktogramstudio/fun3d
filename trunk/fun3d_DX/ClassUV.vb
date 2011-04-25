@@ -11,7 +11,7 @@ Public Class ClassUV
 #Region "Fields"
     Dim metaData As New sMetaData("UV surface")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
-    'TODO surfaceAppearance
+    Dim surfaceAppearance As New sSurfaceAppearance(Color.Green, Color.Green, Color.White, Color.White, 1)
 #End Region
 
     Private UGustina As Integer = 10
@@ -133,6 +133,7 @@ Public Class ClassUV
             Me.alphaLevel = value
         End Set
     End Property
+
 #End Region
 
     Dim coloringStress As Boolean = False
