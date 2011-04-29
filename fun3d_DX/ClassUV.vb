@@ -11,7 +11,9 @@ Public Class ClassUV
 #Region "Fields"
     Dim metaData As New sMetaData("UV surface")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
-    Dim surfaceAppearance As New sSurfaceAppearance(Color.Green, Color.Green, Color.White, Color.White, 1)
+    Dim frontSurfaceAppearance As New sSurfaceAppearance(Color.Green, Color.Green, Color.White, Color.White, 1)
+    Dim backSurfaceAppearance As New sSurfaceAppearance(Color.Yellow, Color.Yellow, Color.White, Color.White, 1)
+    'TO DO CreateColoredTwoSidedMeshFromGeometry
 #End Region
 
     Private UGustina As Integer = 10
