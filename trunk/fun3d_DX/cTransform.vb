@@ -29,9 +29,18 @@ Public Class cTransform
             rv.vb(i) = Vector3.TransformCoordinate(rv.vb(i), m)
         Next
         Try
-            If rv.nb IsNot Nothing Then
-                For i = 0 To rv.nb.Length - 1
-                    rv.nb(i) = Vector3.TransformCoordinate(rv.vb(i), m)
+            If rv.ncwb IsNot Nothing Then
+                For i = 0 To rv.ncwb.Length - 1
+                    rv.ncwb(i) = Vector3.TransformCoordinate(rv.ncwb(i), m)
+                Next
+            End If
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+        Try
+            If rv.nccwb IsNot Nothing Then
+                For i = 0 To rv.nccwb.Length - 1
+                    rv.nccwb(i) = Vector3.TransformCoordinate(rv.nccwb(i), m)
                 Next
             End If
         Catch ex As Exception

@@ -3,12 +3,14 @@
 Public Class cGeometry
     Public Event geometryChanged()
     Public vb() As Vector3
-    Public nb() As Vector3
+    Public ncwb() As Vector3
+    Public nccwb() As Vector3
     Public ib() As Int32
     Public eb() As Int32
     Public Sub setGeometry(ByVal vb() As Vector3, ByVal ib() As Int32, ByVal eb() As Int32)
         Me.vb = vb
-        Me.nb = Me.calculateNormals(vb, ib)
+        Me.ncwb = Me.calculateNormalsClockWise(vb, ib)
+        Me.nccwb = Me.calculateNormalsClockWise(vb, ib)
         Me.ib = ib
         Me.eb = eb
         RaiseEvent geometryChanged()
@@ -21,17 +23,27 @@ Public Class cGeometry
             Me.vb(i) = geom.vb(i)
         Next
         Try
-            If nb IsNot Nothing Then
-                ReDim Me.nb(geom.nb.Length - 1)
-                For i = 0 To geom.nb.Length - 1
-                    Me.nb(i) = geom.nb(i)
+            If geom.ncwb IsNot Nothing Then
+                ReDim Me.ncwb(geom.ncwb.Length - 1)
+                For i = 0 To geom.ncwb.Length - 1
+                    Me.ncwb(i) = geom.ncwb(i)
                 Next
             End If
         Catch ex As Exception
             Console.WriteLine(ex.Message)
         End Try
         Try
-            If ib IsNot Nothing Then
+            If geom.nccwb IsNot Nothing Then
+                ReDim Me.nccwb(geom.nccwb.Length - 1)
+                For i = 0 To geom.nccwb.Length - 1
+                    Me.nccwb(i) = geom.nccwb(i)
+                Next
+            End If
+        Catch ex As Exception
+            Console.WriteLine(ex.Message)
+        End Try
+        Try
+            If geom.ib IsNot Nothing Then
                 ReDim Me.ib(geom.ib.Length - 1)
                 For i = 0 To geom.ib.Length - 1
                     Me.ib(i) = geom.ib(i)
@@ -50,7 +62,7 @@ Public Class cGeometry
         Me.eb = Me.getPolylineEdgesFromPointList(vb, closed)
         RaiseEvent geometryChanged()
     End Sub
-    Public Function calculateNormals(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
+    Public Function calculateNormalsClockWise(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
         Dim rv As New List(Of Vector3)
         Dim i As Int32
         Dim v, v1, v2, v3 As Vector3
@@ -58,6 +70,26 @@ Public Class cGeometry
             v1 = vb(ib(i))
             v2 = vb(ib(i + 1))
             v3 = vb(ib(i + 2))
+            v = Vector3.Cross(v2 - v1, v3 - v1)
+            v.Normalize()
+            rv.Add(v)
+            v = Vector3.Cross(v3 - v2, v1 - v2)
+            v.Normalize()
+            rv.Add(v)
+            v = Vector3.Cross(v1 - v3, v2 - v3)
+            v.Normalize()
+            rv.Add(v)
+        Next
+        Return rv.ToArray
+    End Function
+    Public Function calculateNormalsCounterClockWise(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
+        Dim rv As New List(Of Vector3)
+        Dim i As Int32
+        Dim v, v1, v2, v3 As Vector3
+        For i = 0 To ib.Length - 1 Step 3
+            v1 = vb(ib(i + 2))
+            v2 = vb(ib(i + 1))
+            v3 = vb(ib(i))
             v = Vector3.Cross(v2 - v1, v3 - v1)
             v.Normalize()
             rv.Add(v)

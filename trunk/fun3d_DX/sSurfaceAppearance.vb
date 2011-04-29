@@ -1,24 +1,14 @@
 ﻿Public Structure sSurfaceAppearance
-    Public FrontColor As Color
-    Public BackColor As Color
-    Public AmbientFrontColor As Color
-    Public AmbientBackColor As Color
-    Public EmissiveFrontColor As Color
-    Public EmissiveBackColor As Color
-    Public SpecularFrontColor As Color
-    Public SpecularBackColor As Color
-    Public SpecularFrontSharpness As Single
-    Public SpecularBackSharpness As Single
+    Public Color As Color
+    Public AmbientColor As Color
+    Public EmissiveColor As Color
+    Public SpecularColor As Color
+    Public SpecularSharpness As Single
     Public Sub New(ByVal Color As Color, ByVal AmbientColor As Color, ByVal EmissiveColor As Color, ByVal SpecularColor As Color, ByVal SpecularSharpness As Single)
-        Me.FrontColor = Color
-        Me.BackColor = Color
-        Me.AmbientFrontColor = AmbientColor
-        Me.AmbientBackColor = AmbientColor
-        Me.EmissiveFrontColor = EmissiveColor
-        Me.EmissiveBackColor = EmissiveColor
-        Me.SpecularFrontColor = SpecularColor
-        Me.SpecularBackColor = SpecularColor
-        Me.SpecularFrontSharpness = SpecularSharpness
-        Me.SpecularBackSharpness = SpecularSharpness
+        Me.Color = Color
+        Me.AmbientColor = AmbientColor
+        Me.EmissiveColor = EmissiveColor
+        Me.SpecularColor = SpecularColor
+        Me.SpecularSharpness = SpecularSharpness
     End Sub
 End Structure
