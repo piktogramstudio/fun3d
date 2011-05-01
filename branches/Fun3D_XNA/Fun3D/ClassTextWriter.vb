@@ -5,9 +5,9 @@
         Me.rtb = rtb
     End Sub
     Public Overrides Sub WriteLine(ByVal value As String)
-        Me.rtb.DocumentText += value + "<br />"
+        Me.rtb.DocumentText += "<span style=""font-size:x-small"">" + value + "</span><br />"
     End Sub
     Public Overrides Sub Write(ByVal value As String)
-        Me.rtb.Text += value
+        Me.rtb.Text += "<span style=""font-size:x-small"">" + value + "</span>"
     End Sub
 End Class

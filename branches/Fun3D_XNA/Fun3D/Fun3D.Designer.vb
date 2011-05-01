@@ -47,6 +47,7 @@ Partial Class Fun3D
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CustomizeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.IndexToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -68,7 +69,9 @@ Partial Class Fun3D
         Me.ssMain = New System.Windows.Forms.StatusStrip()
         Me.WBConsole = New System.Windows.Forms.WebBrowser()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolbarsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StandardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MainMenu.SuspendLayout()
         Me.ToolStripContainer.TopToolStripPanel.SuspendLayout()
         Me.ToolStripContainer.SuspendLayout()
@@ -77,7 +80,7 @@ Partial Class Fun3D
         '
         'MainMenu
         '
-        Me.MainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MainMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MainMenu.Location = New System.Drawing.Point(0, 0)
         Me.MainMenu.Name = "MainMenu"
         Me.MainMenu.Size = New System.Drawing.Size(708, 24)
@@ -236,14 +239,23 @@ Partial Class Fun3D
         'CustomizeToolStripMenuItem
         '
         Me.CustomizeToolStripMenuItem.Name = "CustomizeToolStripMenuItem"
-        Me.CustomizeToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.CustomizeToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.CustomizeToolStripMenuItem.Text = "&Customize"
         '
         'OptionsToolStripMenuItem
         '
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.OptionsToolStripMenuItem.Text = "&Options"
+        '
+        'ConsoleToolStripMenuItem
+        '
+        Me.ConsoleToolStripMenuItem.Checked = True
+        Me.ConsoleToolStripMenuItem.CheckOnClick = True
+        Me.ConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
+        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
+        Me.ConsoleToolStripMenuItem.Text = "Console"
         '
         'HelpToolStripMenuItem
         '
@@ -416,14 +428,28 @@ Partial Class Fun3D
         Me.Splitter1.TabIndex = 4
         Me.Splitter1.TabStop = False
         '
-        'ConsoleToolStripMenuItem
+        'ViewToolStripMenuItem
         '
-        Me.ConsoleToolStripMenuItem.Checked = True
-        Me.ConsoleToolStripMenuItem.CheckOnClick = True
-        Me.ConsoleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
-        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ConsoleToolStripMenuItem.Text = "Console"
+        Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolbarsToolStripMenuItem})
+        Me.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem"
+        Me.ViewToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
+        Me.ViewToolStripMenuItem.Text = "View"
+        '
+        'ToolbarsToolStripMenuItem
+        '
+        Me.ToolbarsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StandardToolStripMenuItem})
+        Me.ToolbarsToolStripMenuItem.Name = "ToolbarsToolStripMenuItem"
+        Me.ToolbarsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ToolbarsToolStripMenuItem.Text = "Toolbars"
+        '
+        'StandardToolStripMenuItem
+        '
+        Me.StandardToolStripMenuItem.Checked = True
+        Me.StandardToolStripMenuItem.CheckOnClick = True
+        Me.StandardToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.StandardToolStripMenuItem.Name = "StandardToolStripMenuItem"
+        Me.StandardToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.StandardToolStripMenuItem.Text = "Standard"
         '
         'Fun3D
         '
@@ -435,6 +461,7 @@ Partial Class Fun3D
         Me.Controls.Add(Me.MainMenu)
         Me.Controls.Add(Me.WBConsole)
         Me.Controls.Add(Me.ssMain)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MainMenu
         Me.Name = "Fun3D"
         Me.Text = "Fun3D"
@@ -496,4 +523,7 @@ Partial Class Fun3D
     Friend WithEvents WBConsole As System.Windows.Forms.WebBrowser
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents ConsoleToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolbarsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents StandardToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class
