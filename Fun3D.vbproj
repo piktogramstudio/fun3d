@@ -147,5 +147,20 @@
   <ItemGroup>
     <Resource Include="Images\SaveAs.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SaveJPG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pdf_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\movie_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\exportJVX.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
