@@ -1,22 +1,22 @@
 ﻿<Window x:Class="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Fun3D" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="350" Width="525" WindowStyle="SingleBorderWindow" Margin="5" Padding="5" BorderBrush="Black">
+    Title="Fun3D" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="498" Width="778" WindowStyle="SingleBorderWindow" Margin="5" Padding="5" BorderBrush="Black">
     <Grid Margin="5">
-        <TabControl Height="100" HorizontalAlignment="Stretch" Name="TabControlTools" VerticalAlignment="Top">
+        <TabControl Height="90" HorizontalAlignment="Stretch" Name="TabControlTools" VerticalAlignment="Top">
             <TabItem Header="File" Name="TabItemFile">
                 <Grid>
-                    <ToolBar>
+                    <ToolBar Background="{x:Null}">
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonNew" VerticalAlignment="Stretch" ToolTip="New Fun3D project.">
                             <Image Source="/Fun3D;component/Images/new.png" Margin="5" />
                         </Button>
                         <Button Name="ButtonOpen" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Open existing Fun3D project from hard disk or external media">
                             <Image Source="/Fun3D;component/Images/open.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonSave" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                        <Button Name="ButtonSave" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Save">
                             <Image Source="/Fun3D;component/Images/save.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonSaveAs" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                        <Button Name="ButtonSaveAs" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Save as...">
                             <Image Margin="5" Source="/Fun3D;component/Images/SaveAs.png" />
                         </Button>
                         <Button Name="ButtonImport3DS" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Import 3DS model to Fun3D.">
@@ -25,26 +25,50 @@
                         <Button Name="ButtonExportDXF" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Export AutoCAD DXF drawing">
                             <Image Source="/Fun3D;component/Images/dxf.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonExportJVX" VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                            Export JVX
+                        <Button Name="ButtonExportJVX" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Export JVX model">
+                            <Image Source="/Fun3D;component/Images/exportJVX.png" Margin="5" />
                         </Button>
                         <Button Name="ButtonExport3DM" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Export Rhino 4 model.">
                             <Image Source="/Fun3D;component/Images/rhino.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonSaveJPG" VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                            Save JPG
+                        <Button Name="ButtonSaveJPG" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Export JPG image">
+                            <Image Source="/Fun3D;component/Images/SaveJPG.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonPublishPDF" VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                            Publish to PDF
+                        <Button Name="ButtonPublishPDF" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Publish to PDF">
+                            <Image Source="/Fun3D;component/Images/pdf_icon.png" Margin="5" />
                         </Button>
-                        <Button Name="ButtonSaveMovie" VerticalAlignment="Stretch" HorizontalAlignment="Left">
-                            Save Movie
+                        <Button Name="ButtonSaveMovie" VerticalAlignment="Stretch" HorizontalAlignment="Left" ToolTip="Export movie...">
+                            <Image Source="/Fun3D;component/Images/movie_icon.png" Margin="5" />
                         </Button>
                     </ToolBar>
                 </Grid>
             </TabItem>
             <TabItem Header="Edit" Name="TabItemEdit">
-                <Grid />
+                <Grid>
+                    <ToolBar Background="{x:Null}">
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonUndo" VerticalAlignment="Stretch" ToolTip="Undo last action">
+                            Undo
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonRedo" VerticalAlignment="Stretch" ToolTip="Redo last undoed action">
+                            Redo
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonCopy" VerticalAlignment="Stretch" ToolTip="Copy object">
+                            Copy
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonPaste" VerticalAlignment="Stretch" ToolTip="Paste object">
+                            Paste
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonDelete" VerticalAlignment="Stretch" ToolTip="Delete object">
+                            Delete
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonSelectByName" VerticalAlignment="Stretch" ToolTip="Select objects by name">
+                            Select by name
+                        </Button>
+                        <Button HorizontalAlignment="Left" Margin="0" Name="ButtonSelectAll" VerticalAlignment="Stretch" ToolTip="Select all objects">
+                            Select all
+                        </Button>
+                    </ToolBar>
+                </Grid>
             </TabItem>
             <TabItem Header="View" Name="TabItemView">
                 <Grid />
@@ -62,6 +86,11 @@
                 <Grid />
             </TabItem>
         </TabControl>
-        <StatusBar Height="23" HorizontalAlignment="Stretch" Margin="0,288,0,0" Name="StatusBar1" VerticalAlignment="Bottom" />
+        <StatusBar Height="30" HorizontalAlignment="Stretch" Name="StatusBarMain" VerticalAlignment="Bottom" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Label Content="Ready." Height="28" HorizontalAlignment="Left" Name="LabelStatus" VerticalAlignment="Center" />
+            </Grid>            
+        </StatusBar>
+        
     </Grid>
 </Window>
