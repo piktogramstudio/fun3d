@@ -47,16 +47,16 @@
                 <Grid>
                     <ToolBar Background="{x:Null}">
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonUndo" VerticalAlignment="Stretch" ToolTip="Undo last action">
-                            Undo
+                            <Image Source="/Fun3D;component/Images/undo.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonRedo" VerticalAlignment="Stretch" ToolTip="Redo last undoed action">
-                            Redo
+                            <Image Source="/Fun3D;component/Images/redo.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonCopy" VerticalAlignment="Stretch" ToolTip="Copy object">
-                            Copy
+                            <Image Source="/Fun3D;component/Images/copy.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonPaste" VerticalAlignment="Stretch" ToolTip="Paste object">
-                            Paste
+                            <Image Source="/Fun3D;component/Images/paste.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonDelete" VerticalAlignment="Stretch" ToolTip="Delete object">
                             Delete
