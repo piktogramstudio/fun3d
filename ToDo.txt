@@ -1,8 +1,8 @@
 ﻿Enter buttons in View toolbar
 Scene properties move to Modify toolbar
-Insert icons for Edit toolbar
 Create Main icon
 
 [Done]
 	Finish File toolbar icons
 	Enter buttons in Edit toolbar
+	Insert icons for Edit toolbar
