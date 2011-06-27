@@ -174,5 +174,14 @@
   <ItemGroup>
     <Resource Include="Images\paste.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\selectAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\selectByName.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -59,13 +59,13 @@
                             <Image Source="/Fun3D;component/Images/paste.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonDelete" VerticalAlignment="Stretch" ToolTip="Delete object">
-                            Delete
+                            <Image Source="/Fun3D;component/Images/delete.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonSelectByName" VerticalAlignment="Stretch" ToolTip="Select objects by name">
-                            Select by name
+                            <Image Source="/Fun3D;component/Images/selectByName.png" Margin="5" />
                         </Button>
                         <Button HorizontalAlignment="Left" Margin="0" Name="ButtonSelectAll" VerticalAlignment="Stretch" ToolTip="Select all objects">
-                            Select all
+                            <Image Source="/Fun3D;component/Images/selectAll.png" Margin="5" />
                         </Button>
                     </ToolBar>
                 </Grid>
