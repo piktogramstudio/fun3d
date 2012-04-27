@@ -18,4 +18,8 @@ Public Class dfAbout
     Private Sub dfAbout_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.LVersion.Text = "V " + My.Application.Info.Version.ToString
     End Sub
+
+    Private Sub LinkLabel1_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start("http://www.fatcow.com/free-icons")
+    End Sub
 End Class
