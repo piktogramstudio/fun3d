@@ -1,8 +1,8 @@
 Imports System.ComponentModel
 <System.Serializable()> _
 Public Class ClassParametri
-    Private naziv As String = "new1"
-    Private vrednost As Single = 0
+    Dim naziv As String = "noName"
+    Dim vrednost As Single = 0
     Dim minS As Single = -10
     Dim maxS As Single = 10
     Dim stepS As Single = 1
@@ -56,4 +56,11 @@ Public Class ClassParametri
             vrednost = value
         End Set
     End Property
+    Public Sub New()
+
+    End Sub
+    Public Sub New(ByVal name As String, ByVal value As Single)
+        Me.naziv = name
+        Me.vrednost = value
+    End Sub
 End Class

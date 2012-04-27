@@ -11,7 +11,7 @@ Public Class ClassU
     Dim metaData As New sMetaData("U curve")
     Dim lineAppearance As New sLineAppearance(2, Color.Black, 255)
 
-    Public UDensity As Short = 30
+    Public UDensity As Short = 300
     Public maxU As Single = 10
     Public minU As Single = -10
     Public minSU As Single = -10
@@ -231,9 +231,10 @@ Public Class ClassU
             cd += "Dim " + p.Name + " as Single = " + Str(p.value) + vbCrLf
             cd += "param.add(" + Str(p.value) + ")" + vbCrLf
         Next
-        cd += "Dim u as Single" + vbCrLf
+        cd += "Dim u, t as Single" + vbCrLf
         cd += "Dim uStep as Single = (" + Str(Me.maxU) + "-" + Str(Me.minU) + ")/" + Me.UDensity.ToString + "" + vbCrLf
         cd += "For u=" + Str(Me.minU) + " To " + Str(Me.maxU) + "+uStep/2 Step uStep" + vbCrLf
+        cd += "t = u" + vbCrLf
         cd += "rv.add(New Vector3(" + Me.funX + "," + Me.funY + "," + Me.funZ + "))" + vbCrLf
         cd += "Next" + vbCrLf
         cd += "Return rv" + vbCrLf
@@ -248,6 +249,8 @@ Public Class ClassU
         cp.ReferencedAssemblies.Add("microsoft.directx.dll")
         cp.CompilerOptions = "/t:library"
         cp.GenerateInMemory = True
+        cp.GenerateExecutable = False
+        cp.IncludeDebugInformation = False
         Dim cr As CodeDom.Compiler.CompilerResults = vba.CompileAssemblyFromSource(cp, cd)
         If Not cr.Errors.Count <> 0 Then
             Dim exeins As Object = cr.CompiledAssembly.CreateInstance("FlyAss.Evaluator")

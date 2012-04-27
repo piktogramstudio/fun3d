@@ -54,7 +54,7 @@
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <AutorunEnabled>true</AutorunEnabled>
     <DisallowUrlActivation>true</DisallowUrlActivation>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>16</ApplicationRevision>
     <ApplicationVersion>1.0.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -179,6 +179,12 @@
       <DependentUpon>tfTransform.vb</DependentUpon>
     </Compile>
     <Compile Include="tfTransform.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="tfUCurveEq.Designer.vb">
+      <DependentUpon>tfUCurveEq.vb</DependentUpon>
+    </Compile>
+    <Compile Include="tfUCurveEq.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ucEquation.Designer.vb">
@@ -429,6 +435,9 @@
     <EmbeddedResource Include="tfTransform.resx">
       <DependentUpon>tfTransform.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="tfUCurveEq.resx">
+      <DependentUpon>tfUCurveEq.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="tfValueInspector.resx">
       <SubType>Designer</SubType>
       <DependentUpon>tfValueInspector.vb</DependentUpon>
@@ -460,6 +469,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\DataSources\ClassU.datasource" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -653,6 +663,7 @@
     <None Include="Resources\mouseHints.png" />
     <None Include="Resources\splash1.png" />
     <None Include="Resources\splashfn.png" />
+    <None Include="Resources\chart-curve-edit-icon.png" />
     <Content Include="shaders\checkdef.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
