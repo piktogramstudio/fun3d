@@ -6,7 +6,7 @@ Imports System.Windows.Forms.Design
 ''' </summary>
 ''' <remarks>To implement use <code>System.ComponentModel.Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))</code>
 ''' <example>
-''' <code>
+''' <code lang="VB">
 ''' &lt;Editor(GetType(cEquationPropertyEditor), GetType(UITypeEditor))&gt; _
 ''' Public Property funX As String = "u"
 ''' </code>
@@ -14,9 +14,23 @@ Imports System.Windows.Forms.Design
 ''' </remarks>
 Public Class cEquationPropertyEditor
     Inherits UITypeEditor
+    ''' <summary>
+    ''' Set edit style to <c>UITypeEditorEditStyle.DropDown</c>
+    ''' </summary>
+    ''' <param name="context"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Overrides Function GetEditStyle(ByVal context As ITypeDescriptorContext) As UITypeEditorEditStyle
         Return UITypeEditorEditStyle.DropDown
     End Function
+    ''' <summary>
+    ''' EditValue for equation property
+    ''' </summary>
+    ''' <param name="context"></param>
+    ''' <param name="provider"></param>
+    ''' <param name="value"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Overrides Function EditValue(ByVal context As ITypeDescriptorContext, ByVal provider As IServiceProvider, ByVal value As Object) As Object
         Dim wfes As IWindowsFormsEditorService = TryCast(provider.GetService(GetType(IWindowsFormsEditorService)), IWindowsFormsEditorService)
         If wfes IsNot Nothing Then
