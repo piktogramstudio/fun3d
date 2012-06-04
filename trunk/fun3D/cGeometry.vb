@@ -1,6 +1,7 @@
 ﻿Imports Microsoft.DirectX
 
 ' TODO Example for cGeometry class
+' TODO Better error handling
 
 ''' <summary>
 ''' Geometry description of object
