@@ -6,5 +6,6 @@ Public Interface IFun3DObject
 
     Property geom As cGeometry
     Property tgeom As cGeometry
+    Property transform As cTransform
     Property parent As Object
 End Interface
