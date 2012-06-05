@@ -104,7 +104,7 @@ Public Class ClassU
 
 #Region "5. Transforms Properties"
     <Category("5. Transforms"), Editor(GetType(cTransformPropertyEditor), GetType(UITypeEditor)), Description("Affine transformations of the line (rotation, position, scale)" + vbCrLf + "Click on button to open transform tool" + vbCrLf + "For mirror transform use negative scale number")> _
-    Public Property Transform As New cTransform()
+    Public Property transform As New cTransform() Implements IFun3DObject.transform
 #End Region
 
 #Region "6. Parameter 'u' settings Properties"
@@ -280,5 +280,5 @@ Public Class ClassU
         refreshBuffer()
     End Sub
 #End Region
-    ' TO DO Save data declaration
+    ' TODO Save data declaration
 End Class

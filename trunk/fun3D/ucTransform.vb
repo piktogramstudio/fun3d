@@ -1,6 +1,6 @@
 ﻿Imports Microsoft.DirectX.Direct3D
 Public Class ucTransform
-    Public Property transformObject As New ClassU()
+    Public Property transformObject As IFun3DObject
     Public WithEvents b As Binding
     Private Sub ucTransform_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' CLEAR BINDINGS
