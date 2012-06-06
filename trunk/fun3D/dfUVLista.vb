@@ -19,7 +19,6 @@ Public Class dfUVLista
         Dim LS As ClassLS
         Dim ISO As ClassISO
         Dim CM As ClassMesh
-        Dim BS As ClassBlending
         Dim CP As ClassCrackedPoly
         Me.ListBox1.Items.Clear()
         For Each UV In mf.Scena.UVList
@@ -39,9 +38,6 @@ Public Class dfUVLista
         Next
         For Each CM In mf.Scena.MeshList
             Me.ListBox1.Items.Add(CM.Name)
-        Next
-        For Each BS In mf.Scena.BlendingList
-            Me.ListBox1.Items.Add(BS.Name)
         Next
         For Each CP In mf.Scena.CrackedPolyList
             Me.ListBox1.Items.Add(CP.Name)

@@ -231,7 +231,6 @@
     <Compile Include="cfShow3d.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClassBlending.vb" />
     <Compile Include="ClassCA.vb" />
     <Compile Include="ClassCrackedPoly.vb" />
     <Compile Include="ClassDynamicParametri.vb" />
