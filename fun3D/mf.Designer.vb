@@ -40,7 +40,6 @@ Partial Class mf
         Me.TSBNewISO = New System.Windows.Forms.ToolStripButton()
         Me.tsbNewCracking = New System.Windows.Forms.ToolStripButton()
         Me.TSBNewPacking = New System.Windows.Forms.ToolStripButton()
-        Me.TSBNewBlending = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonUVp = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonDelete = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButtonSelect = New System.Windows.Forms.ToolStripButton()
@@ -117,7 +116,7 @@ Partial Class mf
         'ToolStrip1
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripButton, Me.OpenToolStripButton, Me.SaveToolStripButton, Me.toolStripSeparator7, Me.HelpToolStripButton, Me.ToolStripSeparator2, Me.TSBUndo, Me.TSBRedo, Me.ToolStripSeparator11, Me.TSBCopy, Me.TSBPaste, Me.ToolStripSeparator10, Me.ToolStripButton1, Me.ToolStripButtonNewUV, Me.BnewCA, Me.bNewLS, Me.TSBNewISO, Me.tsbNewCracking, Me.TSBNewPacking, Me.TSBNewBlending, Me.ToolStripButtonUVp, Me.ToolStripButtonDelete, Me.ToolStripButtonSelect, Me.ToolStripButtonProp, Me.ToolStripButtonVal, Me.TSBCAEditor, Me.ToolStripSeparator8, Me.ToolStripButton2, Me.ToolStripButton3, Me.ToolStripButton5, Me.ToolStripButton6, Me.ToolStripButton4})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripButton, Me.OpenToolStripButton, Me.SaveToolStripButton, Me.toolStripSeparator7, Me.HelpToolStripButton, Me.ToolStripSeparator2, Me.TSBUndo, Me.TSBRedo, Me.ToolStripSeparator11, Me.TSBCopy, Me.TSBPaste, Me.ToolStripSeparator10, Me.ToolStripButton1, Me.ToolStripButtonNewUV, Me.BnewCA, Me.bNewLS, Me.TSBNewISO, Me.tsbNewCracking, Me.TSBNewPacking, Me.ToolStripButtonUVp, Me.ToolStripButtonDelete, Me.ToolStripButtonSelect, Me.ToolStripButtonProp, Me.ToolStripButtonVal, Me.TSBCAEditor, Me.ToolStripSeparator8, Me.ToolStripButton2, Me.ToolStripButton3, Me.ToolStripButton5, Me.ToolStripButton6, Me.ToolStripButton4})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
@@ -279,16 +278,6 @@ Partial Class mf
         Me.TSBNewPacking.Name = "TSBNewPacking"
         Me.TSBNewPacking.Size = New System.Drawing.Size(23, 22)
         Me.TSBNewPacking.Text = "New Packing Structure"
-        '
-        'TSBNewBlending
-        '
-        Me.TSBNewBlending.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.TSBNewBlending.Image = CType(resources.GetObject("TSBNewBlending.Image"), System.Drawing.Image)
-        Me.TSBNewBlending.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.TSBNewBlending.Name = "TSBNewBlending"
-        Me.TSBNewBlending.Size = New System.Drawing.Size(23, 22)
-        Me.TSBNewBlending.Text = "New Blending Structure"
-        Me.TSBNewBlending.Visible = False
         '
         'ToolStripButtonUVp
         '
@@ -904,7 +893,6 @@ Partial Class mf
     Friend WithEvents NewLSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NewISOToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents NURBSToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents TSBNewBlending As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsslCoordinates As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents tsbNewCracking As System.Windows.Forms.ToolStripButton
     Friend WithEvents NewCrackingStructureToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem

@@ -16,7 +16,6 @@ Public Class ClassScena
     Private LSclass As New List(Of ClassLS)
     Private HUDClass As New List(Of ClassHUD)
     Private MeshClass As New List(Of ClassMesh)
-    Private BlendingClass As New List(Of ClassBlending)
     Private CrackedPolyClass As New List(Of ClassCrackedPoly)
     Private PackingClass As New List(Of ClassPacking)
     Dim persp As Boolean = True
@@ -358,16 +357,8 @@ Public Class ClassScena
             Me.MeshClass = value
         End Set
     End Property
-    Public Property BlendingList() As List(Of ClassBlending)
-        Get
-            Return Me.BlendingClass
-        End Get
-        Set(ByVal value As List(Of ClassBlending))
-            Me.BlendingClass = value
-        End Set
-    End Property
     <Browsable(False)> _
-    Public Property CrackedPolyList() As List(Of ClassCrackedPoly)
+        Public Property CrackedPolyList() As List(Of ClassCrackedPoly)
         Get
             Return Me.CrackedPolyClass
         End Get
@@ -396,7 +387,6 @@ Public Class ClassScena
         Dim LS As ClassLS
         'Dim HUD As ClassHUD
         Dim CM As ClassMesh
-        Dim BS As ClassBlending
         Dim CP As ClassCrackedPoly
         Dim PC As ClassPacking
         If Not moMesh Is Nothing Then
@@ -421,9 +411,6 @@ Public Class ClassScena
 
         For Each CM In Me.MeshClass
             Me.drawMesh(CM, device)
-        Next
-        For Each BS In Me.BlendingClass
-            Me.drawBlending(device, BS)
         Next
         For Each CP In Me.CrackedPolyClass
             Me.drawCrackedPoly(device, CP)
@@ -464,9 +451,6 @@ Public Class ClassScena
             For Each CM In Me.MeshClass
                 Me.drawMesh(CM, device)
             Next
-            For Each BS In Me.BlendingClass
-                Me.drawBlending(device, BS)
-            Next
             For Each CP In Me.CrackedPolyClass
                 Me.drawCrackedPoly(device, CP)
             Next
@@ -500,15 +484,7 @@ Public Class ClassScena
         End If
         device.RenderState.CullMode = Cull.None
     End Sub
-    Public Sub drawBlending(ByVal device As Direct3D.Device, ByVal BS As ClassBlending)
-        Dim vvv() As CustomVertex.PositionColored = BS.LineBuffer.ToArray
-        Dim oldformat As Integer
-        oldformat = device.VertexFormat
-        device.VertexFormat = CustomVertex.PositionColored.Format
-        device.DrawUserPrimitives(PrimitiveType.LineStrip, vvv.Length, vvv)
-
-        device.VertexFormat = CType(oldformat, VertexFormats)
-    End Sub
+    
     Public Sub drawCrackedPoly(ByVal device As Direct3D.Device, ByVal CP As ClassCrackedPoly)
         If CP.triangles.Count > 0 Then
             Dim vvv() As CustomVertex.PositionColored = CP.lineBuffer.ToArray
@@ -1150,7 +1126,6 @@ Public Class ClassScena
         Dim HUD As ClassHUD
         Dim CM As ClassMesh
         Dim CP As ClassCrackedPoly
-        Dim BS As ClassBlending
         For Each CM In Me.MeshClass
             CM.afterPaste(device)
         Next
@@ -1171,12 +1146,6 @@ Public Class ClassScena
         Next
         For Each HUD In Me.HUDClass
             HUD.afterPaste(device)
-        Next
-        If Me.BlendingClass Is Nothing Then
-            Me.BlendingClass = New List(Of ClassBlending)
-        End If
-        For Each BS In Me.BlendingClass
-            BS.afterPaste(device)
         Next
         If Me.CrackedPolyClass Is Nothing Then
             Me.CrackedPolyClass = New List(Of ClassCrackedPoly)
