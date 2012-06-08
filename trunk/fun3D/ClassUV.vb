@@ -861,6 +861,9 @@ Public Class ClassUV
             Me.UVMesh = Mesh.Box(device, 10, 10, 10)
         End Try
     End Sub
+    Public Sub draw(ByVal device As Device) Implements IFun3DObject.draw
+
+    End Sub
     Public Sub afterPaste(ByVal device As Device)
         Me.vBuffer = New List(Of CustomVertex.PositionNormalTextured)
         Me.vsBuffer = New List(Of CustomVertex.PositionNormalColored)

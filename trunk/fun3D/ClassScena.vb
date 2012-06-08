@@ -597,24 +597,19 @@ Public Class ClassScena
     End Sub
     Public Sub drawU(ByVal device As Direct3D.Device, ByVal UV As ClassU, ByVal selected As Boolean)
         Dim lineMatrix = device.Transform.World * device.Transform.View * device.Transform.Projection
-        ' linije
         device.VertexFormat = CustomVertex.PositionNormalColored.Format
         Dim d3l As New Direct3D.Line(device)
-
         Dim i As Integer = 0
         Dim pcount As Integer = 512
         Dim tpc As Integer = UV.tgeom.vb.Length - 1
         d3l.GlLines = True
         d3l.Width = UV.LineWidth
         d3l.Antialias = True
-
         If ((tpc - i) Mod 512) <> 0 Then pcount = (tpc - i) Mod 512
         d3l.Begin()
         d3l.DrawTransform(UV.tgeom.vb, lineMatrix, Color.FromArgb(UV.Transparency, UV.LineColor))
         d3l.End()
-
         d3l.Dispose()
-        ' tacke
         If UV.Equals(Me.SelectedObject) Then
             device.RenderState.PointSize = Me.PointSize
             Dim ver(2) As CustomVertex.PositionColored
@@ -623,7 +618,6 @@ Public Class ClassScena
             device.VertexFormat = CustomVertex.PositionColored.Format
             device.DrawUserPrimitives(PrimitiveType.PointList, ver.Length, ver)
         End If
-
     End Sub
     Public Sub drawUV(ByVal device As Direct3D.Device, ByVal UV As ClassUV)
 

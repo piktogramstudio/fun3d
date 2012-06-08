@@ -18,7 +18,7 @@ Public Class ClassFun3DObject
     Public Property transform As New cTransform() Implements IFun3DObject.transform
 
     Public Property parent As Object = Nothing Implements IFun3DObject.parent
-#Region "Prifate fields"
+#Region "Private fields"
     Dim objName As String = "New Fun3D Object"
     Dim scX As Single = 1
     Dim scY As Single = 1
@@ -148,6 +148,9 @@ Public Class ClassFun3DObject
         End Get
     End Property
 #End Region
+    Public Sub draw(ByVal device As Direct3D.Device) Implements IFun3DObject.draw
+
+    End Sub
     Public Sub rEventBufferRefreshed()
         RaiseEvent bufferRefreshed()
     End Sub

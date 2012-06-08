@@ -276,6 +276,9 @@ Public Class ClassU
         tgeom = Me.Transform.getTransformedGeometry(Me.geom)
         cp.TempFiles.Delete()
     End Sub
+    Public Sub draw(ByVal device As Direct3D.Device) Implements IFun3DObject.draw
+
+    End Sub
     Public Sub afterPaste(ByVal device As Device)
         refreshBuffer()
     End Sub
