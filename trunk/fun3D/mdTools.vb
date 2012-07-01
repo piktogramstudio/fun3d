@@ -474,7 +474,7 @@ Module mdTools
                         .nOfLevels = oca.nivoa
                         .Rule = oca.rule
                         .Space = oca.space
-                        .Style = CType(oca.style, ClassCA.VisualStyles)
+                        .Style = CType(oca.style, VisualStyles)
                         .Transparency = CByte(oca.transparency)
                         .xFields = oca.xPolja
                         .yFields = oca.yPolja
