@@ -52,7 +52,7 @@ Public Class ClassUV
     Public lineBuffer As New List(Of CustomVertex.PositionColored)
     Public lineBuffer1 As New List(Of Vector3)
     Public subset As New List(Of Integer)
-    Public selectedStyle As ClassCA.VisualStyles = ClassCA.VisualStyles.defaultStyle
+    Public selectedStyle As VisualStyles = VisualStyles.defaultStyle
     Dim minSU As Single = -10
     Dim maxSU As Single = 10
     Dim stepSU As Single = 1
@@ -179,11 +179,11 @@ Public Class ClassUV
         End Set
     End Property
     <Category("2. Appearance")> _
-    Public Property Style() As ClassCA.VisualStyles
+    Public Property Style() As VisualStyles
         Get
             Return Me.selectedStyle
         End Get
-        Set(ByVal value As ClassCA.VisualStyles)
+        Set(ByVal value As VisualStyles)
             Me.selectedStyle = value
         End Set
     End Property

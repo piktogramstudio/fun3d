@@ -163,6 +163,7 @@
       <DependentUpon>dsF3D.xsd</DependentUpon>
     </Compile>
     <Compile Include="iFun3DScene.vb" />
+    <Compile Include="mEnums.vb" />
     <Compile Include="sLineAppearance.vb" />
     <Compile Include="cParametersPropertyEditor.vb" />
     <Compile Include="cTrackBarPropertyEditor.vb" />

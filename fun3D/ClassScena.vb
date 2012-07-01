@@ -644,24 +644,24 @@ Public Class ClassScena
         ' VISUAL STYLE
         Dim textureDefault As Texture = Nothing
         Select Case UV.selectedStyle
-            Case ClassCA.VisualStyles.defaultStyle
+            Case VisualStyles.defaultStyle
                 textureDefault = Nothing
-            Case ClassCA.VisualStyles.FlatTransparent
+            Case VisualStyles.FlatTransparent
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassflat.png")
-            Case ClassCA.VisualStyles.GlassCube
+            Case VisualStyles.GlassCube
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasstry.png")
-            Case ClassCA.VisualStyles.Sketchy
+            Case VisualStyles.Sketchy
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/strongline.png")
-            Case ClassCA.VisualStyles.GlassSky
+            Case VisualStyles.GlassSky
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasssky.png")
-            Case ClassCA.VisualStyles.GlassBlur
+            Case VisualStyles.GlassBlur
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassblur.png")
-            Case ClassCA.VisualStyles.KohInor2B
+            Case VisualStyles.KohInor2B
                 textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/kohinor.png")
-            Case ClassCA.VisualStyles.Fluid
+            Case VisualStyles.Fluid
                 Dim m As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
                 Dim g As Graphics = Graphics.FromImage(m)
-                Dim p As New Pen(Color.Black, UV.lineWidth)
+                Dim p As New Pen(Color.Black, UV.LineWidth)
                 Dim b As New Drawing2D.HatchBrush(UV.Hatch, Color.FromArgb(UV.Transparency, UV.bojaPolja1), Color.FromArgb(UV.Transparency, UV.bojaPolja2))
                 Dim b1 As New Drawing2D.LinearGradientBrush(New Rectangle(0, 0, 100, 100), f1, f2, Drawing2D.LinearGradientMode.ForwardDiagonal)
                 g.FillRectangle(b1, 0, 0, 100, 100)
@@ -679,7 +679,7 @@ Public Class ClassScena
                 'textureDefault = TextureLoader.FromStream(device, m1, 0, 0, 1, Direct3D.Usage.None, Direct3D.Format.A8R8G8B8, Direct3D.Pool.Managed, Direct3D.Filter.None, Direct3D.Filter.None, System.Drawing.Color.ForestGreen.ToArgb)
                 f1 = Color.FromArgb(UV.Transparency, Color.White)
                 f2 = Color.FromArgb(UV.Transparency, Color.White)
-            Case ClassCA.VisualStyles.Enviroment
+            Case VisualStyles.Enviroment
                 textureDefault = UV.enviroment
         End Select
         If Not textureDefault Is Nothing Then
@@ -931,19 +931,19 @@ Public Class ClassScena
             mat.SpecularSharpness = 22
             Dim textureDefault As Texture = Nothing
             Select Case ca.selectedStyle
-                Case ClassCA.VisualStyles.defaultStyle
+                Case VisualStyles.defaultStyle
                     textureDefault = Nothing
-                Case ClassCA.VisualStyles.FlatTransparent
+                Case VisualStyles.FlatTransparent
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassflat.png")
-                Case ClassCA.VisualStyles.GlassCube
+                Case VisualStyles.GlassCube
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasstry.png")
-                Case ClassCA.VisualStyles.Sketchy
+                Case VisualStyles.Sketchy
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/strongline.png")
-                Case ClassCA.VisualStyles.GlassSky
+                Case VisualStyles.GlassSky
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasssky.png")
-                Case ClassCA.VisualStyles.GlassBlur
+                Case VisualStyles.GlassBlur
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassblur.png")
-                Case ClassCA.VisualStyles.KohInor2B
+                Case VisualStyles.KohInor2B
                     textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/kohinor.png")
             End Select
             device.SetTexture(0, textureDefault)
@@ -951,7 +951,7 @@ Public Class ClassScena
 
             Dim i As Integer
             If ca.matrice(0).Contains(1) Then
-                If ca.meshBuffer.Count > 0 And ca.shp = ClassCA.shapes.Mesh Then
+                If ca.meshBuffer.Count > 0 And ca.shp = shapes.Mesh Then
                     Dim cm As ClassMesh
                     For Each cm In ca.meshBuffer
                         drawMesh(cm, device)
