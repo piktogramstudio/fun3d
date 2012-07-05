@@ -44,19 +44,14 @@ Public Class ClassCA
     Public yrot As Single = 0
     Public zrot As Single = 0
     Public bojaKocke As Color = Color.Silver
-    Public bojaLinije As Color = Color.Black
-    Public selectedStyle As VisualStyles = VisualStyles.defaultStyle
     Public matrica As New List(Of Byte)
     Public matrice As New List(Of List(Of Byte))
     Public subset As New List(Of Integer)
     Public shp As shapes = shapes.Cube
 #End Region
 #Region "Fields"
-    Dim sEdges As Boolean = True
     Dim conway As Boolean = True
     Dim dISO As Boolean = False
-    Dim lw As Byte = 0
-    Dim ime As String = "New CA"
     Dim llevelColor As Color = Color.SkyBlue
     Dim pp(,,) As Vector3 = {}
     Dim pi(,,) As Single = {}
@@ -71,50 +66,15 @@ Public Class ClassCA
 #End Region
 #Region "Browsable Properties"
     <Category("1. Meta")> _
-    Public Property Name() As String
-        Get
-            Return ime
-        End Get
-        Set(ByVal value As String)
-            ime = value
-        End Set
-    End Property
+    Public Property Name As String = "New CA"
     <Category("2. Appearance"), DisplayName("Line Width"), Description("Edges line width")> _
-    Public Property LineWidth() As Byte
-        Get
-            Return Me.lw
-        End Get
-        Set(ByVal value As Byte)
-            Me.lw = value
-        End Set
-    End Property
+    Public Property LineWidth() As Byte = 0
     <Category("2. Appearance"), DisplayName("Show Edges")> _
-    Public Property ShowEdges() As Boolean
-        Get
-            Return Me.sEdges
-        End Get
-        Set(ByVal value As Boolean)
-            Me.sEdges = value
-        End Set
-    End Property
+    Public Property ShowEdges() As Boolean = True
     <Category("2. Appearance"), Description("Rendering style")> _
-    Public Property Style() As VisualStyles
-        Get
-            Return Me.selectedStyle
-        End Get
-        Set(ByVal value As VisualStyles)
-            Me.selectedStyle = value
-        End Set
-    End Property
+    Public Property Style() As VisualStyles= VisualStyles.defaultStyle
     <Category("2. Appearance"), DisplayName("Line Color"), Description("Edges color")> _
-    Public Property LineColor() As Color
-        Get
-            Return Me.bojaLinije
-        End Get
-        Set(ByVal value As Color)
-            Me.bojaLinije = value
-        End Set
-    End Property
+    Public Property LineColor() As Color = Color.Black
     <Category("2. Appearance"), DisplayName("Last Level Color"), Description("Color of cubes in last level")> _
     Public Property LastLevelColor() As Color
         Get
@@ -609,85 +569,85 @@ Public Class ClassCA
                     c8.Position = Vector3.TransformCoordinate(v(7), m)
 
                     'line buffer 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
 
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.LineBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
 
                     ' dxf buffer
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.bojaLinije.ToArgb))
-                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.bojaLinije.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c1.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c5.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c2.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c6.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c3.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c7.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c8.Position, Me.LineColor.ToArgb))
+                    Me.DXFBuffer.Add(New CustomVertex.PositionColored(c4.Position, Me.LineColor.ToArgb))
                     'f1
                     ' uv
                     c1.Tu = 0

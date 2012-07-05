@@ -930,7 +930,7 @@ Public Class ClassScena
             Dim mat As New Direct3D.Material
             mat.SpecularSharpness = 22
             Dim textureDefault As Texture = Nothing
-            Select Case ca.selectedStyle
+            Select Case ca.Style
                 Case VisualStyles.defaultStyle
                     textureDefault = Nothing
                 Case VisualStyles.FlatTransparent
