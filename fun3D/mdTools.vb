@@ -463,7 +463,7 @@ Module mdTools
                     Dim CA As New ClassCA(cf3D.device)
                     With CA
                         .bojaKocke = Color.FromArgb(oca.bojaKocke)
-                        .bojaLinije = Color.FromArgb(oca.bojaLinije)
+                        .LineColor = Color.FromArgb(oca.bojaLinije)
                         .h = oca.h
                         .w = oca.w
                         .l = oca.l
