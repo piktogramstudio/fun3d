@@ -462,7 +462,7 @@ Module mdTools
                 For Each oca In os.GetCARows
                     Dim CA As New ClassCA(cf3D.device)
                     With CA
-                        .bojaKocke = Color.FromArgb(oca.bojaKocke)
+                        .CubeColor = Color.FromArgb(oca.bojaKocke)
                         .LineColor = Color.FromArgb(oca.bojaLinije)
                         .h = oca.h
                         .w = oca.w

@@ -951,7 +951,7 @@ Public Class ClassScena
 
             Dim i As Integer
             If ca.matrice(0).Contains(1) Then
-                If ca.meshBuffer.Count > 0 And ca.shp = shapes.Mesh Then
+                If ca.meshBuffer.Count > 0 And ca.Shape = shapes.Mesh Then
                     Dim cm As ClassMesh
                     For Each cm In ca.meshBuffer
                         drawMesh(cm, device)
@@ -979,7 +979,7 @@ Public Class ClassScena
                     End Try
                     Try
                         For i = 0 To ca.nOfLevels
-                            mat.Diffuse = Color.FromArgb(ca.providnost, ca.levelColor(i))
+                            mat.Diffuse = Color.FromArgb(ca.Transparency, ca.levelColor(i))
                             mat.SpecularSharpness = 22
                             device.Material = mat
                             ca.CAMesh.DrawSubset(i)
