@@ -28,7 +28,6 @@ Public Class ClassCA
 #End Region
 #Region "Public Fields"
     Public praviloL As Byte = 54
-    Public providnost As Byte = 255
     Public minBC As Byte = 2
     Public maxBC As Byte = 3
     Public toLive As Byte = 3
@@ -43,20 +42,16 @@ Public Class ClassCA
     Public xrot As Single = 0
     Public yrot As Single = 0
     Public zrot As Single = 0
-    Public bojaKocke As Color = Color.Silver
     Public matrica As New List(Of Byte)
     Public matrice As New List(Of List(Of Byte))
     Public subset As New List(Of Integer)
-    Public shp As shapes = shapes.Cube
 #End Region
 #Region "Fields"
     Dim conway As Boolean = True
     Dim dISO As Boolean = False
-    Dim llevelColor As Color = Color.SkyBlue
     Dim pp(,,) As Vector3 = {}
     Dim pi(,,) As Single = {}
     Dim iBuffer As New List(Of Integer)
-    Dim mName As String = ""
 #End Region
 #Region "Events"
     Public Shared Event bufferRefreshed()
@@ -76,50 +71,15 @@ Public Class ClassCA
     <Category("2. Appearance"), DisplayName("Line Color"), Description("Edges color")> _
     Public Property LineColor() As Color = Color.Black
     <Category("2. Appearance"), DisplayName("Last Level Color"), Description("Color of cubes in last level")> _
-    Public Property LastLevelColor() As Color
-        Get
-            Return Me.llevelColor
-        End Get
-        Set(ByVal value As Color)
-            Me.llevelColor = value
-        End Set
-    End Property
+    Public Property LastLevelColor() As Color = Color.SkyBlue
     <Category("2. Appearance"), DisplayName("First Level Color"), Description("Color of cubes in first level")> _
-    Public Property CubeColor() As Color
-        Get
-            Return Me.bojaKocke
-        End Get
-        Set(ByVal value As Color)
-            Me.bojaKocke = value
-        End Set
-    End Property
+    Public Property CubeColor() As Color = Color.Silver
     <Category("2. Appearance")> _
-    Public Property Transparency() As Byte
-        Get
-            Return Me.providnost
-        End Get
-        Set(ByVal value As Byte)
-            Me.providnost = value
-        End Set
-    End Property
+    Public Property Transparency() As Byte = 255
     <Category("2. Appearance")> _
-    Public Property Shape() As shapes
-        Get
-            Return Me.shp
-        End Get
-        Set(ByVal value As shapes)
-            Me.shp = value
-        End Set
-    End Property
+    Public Property Shape() As shapes = shapes.Cube
     <Category("2. Appearance")> _
-    Public Property MeshName() As String
-        Get
-            Return Me.mName
-        End Get
-        Set(ByVal value As String)
-            Me.mName = value
-        End Set
-    End Property
+    Public Property MeshName() As String = ""
     <Category("3. Geometry"), Description("Cube width")> _
     Public Property width() As Single
         Get
@@ -268,9 +228,9 @@ Public Class ClassCA
             r1 = Me.CubeColor.R
             g1 = Me.CubeColor.G
             b1 = Me.CubeColor.B
-            r2 = Me.llevelColor.R
-            g2 = Me.llevelColor.G
-            b2 = Me.llevelColor.B
+            r2 = Me.LastLevelColor.R
+            g2 = Me.LastLevelColor.G
+            b2 = Me.LastLevelColor.B
             If r1 > r2 Then
                 r = CByte(r2 + Int(((r1 - r2) / Me.nOfLevels) * level))
             Else
@@ -1106,7 +1066,7 @@ Public Class ClassCA
         Return rv
     End Function
     Public Function findMesh(ByVal mesh As ClassMesh) As Boolean
-        If mesh.Name = Me.mName Then
+        If mesh.Name = Me.MeshName Then
             Return True
         Else
             Return False
