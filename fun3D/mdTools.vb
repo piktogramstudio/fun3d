@@ -464,9 +464,9 @@ Module mdTools
                     With CA
                         .CubeColor = Color.FromArgb(oca.bojaKocke)
                         .LineColor = Color.FromArgb(oca.bojaLinije)
-                        .h = oca.h
-                        .w = oca.w
-                        .l = oca.l
+                        .height = oca.h
+                        .width = oca.w
+                        .lenght = oca.l
                         .maxBC = oca.maxC
                         .minBC = oca.minC
                         .TurnOnCells = oca.turnOnC
