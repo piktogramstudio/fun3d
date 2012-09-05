@@ -27,7 +27,6 @@ Public Class ClassCA
     Public meshBuffer As New List(Of ClassMesh)
 #End Region
 #Region "Public Fields"
-    Public praviloL As Byte = 54
     Public minBC As Byte = 2
     Public maxBC As Byte = 3
     Public toLive As Byte = 3
@@ -35,7 +34,6 @@ Public Class ClassCA
     Public xFields As Integer = 15
     Public yFields As Integer = 15
     Public nOfLevels As Integer = 5
-    Public w, h, l, razmak, spcX, spcY, spcZ As Single
     Public xpolozaj As Single = 0
     Public ypolozaj As Single = 0
     Public zpolozaj As Single = 0
@@ -82,68 +80,25 @@ Public Class ClassCA
     Public Property MeshName() As String = ""
     <Category("3. Geometry"), Description("Cube width")> _
     Public Property width() As Single
-        Get
-            Return w
-        End Get
-        Set(ByVal value As Single)
-            w = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Cube height")> _
     Public Property height() As Single
-        Get
-            Return h
-        End Get
-        Set(ByVal value As Single)
-            h = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Cube lenght")> _
     Public Property lenght() As Single
-        Get
-            Return l
-        End Get
-        Set(ByVal value As Single)
-            l = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Distance between cubes X direction")> _
     Public Property SpaceX() As Single
-        Get
-            Return Me.spcX
-        End Get
-        Set(ByVal value As Single)
-            Me.spcX = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Distance between cubes Y direction")> _
     Public Property SpaceY() As Single
-        Get
-            Return Me.spcY
-        End Get
-        Set(ByVal value As Single)
-            Me.spcY = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Distance between cubes Z direction")> _
     Public Property SpaceZ() As Single
-        Get
-            Return Me.spcZ
-        End Get
-        Set(ByVal value As Single)
-            Me.spcZ = value
-        End Set
-    End Property
     <Category("3. Geometry"), Description("Distance between cubes")> _
     Public Property Space() As Single
         Get
-            Return razmak
+            Return (Me.SpaceX + Me.SpaceY + Me.SpaceZ) / 3
         End Get
         Set(ByVal value As Single)
-            Me.spcX = value
-            Me.spcY = value
-            Me.spcZ = value
-            razmak = value
+            Me.SpaceX = value
+            Me.SpaceY = value
+            Me.SpaceZ = value
         End Set
     End Property
     <Category("4. Position")> _
@@ -332,15 +287,6 @@ Public Class ClassCA
     End Property
     <Browsable(False)> _
     Public Property Rule() As Byte
-        Get
-            Return praviloL
-        End Get
-        Set(ByVal value As Byte)
-            praviloL = value
-            Me.createLevels()
-            Me.refreshBuffer()
-        End Set
-    End Property
     <Browsable(False)> _
     Public Property CellMatrix() As List(Of Byte)
         Get
@@ -353,13 +299,10 @@ Public Class ClassCA
 #End Region
 #Region "Constructors"
     Public Sub New(ByVal device As Device)
-        w = 2
-        h = 2
-        l = 2
-        razmak = 0.5
-        spcX = razmak
-        spcY = razmak
-        spcZ = razmak
+        Me.width = 2
+        Me.height = 2
+        Me.lenght = 2
+        Me.Space = 0.5
         Me.generisiSlucajnuMatricu()
         createLevels()
         Me.refreshBuffer(device)
@@ -368,13 +311,10 @@ Public Class ClassCA
         xFields = x
         yFields = y
         nOfLevels = l1
-        w = 2
-        h = 2
-        l = 2
-        razmak = 0.5
-        spcX = razmak
-        spcY = razmak
-        spcZ = razmak
+        Me.width = 2
+        Me.height = 2
+        Me.lenght = 2
+        Me.Space = 0.5
         Me.generisiSlucajnuMatricu()
         createLevels()
         Me.refreshBuffer(device)
@@ -437,9 +377,9 @@ Public Class ClassCA
         n4 = New Vector3(0, 0, -1)
         n5 = New Vector3(0, -1, 0)
         n6 = New Vector3(-1, 0, 0)
-        w1 = w + Me.spcX
-        l1 = l + Me.spcY
-        h1 = h + Me.spcZ
+        w1 = Me.width + Me.SpaceX
+        l1 = Me.lenght + Me.SpaceY
+        h1 = Me.height + Me.SpaceZ
         c1 = New CustomVertex.PositionNormalTextured
         c2 = New CustomVertex.PositionNormalTextured
         c3 = New CustomVertex.PositionNormalTextured
@@ -472,7 +412,7 @@ Public Class ClassCA
                         Dim i As Integer
                         Dim vMesh, tMesh As Vector3
                         Dim m1 As Matrix
-                        tMesh = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2), CSng(Int(mi / Me.xFields) * l1 + l / 2), ni * h1 + h / 2)
+                        tMesh = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + Me.width / 2), CSng(Int(mi / Me.xFields) * l1 + Me.lenght / 2), ni * h1 + Me.height / 2)
                         mm.Translate(tMesh)
                         m1 = Matrix.Multiply(mm, m)
                         Try
@@ -510,13 +450,13 @@ Public Class ClassCA
 
                     ' Calculate cube coordinates 
                     v(0) = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1), CSng(Int(mi / Me.xFields) * l1), ni * h1)
-                    v(1) = New Vector3(v(0).X + w, v(0).Y, v(0).Z)
-                    v(2) = New Vector3(v(0).X + w, v(0).Y + l, v(0).Z)
-                    v(3) = New Vector3(v(0).X, v(0).Y + l, v(0).Z)
-                    v(4) = New Vector3(v(0).X, v(0).Y, v(0).Z + h)
-                    v(5) = New Vector3(v(0).X + w, v(0).Y, v(0).Z + h)
-                    v(6) = New Vector3(v(0).X + w, v(0).Y + l, v(0).Z + h)
-                    v(7) = New Vector3(v(0).X, v(0).Y + l, v(0).Z + h)
+                    v(1) = New Vector3(v(0).X + Me.width, v(0).Y, v(0).Z)
+                    v(2) = New Vector3(v(0).X + Me.width, v(0).Y + Me.lenght, v(0).Z)
+                    v(3) = New Vector3(v(0).X, v(0).Y + Me.lenght, v(0).Z)
+                    v(4) = New Vector3(v(0).X, v(0).Y, v(0).Z + Me.height)
+                    v(5) = New Vector3(v(0).X + Me.width, v(0).Y, v(0).Z + Me.height)
+                    v(6) = New Vector3(v(0).X + Me.width, v(0).Y + Me.lenght, v(0).Z + Me.height)
+                    v(7) = New Vector3(v(0).X, v(0).Y + Me.lenght, v(0).Z + Me.height)
 
                     ' Transform cube coordinates
                     c1.Position = Vector3.TransformCoordinate(v(0), m)
@@ -890,16 +830,16 @@ Public Class ClassCA
         Dim w1, l1, h1 As Single
         Dim bi, mi, ni, level As Integer
         Dim b As Byte
-        w1 = w + Me.spcX
-        l1 = l + Me.spcY
-        h1 = h + Me.spcZ
+        w1 = Me.width + Me.SpaceX
+        l1 = Me.lenght + Me.SpaceY
+        h1 = Me.height + Me.SpaceZ
         ni = 0
         level = 0
         Dim matrica As List(Of Byte)
         For Each matrica In Me.matrice
             bi = 0 : mi = 0
             For Each b In matrica
-                pp(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = New Vector3(CInt((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + w / 2), CInt(mi / Me.xFields) * l1 + l / 2, ni * h1 + h / 2)
+                pp(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = New Vector3(CInt((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + Me.width / 2), CInt(mi / Me.xFields) * l1 + Me.lenght / 2, ni * h1 + Me.height / 2)
                 If b > 0 Then
                     pi(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = 1
                 Else
