@@ -950,7 +950,7 @@ Public Class ClassScena
             device.VertexFormat = CustomVertex.PositionNormalTextured.Format
 
             Dim i As Integer
-            If ca.matrice(0).Contains(1) Then
+            If ca.matrices(0).Contains(1) Then
                 If ca.meshBuffer.Count > 0 And ca.Shape = shapes.Mesh Then
                     Dim cm As ClassMesh
                     For Each cm In ca.meshBuffer

@@ -485,10 +485,10 @@ Module mdTools
                         .yRotation = oca.yRot
                         .zRotation = oca.zRot
                         Dim mval As dsProjekat.MatrixRow
-                        .matrice.Clear()
-                        .matrice.Add(New List(Of Byte))
+                        .matrices.Clear()
+                        .matrices.Add(New List(Of Byte))
                         For Each mval In oca.GetMatrixRows
-                            .matrice(0).Add(mval.value)
+                            .matrices(0).Add(mval.value)
                         Next
                     End With
                     CA.createLevels()

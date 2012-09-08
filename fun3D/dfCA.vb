@@ -14,7 +14,7 @@ Public Class dfCA
     Private Sub Cancel_Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel_Button.Click
         With Me.CA
             .nOfLevels = Me.saveCA.nOfLevels
-            .matrice = Me.saveCA.matrice
+            .matrices = Me.saveCA.matrices
             .maxBC = Me.saveCA.maxBC
             .minBC = Me.saveCA.minBC
             .toLive = Me.saveCA.toLive
@@ -43,7 +43,7 @@ Public Class dfCA
             .xFields = Me.CA.xFields
             .yFields = Me.CA.yFields
             .nOfLevels = Me.CA.nOfLevels
-            .matrice = Me.CA.matrice
+            .matrices = Me.CA.matrices
             .maxBC = Me.CA.maxBC
             .minBC = Me.CA.minBC
             .toLive = Me.CA.toLive
@@ -56,10 +56,8 @@ Public Class dfCA
             Dim r As Rectangle
             For Each r In rlist
                 If r.Contains(e.Location) Then
-                    Me.paintC = CBool(Not CA.matrice(0)(rlist.IndexOf(r)) And 1)
-                    CA.matrice(0)(rlist.IndexOf(r)) = CByte(Not CA.matrice(0)(rlist.IndexOf(r)) And 1)
-                    'CA.refreshBuffer(cf3D.device)
-                    'cf3D.Refresh()
+                    Me.paintC = CBool(Not CA.matrices(0)(rlist.IndexOf(r)) And 1)
+                    CA.matrices(0)(rlist.IndexOf(r)) = CByte(Not CA.matrices(0)(rlist.IndexOf(r)) And 1)
                 End If
             Next
         End If
@@ -71,13 +69,9 @@ Public Class dfCA
             For Each r In rlist
                 If r.Contains(e.Location) Then
                     If paintC Then
-                        CA.matrice(0)(rlist.IndexOf(r)) = 1
-                        'CA.refreshBuffer(cf3D.device)
-                        'cf3D.Refresh()
+                        CA.matrices(0)(rlist.IndexOf(r)) = 1
                     Else
-                        CA.matrice(0)(rlist.IndexOf(r)) = 0
-                        'CA.refreshBuffer(cf3D.device)
-                        'cf3D.Refresh()
+                        CA.matrices(0)(rlist.IndexOf(r)) = 0
                     End If
                 End If
             Next
@@ -99,10 +93,10 @@ Public Class dfCA
         h = CSng((e.ClipRectangle.Height - 4) / CA.yFields)
         w = CSng((e.ClipRectangle.Width - 4) / CA.xFields)
         Dim t, u As Integer
-        u = CA.matrice(0).Count
+        u = CA.matrices(0).Count
         For t = 0 To u - 1
             rlist.Add(New Rectangle(CInt((t - Int(t / CA.xFields) * CA.xFields) * w + 2), CInt(Int(t / CA.xFields) * h + 2), CInt(w - 2), CInt(h - 2)))
-            If CA.matrice(0)(t) > 0 Then
+            If CA.matrices(0)(t) > 0 Then
                 e.Graphics.FillRectangle(Brushes.Black, rlist(t))
             Else
                 e.Graphics.DrawRectangle(Pens.Black, rlist(t))
@@ -112,10 +106,10 @@ Public Class dfCA
 
     Private Sub NumericUpDown1_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles NUDR.ValueChanged, NUDC.ValueChanged, NUDL.ValueChanged
         If sender Is NUDC And Me.matrixRefresh Then
-            CA.brojPoljaPoYosi = CInt(NUDC.Value)
+            CA.rows = CInt(NUDC.Value)
             CA.nOfLevels = CInt(NUDL.Value)
         ElseIf sender Is NUDR And Me.matrixRefresh Then
-            CA.brojPoljaPoXosi = CInt(NUDR.Value)
+            CA.columns = CInt(NUDR.Value)
             CA.nOfLevels = CInt(NUDL.Value)
         ElseIf sender Is NUDL And Me.matrixRefresh Then
             CA.nOfLevels = CInt(NUDL.Value)
@@ -147,7 +141,7 @@ Public Class dfCA
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        CA.generisiPraznuMatricu()
+        CA.generateEmptyMatrix()
         CA.createLevels()
         CA.refreshBuffer(cf3D.device)
         cf3D.Refresh()
