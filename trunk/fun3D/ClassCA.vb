@@ -23,65 +23,106 @@ Public Class ClassCA
     ''' <summary>ISO surface mesh Direct3D definition</summary>
     <System.NonSerialized()> _
     Public ISOMesh As Mesh = Nothing
+    ''' <summary>
+    ''' Buffer of custom meshes used for cells
+    ''' </summary>
     <System.NonSerialized()> _
     Public meshBuffer As New List(Of ClassMesh)
 #End Region
 #Region "Public Fields"
+    ''' <summary>Minimum living cells</summary>
     Public minBC As Byte = 2
+    ''' <summary>Maximum living cells</summary>
     Public maxBC As Byte = 3
+    ''' <summary>Number of cells required to cell bring to life</summary>
     Public toLive As Byte = 3
+    ''' <summary>Number of columns</summary>
     Public xFields As Integer = 15
+    ''' <summary>Number of rows</summary>
     Public yFields As Integer = 15
+    ''' <summary>Number of levels</summary>
     Public nOfLevels As Integer = 5
-    Public matrica As New List(Of Byte)
-    Public matrice As New List(Of List(Of Byte))
+    ''' <summary>Matrices - levels</summary>
+    Public matrices As New List(Of List(Of Byte))
+    ''' <summary>Material subset identifier</summary>
     Public subset As New List(Of Integer)
 #End Region
 #Region "Fields"
+    ''' <summary>Use Conway algorithm</summary>
     Dim conway As Boolean = True
+    ''' <summary>ISO surface points grid</summary>
     Dim pp(,,) As Vector3 = {}
+    ''' <summary>ISO surface values grid</summary>
     Dim pi(,,) As Single = {}
+    ''' <summary>Indices buffer</summary>
     Dim iBuffer As New List(Of Integer)
 #End Region
 #Region "Events"
+    ''' <summary>Geometry changed</summary>
     Public Shared Event bufferRefreshed()
+    ''' <summary>Evaluation of object started</summary>
     Public Shared Event progressStart()
+    ''' <summary>Evaluation of object ended</summary>
     Public Shared Event progressEnd()
+    ''' <summary>
+    ''' Progress of evaluation
+    ''' </summary>
+    ''' <param name="p">Percent</param>
+    ''' <param name="m">Message</param>
+    ''' <remarks></remarks>
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
 #End Region
 #Region "Browsable Properties"
+    ''' <summary>The name of object</summary>
     <Category("1. Meta")> _
     Public Property Name As String = "New CA"
+    ''' <summary>Line width of edges</summary>
     <Category("2. Appearance"), DisplayName("Line Width"), Description("Edges line width")> _
     Public Property LineWidth() As Byte = 0
+    ''' <summary>Display edges</summary>
     <Category("2. Appearance"), DisplayName("Show Edges")> _
     Public Property ShowEdges() As Boolean = True
+    ''' <summary>Rendering style</summary>
     <Category("2. Appearance"), Description("Rendering style")> _
-    Public Property Style() As VisualStyles= VisualStyles.defaultStyle
+    Public Property Style() As VisualStyles = VisualStyles.defaultStyle
+    ''' <summary>Color of edges</summary>
     <Category("2. Appearance"), DisplayName("Line Color"), Description("Edges color")> _
     Public Property LineColor() As Color = Color.Black
+    ''' <summary>Color of cubes in last level</summary>
     <Category("2. Appearance"), DisplayName("Last Level Color"), Description("Color of cubes in last level")> _
     Public Property LastLevelColor() As Color = Color.SkyBlue
+    ''' <summary>Color of cubes in first level</summary>
     <Category("2. Appearance"), DisplayName("First Level Color"), Description("Color of cubes in first level")> _
     Public Property CubeColor() As Color = Color.Silver
+    ''' <summary>Transparency of cells</summary>
+    ''' <remarks>255 = Opaque, 0 = Transparent</remarks>
     <Category("2. Appearance")> _
     Public Property Transparency() As Byte = 255
+    ''' <summary>Cells shape</summary>
     <Category("2. Appearance")> _
     Public Property Shape() As shapes = shapes.Cube
+    ''' <summary>If shape is set to "Mesh", this property is used for name of mesh</summary>
     <Category("2. Appearance")> _
     Public Property MeshName() As String = ""
+    ''' <summary>Cube width</summary>
     <Category("3. Geometry"), Description("Cube width")> _
     Public Property width() As Single
+    ''' <summary>Cube height</summary>
     <Category("3. Geometry"), Description("Cube height")> _
     Public Property height() As Single
+    ''' <summary>Cube lenght</summary>
     <Category("3. Geometry"), Description("Cube lenght")> _
     Public Property lenght() As Single
+    ''' <summary>Distance between cubes in X direction</summary>
     <Category("3. Geometry"), Description("Distance between cubes X direction")> _
     Public Property SpaceX() As Single
+    ''' <summary>Distance between cubes in Y direction</summary>
     <Category("3. Geometry"), Description("Distance between cubes Y direction")> _
     Public Property SpaceY() As Single
+    ''' <summary>Distance between cubes in Z direction</summary>
     <Category("3. Geometry"), Description("Distance between cubes Z direction")> _
     Public Property SpaceZ() As Single
+    ''' <summary>Distance between cubes</summary>
     <Category("3. Geometry"), Description("Distance between cubes")> _
     Public Property Space() As Single
         Get
@@ -93,24 +134,38 @@ Public Class ClassCA
             Me.SpaceZ = value
         End Set
     End Property
+    ''' <summary>X position</summary>
     <Category("4. Position")> _
     Public Property xPosition() As Single = 0
+    ''' <summary>Y position</summary>
     <Category("4. Position")> _
     Public Property yPosition() As Single = 0
+    ''' <summary>Z position</summary>
     <Category("4. Position")> _
     Public Property zPosition() As Single = 0
+    ''' <summary>Rotation around X axis</summary>
     <Category("5. Rotation")> _
     Public Property xRotation() As Single = 0
+    ''' <summary>Rotation around Y axis</summary>
     <Category("5. Rotation")> _
     Public Property yRotation() As Single = 0
+    ''' <summary>Rotation around Z axis</summary>
     <Category("5. Rotation")> _
     Public Property zRotation() As Single = 0
+    ''' <summary>Draw ISO surface generated by cubes</summary>
     <Category("6. ISO Surface"), DisplayName("Draw ISO"), Description("Draw ISO surface generated by cubes")> _
     Public Property drawISO() As Boolean = False
+    ''' <summary>ISO surface smooth factor</summary>
     <Category("6. ISO Surface"), Description("ISO surface smooth factor")> _
     Public Property smooth() As Byte = 1
 #End Region
 #Region "Non Browsable Properties"
+    ''' <summary>
+    ''' Color for specific level
+    ''' </summary>
+    ''' <param name="level">Number of level</param>
+    ''' <returns>Level color</returns>
+    ''' <remarks>This property is used for drawing level gradient</remarks>
     <Browsable(False)> _
     Public ReadOnly Property levelColor(ByVal level As Integer) As Color
         Get
@@ -140,7 +195,7 @@ Public Class ClassCA
             Return Color.FromArgb(r, g, b)
         End Get
     End Property
-
+    ''' <summary>Minimum living cells around cell to stay live</summary>
     <Category("Rule"), Browsable(False)> _
     Public Property MinimalCells() As Byte
         Get
@@ -156,6 +211,7 @@ Public Class ClassCA
             End If
         End Set
     End Property
+    ''' <summary>Maximum living cells around cell to stay live</summary>
     <Category("Rule"), Browsable(False)> _
     Public Property MaximalCells() As Byte
         Get
@@ -171,6 +227,7 @@ Public Class ClassCA
             End If
         End Set
     End Property
+    ''' <summary>Number of cells around cell to become live</summary>
     <Category("Rule"), Browsable(False)> _
     Public Property TurnOnCells() As Byte
         Get
@@ -186,30 +243,33 @@ Public Class ClassCA
             End If
         End Set
     End Property
+    ''' <summary>Number of columns</summary>
     <Category("Matrix Definition"), Browsable(False)> _
-    Public Property brojPoljaPoXosi() As Integer
+    Public Property columns() As Integer
         Get
             Return xFields
         End Get
         Set(ByVal value As Integer)
             xFields = value
-            Me.generisiSlucajnuMatricu()
+            Me.generateRandomMatrix()
             createLevels()
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>Number of rows</summary>
     <Category("Matrix Definition"), Browsable(False)> _
-    Public Property brojPoljaPoYosi() As Integer
+    Public Property rows() As Integer
         Get
             Return yFields
         End Get
         Set(ByVal value As Integer)
             yFields = value
-            Me.generisiSlucajnuMatricu()
+            Me.generateRandomMatrix()
             createLevels()
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>Number of levels</summary>
     <Category("Matrix Definition"), Browsable(False)> _
     Public Property Levels() As Integer
         Get
@@ -221,28 +281,33 @@ Public Class ClassCA
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>Rule for Wolfram algorithm</summary>
     <Browsable(False)> _
     Public Property Rule() As Byte
-    <Browsable(False)> _
-    Public Property CellMatrix() As List(Of Byte)
-        Get
-            Return Me.matrice(0)
-        End Get
-        Set(ByVal value As List(Of Byte))
-            Me.matrice(0) = value
-        End Set
-    End Property
 #End Region
 #Region "Constructors"
+    ''' <summary>
+    ''' New CA object
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub New(ByVal device As Device)
         Me.width = 2
         Me.height = 2
         Me.lenght = 2
         Me.Space = 0.5
-        Me.generisiSlucajnuMatricu()
+        Me.generateRandomMatrix()
         createLevels()
         Me.refreshBuffer(device)
     End Sub
+    ''' <summary>
+    ''' New CA object
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <param name="x">Number of columns</param>
+    ''' <param name="y">Number of rows</param>
+    ''' <param name="l1">Number of levels</param>
+    ''' <remarks></remarks>
     Public Sub New(ByVal device As Device, ByVal x As Integer, ByVal y As Integer, ByVal l1 As Integer)
         xFields = x
         yFields = y
@@ -251,33 +316,44 @@ Public Class ClassCA
         Me.height = 2
         Me.lenght = 2
         Me.Space = 0.5
-        Me.generisiSlucajnuMatricu()
+        Me.generateRandomMatrix()
         createLevels()
         Me.refreshBuffer(device)
     End Sub
 #End Region
 #Region "Public Methods"
-    Public Sub generisiPraznuMatricu()
+    ''' <summary>
+    ''' Generates empty matrix (all cells values is set to 0 = death)
+    ''' </summary>
+    Public Sub generateEmptyMatrix()
         Dim a, b As Integer
-        Me.matrice = New List(Of List(Of Byte))
-        Me.matrice.Add(New List(Of Byte))
+        Me.matrices = New List(Of List(Of Byte))
+        Me.matrices.Add(New List(Of Byte))
         For a = 0 To Me.xFields - 1
             For b = 0 To Me.yFields - 1
-                Me.matrice(0).Add(0)
+                Me.matrices(0).Add(0)
             Next
         Next
     End Sub
-    Public Sub generisiSlucajnuMatricu()
+    ''' <summary>
+    ''' Generates matrix with values randomly set to 0 or 1
+    ''' </summary>
+    Public Sub generateRandomMatrix()
         Dim a, b As Integer
-        Me.matrice = New List(Of List(Of Byte))
-        Me.matrice.Add(New List(Of Byte))
+        Me.matrices = New List(Of List(Of Byte))
+        Me.matrices.Add(New List(Of Byte))
         For a = 0 To Me.xFields - 1
             For b = 0 To Me.yFields - 1
                 Randomize()
-                Me.matrice(0).Add(CByte(Int((1 * Rnd()) + 0.35)))
+                Me.matrices(0).Add(CByte(Int((1 * Rnd()) + 0.35)))
             Next
         Next
     End Sub
+    ''' <summary>
+    ''' Recreates a geometry of object
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub refreshBuffer(Optional ByVal device As Device = Nothing)
         RaiseEvent progressStart()
         Dim cmm As ClassMesh
@@ -285,7 +361,7 @@ Public Class ClassCA
             Try
                 cmm.mesh.Dispose()
             Catch ex As Exception
-
+                Console.WriteLine(ex.Message)
             End Try
         Next
         Me.meshBuffer.Clear()
@@ -324,7 +400,7 @@ Public Class ClassCA
         c6 = New CustomVertex.PositionNormalTextured
         c7 = New CustomVertex.PositionNormalTextured
         c8 = New CustomVertex.PositionNormalTextured
-        
+
         Me.bufferT = New List(Of CustomVertex.PositionNormalTextured)
         Me.DXFBuffer = New List(Of CustomVertex.PositionColored)
         Me.LineBuffer = New List(Of CustomVertex.PositionColored)
@@ -333,10 +409,10 @@ Public Class ClassCA
         ni = 0
         level = 0
         Dim pi, p, plen As Integer
-        plen = Me.matrice.Count * Me.matrice(0).Count
+        plen = Me.matrices.Count * Me.matrices(0).Count
         pi = 0
         Dim matrica As List(Of Byte)
-        For Each matrica In Me.matrice
+        For Each matrica In Me.matrices
             bi = 0 : mi = 0
             For Each b In matrica
                 p = 100 * pi \ plen
@@ -367,7 +443,7 @@ Public Class ClassCA
                             cm.refreshBuffer(bm.mesh.Device)
                             Me.meshBuffer.Add(cm)
                         Catch ex As Exception
-
+                            Console.WriteLine(ex.Message)
                         End Try
                     End If
                     ' Create material subset
@@ -607,25 +683,30 @@ Public Class ClassCA
                     Me.createISOMesh(Me.ISOMesh.Device)
                     Me.createMesh(Me.CAMesh.Device)
                 Catch ex As Exception
-
+                    Console.WriteLine(ex.Message)
                 End Try
             ElseIf Me.CAMesh IsNot Nothing Then
                 Try
                     Me.createISOMesh(Me.ISOMesh.Device)
                     Me.createMesh(Me.CAMesh.Device)
                 Catch ex As Exception
-
+                    Console.WriteLine(ex.Message)
                 End Try
             End If
         End If
         RaiseEvent bufferRefreshed()
         RaiseEvent progressEnd()
     End Sub
+    ''' <summary>
+    ''' Creates DirectX mesh definition
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub createMesh(ByVal device As Device)
         Try
             Me.CAMesh.Dispose()
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
         Dim vvv() As CustomVertex.PositionNormalTextured = bufferT.ToArray
         Dim c, i As Integer
@@ -653,25 +734,32 @@ Public Class ClassCA
             Me.CAMesh.OptimizeInPlace(MeshFlags.OptimizeVertexCache, adjacency)
         Catch ex As Exception
             Me.CAMesh = Nothing
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
+    ''' <summary>
+    ''' Populate levels above zero matrix level
+    ''' </summary>
+    ''' <remarks>Each matrix level above zero matrix is level below evaluated with Conway "Life" algorithm</remarks>
     Public Sub createLevels()
-        Me.matrica = Me.matrice(0)
-        Me.matrice = New List(Of List(Of Byte))
-        Me.matrice.Add(Me.matrica)
+        Dim levelMatrix As List(Of Byte)
+        levelMatrix = Me.matrices(0)
+        Me.matrices = New List(Of List(Of Byte))
+        Me.matrices.Add(levelMatrix)
         Dim ln, endP As Integer
         Dim p0, p1, p2, p3, p4, p5, p6, p7 As Integer
         Try
-            endP = Me.matrice(0).Count - 1
+            endP = Me.matrices(0).Count - 1
         Catch ex As Exception
+            Console.WriteLine(ex.Message)
             Exit Sub
         End Try
         For ln = 1 To Me.nOfLevels - 1
-            Me.matrice.Add(New List(Of Byte))
+            Me.matrices.Add(New List(Of Byte))
             Dim b As Byte
             Dim mi As Integer
             mi = 0
-            For Each b In Me.matrice(ln - 1)
+            For Each b In Me.matrices(ln - 1)
                 Dim k As Byte = 0
                 p0 = mi - Me.xFields - 1
                 p1 = mi - Me.xFields
@@ -683,73 +771,78 @@ Public Class ClassCA
                 p7 = mi + Me.xFields + 1
                 Dim ukupnoZivih As Byte = 0
                 If p0 >= 0 And p0 <= endP And Int((p0 + 1) / Me.xFields) * xFields <> (p0 + 1) Then
-                    If Me.matrice(ln - 1)(p0) > 0 Then
+                    If Me.matrices(ln - 1)(p0) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(1)
                     End If
                 End If
                 If p1 >= 0 And p1 <= endP Then
-                    If Me.matrice(ln - 1)(p1) > 0 Then
+                    If Me.matrices(ln - 1)(p1) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(2)
                     End If
                 End If
                 If p2 >= 0 And p2 <= endP And Int(p2 / Me.xFields) * xFields <> p2 Then
-                    If Me.matrice(ln - 1)(p2) > 0 Then
+                    If Me.matrices(ln - 1)(p2) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(4)
                     End If
                 End If
                 If p3 >= 0 And p3 <= endP And (p3 - Int(p3 / Me.xFields) * xFields) <> (Me.xFields - 1) Then
-                    If Me.matrice(ln - 1)(p3) > 0 Then
+                    If Me.matrices(ln - 1)(p3) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(8)
                     End If
 
                 End If
                 If p4 >= 0 And p4 <= endP And Int(p4 / Me.xFields) * xFields <> p4 Then
-                    If Me.matrice(ln - 1)(p4) > 0 Then
+                    If Me.matrices(ln - 1)(p4) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(16)
                     End If
                 End If
                 If p5 >= 0 And p5 <= endP And (p5 - Int(p5 / Me.xFields) * xFields) <> (Me.xFields - 1) Then
-                    If Me.matrice(ln - 1)(p5) > 0 Then
+                    If Me.matrices(ln - 1)(p5) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(32)
                     End If
                 End If
                 If p6 >= 0 And p6 <= endP Then
-                    If Me.matrice(ln - 1)(p6) > 0 Then
+                    If Me.matrices(ln - 1)(p6) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(64)
                     End If
                 End If
                 If p7 >= 0 And p7 <= endP And Int(p7 / Me.xFields) * xFields <> p7 Then
-                    If Me.matrice(ln - 1)(p7) > 0 Then
+                    If Me.matrices(ln - 1)(p7) > 0 Then
                         ukupnoZivih += CByte(1)
                         k = k Or CByte(128)
                     End If
                 End If
                 If conway Then
                     If ukupnoZivih < Me.minBC Or ukupnoZivih > Me.maxBC Then
-                        Me.matrice(ln).Add(0)
+                        Me.matrices(ln).Add(0)
                     ElseIf ukupnoZivih = Me.toLive Then
-                        Me.matrice(ln).Add(1)
+                        Me.matrices(ln).Add(1)
                     Else
-                        Me.matrice(ln).Add(b)
+                        Me.matrices(ln).Add(b)
                     End If
                 Else
                     If CBool(k And Me.Rule) Then
-                        Me.matrice(ln).Add(Not b)
+                        Me.matrices(ln).Add(Not b)
                     Else
-                        Me.matrice(ln).Add(0)
+                        Me.matrices(ln).Add(0)
                     End If
                 End If
                 mi += 1
             Next
         Next
     End Sub
+    ''' <summary>
+    ''' Used for Undo/Redo operations
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub afterPaste(ByVal device As Device)
         Me.vBuffer = New List(Of CustomVertex.PositionNormalTextured)
         Me.bufferT = New List(Of CustomVertex.PositionNormalTextured)
@@ -757,6 +850,11 @@ Public Class ClassCA
         Me.meshBuffer = New List(Of ClassMesh)
         refreshBuffer(device)
     End Sub
+    ''' <summary>
+    ''' Creates mesh for ISO surface representation of CA
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub createISOMesh(ByVal device As Device)
         ReDim pp(Me.xFields, Me.yFields, Me.nOfLevels)
         ReDim pi(Me.xFields, Me.yFields, Me.nOfLevels)
@@ -772,7 +870,7 @@ Public Class ClassCA
         ni = 0
         level = 0
         Dim matrica As List(Of Byte)
-        For Each matrica In Me.matrice
+        For Each matrica In Me.matrices
             bi = 0 : mi = 0
             For Each b In matrica
                 pp(CInt(mi - Int(mi / Me.xFields) * Me.xFields), CInt(mi / Me.xFields), ni) = New Vector3(CInt((mi - Int(mi / Me.xFields) * Me.xFields) * w1 + Me.width / 2), CInt(mi / Me.xFields) * l1 + Me.lenght / 2, ni * h1 + Me.height / 2)
@@ -850,7 +948,7 @@ Public Class ClassCA
         Try
             Me.ISOMesh.Dispose()
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
         ' Create mesh
         Dim vvv() As CustomVertex.PositionNormalTextured = Me.vBuffer.ToArray
@@ -870,9 +968,13 @@ Public Class ClassCA
             ISOMesh.OptimizeInPlace(MeshFlags.OptimizeVertexCache, adjacency)
             ISOMesh = Mesh.TessellateNPatches(ISOMesh, adjacency, Me.smooth, True)
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
+    ''' <summary>
+    ''' Aplies transformations
+    ''' </summary>
+    ''' <remarks></remarks>
     Private Sub applyTransform()
         ' TRANSFORMATION
         Dim m, mm As New Matrix
@@ -895,12 +997,27 @@ Public Class ClassCA
     End Sub
 #End Region
 #Region "Private Methods"
+    ''' <summary>
+    ''' This method is used as callback for marching tehaedrons algorithm
+    ''' </summary>
+    ''' <param name="trg">Triangle</param>
+    ''' <param name="i">Indice</param>
+    ''' <param name="nind">Number of indices</param>
+    ''' <remarks></remarks>
     Private Sub addTriangles(ByVal trg As ClassMTeth.TRIANGLE(), ByVal i As Integer, ByVal nind As Integer)
         Dim indx As Integer
         For indx = 0 To nind
             triangle(trg(indx).p(0), trg(indx).p(1), trg(indx).p(2), i)
         Next
     End Sub
+    ''' <summary>
+    ''' This method is used for marching tehaedrons algorithm
+    ''' </summary>
+    ''' <param name="vkt1">Triangle point 1</param>
+    ''' <param name="vkt2">Triangle point 2</param>
+    ''' <param name="vkt3">Triangle point 3</param>
+    ''' <param name="i">Indice</param>
+    ''' <remarks></remarks>
     Private Sub triangle(ByVal vkt1 As Vector3, ByVal vkt2 As Vector3, ByVal vkt3 As Vector3, ByRef i As Integer)
         Dim vktn As Vector3
         Dim a As Integer
@@ -930,6 +1047,12 @@ Public Class ClassCA
     End Sub
 #End Region
 #Region "Functions"
+    ''' <summary>
+    ''' This method is used for marching tehaedrons algorithm
+    ''' </summary>
+    ''' <param name="vect">Triangle point</param>
+    ''' <returns>Index of point in vertex buffer</returns>
+    ''' <remarks></remarks>
     Private Function indiceNumber(ByVal vect As Vector3) As Integer
         Dim rv As Integer = -1
         Dim i As Integer
@@ -941,12 +1064,14 @@ Public Class ClassCA
         Next
         Return rv
     End Function
+    ''' <summary>
+    ''' Callback for finding mesh in mesh buffer
+    ''' </summary>
+    ''' <param name="mesh">Mesh to find</param>
+    ''' <returns>True if mesh found</returns>
+    ''' <remarks></remarks>
     Public Function findMesh(ByVal mesh As ClassMesh) As Boolean
-        If mesh.Name = Me.MeshName Then
-            Return True
-        Else
-            Return False
-        End If
+        Return (mesh.Name = Me.MeshName)
     End Function
 #End Region
 End Class
