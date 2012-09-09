@@ -4,7 +4,6 @@ Imports System.ComponentModel
 <System.Serializable()> _
 Public Class ClassCrackedPoly
     Inherits ClassFun3DObject
-    Dim polyVertices As New List(Of Vector3)
     <System.NonSerialized()> _
     Public mesh As Mesh
     <System.NonSerialized()> _
@@ -16,40 +15,12 @@ Public Class ClassCrackedPoly
     Dim extr As Single = 0.4
     Dim cExtr As Single = 2
     Dim iter As Integer = 2
-    
-    Public c As Color = Drawing.Color.Red
-    Public t As Byte = 255
-    Dim ct As crackingType = crackingType.NormalExtrude
-    Dim lc As Color = color.Black
     <Category("2. Appearance")> _
-        Public Property LineColor() As Color
-        Get
-            Return Me.lc
-        End Get
-        Set(ByVal value As Color)
-            Me.lc = value
-        End Set
-    End Property
+    Public Property LineColor() As Color = Drawing.Color.Black
     <Category("2. Appearance")> _
-    Public Property color() As Color
-        Get
-            Return Me.c
-        End Get
-        Set(ByVal value As Color)
-            Me.c = value
-        End Set
-    End Property
+    Public Property color() As Color = Drawing.Color.Red
     <Category("2. Appearance")> _
-    Public Property transparency() As Byte
-        Get
-            Return Me.t
-        End Get
-        Set(ByVal value As Byte)
-            Me.t = value
-        End Set
-    End Property
-    
-    
+    Public Property transparency() As Byte = 255
     <Category("2. Appearance")> _
     Public Property Iterations() As Integer
         Get
@@ -85,52 +56,38 @@ Public Class ClassCrackedPoly
         End Set
     End Property
     <Category("2. Appearance")> _
-    Public Property PolygonPoints() As List(Of Vector3)
-        Get
-            Return Me.polyVertices
-        End Get
-        Set(ByVal value As List(Of Vector3))
-            Me.polyVertices = value
-        End Set
-    End Property
+    Public Property PolygonPoints() As List(Of Vector3) = New List(Of Vector3)
     <Category("2. Appearance")> _
-    Public Property TypeOfCracking() As crackingType
-        Get
-            Return Me.ct
-        End Get
-        Set(ByVal value As crackingType)
-            Me.ct = value
-        End Set
-    End Property
+    Public Property TypeOfCracking() As crackingType = crackingType.NormalExtrude
     <Category("2. Appearance")> _
     Public Property edgePoints() As String()
         Get
             Dim rv() As String
-            ReDim rv(Me.polyVertices.Count - 1)
+            ReDim rv(Me.PolygonPoints.Count - 1)
             Dim i As Integer
-            For i = 0 To Me.polyVertices.Count - 1
-                rv(i) = Me.polyVertices(i).X.ToString + ":" + Me.polyVertices(i).Y.ToString + ":" + Me.polyVertices(i).Z.ToString
+            For i = 0 To Me.PolygonPoints.Count - 1
+                rv(i) = Me.PolygonPoints(i).X.ToString + ":" + Me.PolygonPoints(i).Y.ToString + ":" + Me.PolygonPoints(i).Z.ToString
             Next
             Return rv
         End Get
         Set(ByVal value As String())
-            Me.polyVertices.Clear()
+            Me.PolygonPoints.Clear()
             Dim i As Integer
             Dim s() As String
             For i = 0 To value.Length - 1
                 s = value(i).Split(CChar(":"))
-                Me.polyVertices.Add(New Vector3(CSng(Val(s(0))), CSng(Val(s(1))), CSng(Val(s(2)))))
+                Me.PolygonPoints.Add(New Vector3(CSng(Val(s(0))), CSng(Val(s(1))), CSng(Val(s(2)))))
             Next
         End Set
     End Property
     Public Sub New()
         Me.Name = "New cracked poly"
-        Me.polyVertices.Add(New Vector3(0, 0, 0))
-        Me.polyVertices.Add(New Vector3(10, 0, 0))
-        Me.polyVertices.Add(New Vector3(15, 5, 0))
-        Me.polyVertices.Add(New Vector3(10, 10, 0))
-        Me.polyVertices.Add(New Vector3(0, 10, 0))
-        Me.polyVertices.Add(New Vector3(-5, 5, 0))
+        Me.PolygonPoints.Add(New Vector3(0, 0, 0))
+        Me.PolygonPoints.Add(New Vector3(10, 0, 0))
+        Me.PolygonPoints.Add(New Vector3(15, 5, 0))
+        Me.PolygonPoints.Add(New Vector3(10, 10, 0))
+        Me.PolygonPoints.Add(New Vector3(0, 10, 0))
+        Me.PolygonPoints.Add(New Vector3(-5, 5, 0))
         Me.refreshBuffer()
     End Sub
     Public Sub New(ByVal Name As String, ByVal device As Device)
@@ -148,7 +105,7 @@ Public Class ClassCrackedPoly
             While shpEnum.MoveNext()
                 rv.Add(shpEnum.Current)
             End While
-            Select Case ct
+            Select Case TypeOfCracking
                 Case crackingType.NormalExtrude
                     rv1 = Vector3.Cross(shp(1) - shp(0), shp(2) - shp(0))
                     rv1.Normalize()
@@ -168,26 +125,25 @@ Public Class ClassCrackedPoly
                     rv.Multiply(CSng(1 / shp.Count))
                     rv.Z = Math.Abs(extr)
             End Select
-
         End If
         Return rv
     End Function
     Public Sub triangulatePoly()
-        Dim cnt As Vector3 = cCenter(polyVertices, cExtr)
+        Dim cnt As Vector3 = cCenter(PolygonPoints, cExtr)
         Dim i As Integer
         triangles.Clear()
-        For i = 0 To polyVertices.Count - 2
-            triangles.Add(New CustomVertex.PositionNormalTextured(polyVertices(i), Vector3.Cross(polyVertices(i), polyVertices(i + 1)), 0, 0))
-            triangles.Add(New CustomVertex.PositionNormalTextured(polyVertices(i + 1), Vector3.Cross(polyVertices(i + 1), cnt), 0, 1))
-            triangles.Add(New CustomVertex.PositionNormalTextured(cnt, Vector3.Cross(cnt, polyVertices(i)), 1, 0))
+        For i = 0 To PolygonPoints.Count - 2
+            triangles.Add(New CustomVertex.PositionNormalTextured(PolygonPoints(i), Vector3.Cross(PolygonPoints(i), PolygonPoints(i + 1)), 0, 0))
+            triangles.Add(New CustomVertex.PositionNormalTextured(PolygonPoints(i + 1), Vector3.Cross(PolygonPoints(i + 1), cnt), 0, 1))
+            triangles.Add(New CustomVertex.PositionNormalTextured(cnt, Vector3.Cross(cnt, PolygonPoints(i)), 1, 0))
         Next
-        triangles.Add(New CustomVertex.PositionNormalTextured(polyVertices(polyVertices.Count - 1), Vector3.Cross(polyVertices(polyVertices.Count - 1), polyVertices(0)), 0, 0))
-        triangles.Add(New CustomVertex.PositionNormalTextured(polyVertices(0), Vector3.Cross(polyVertices(0), cnt), 0, 1))
-        triangles.Add(New CustomVertex.PositionNormalTextured(cnt, Vector3.Cross(cnt, polyVertices(polyVertices.Count - 1)), 1, 0))
+        triangles.Add(New CustomVertex.PositionNormalTextured(PolygonPoints(PolygonPoints.Count - 1), Vector3.Cross(PolygonPoints(PolygonPoints.Count - 1), PolygonPoints(0)), 0, 0))
+        triangles.Add(New CustomVertex.PositionNormalTextured(PolygonPoints(0), Vector3.Cross(PolygonPoints(0), cnt), 0, 1))
+        triangles.Add(New CustomVertex.PositionNormalTextured(cnt, Vector3.Cross(cnt, PolygonPoints(PolygonPoints.Count - 1)), 1, 0))
     End Sub
     Public Sub iterate()
         extr = -extr
-        If polyVertices.Count > 2 Then
+        If PolygonPoints.Count > 2 Then
             Dim newTriangles As New List(Of CustomVertex.PositionNormalTextured)
             Dim i As Integer
             For i = 0 To triangles.Count - 1 Step 3
@@ -211,7 +167,7 @@ Public Class ClassCrackedPoly
         End If
     End Sub
     Public Sub nIterate()
-        If Me.polyVertices.Count > 2 Then
+        If Me.PolygonPoints.Count > 2 Then
             Me.triangulatePoly()
             Dim i As Integer
             For i = 0 To Me.iter - 1
@@ -223,7 +179,7 @@ Public Class ClassCrackedPoly
         Try
             Me.mesh.Dispose()
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
         ' RUTINA ZA PRAVLJENJE MESHA
         Dim vvv() As CustomVertex.PositionNormalTextured = Me.triangles.ToArray
@@ -235,9 +191,7 @@ Public Class ClassCrackedPoly
             ibf.Add(i)
         Next
         Dim ind() As Int32 = ibf.ToArray
-
         Me.mesh = New Mesh(CInt(ind.Length / 3), c1, MeshFlags.Use32Bit, CustomVertex.PositionNormalTextured.Format, cf3D.device)
-
         Try
             Me.mesh.SetVertexBufferData(vvv, LockFlags.None)
             Me.mesh.SetIndexBufferData(ind, LockFlags.None)
@@ -251,12 +205,11 @@ Public Class ClassCrackedPoly
             Me.mesh.OptimizeInPlace(MeshFlags.OptimizeVertexCache, adjacency)
             'Me.Scena.moMesh = Mesh.TessellateNPatches(Me.Scena.moMesh, adjacency, 1, True)
         Catch ex As Exception
-            'console.writeline(ex.Message)
+            Console.WriteLine(ex.Message)
         End Try
     End Sub
     Public Sub refreshBuffer(Optional ByVal device As Device = Nothing)
         Dim m As Matrix = Me.TransformMatrix
-
         Dim v As New CustomVertex.PositionNormalTextured
         Dim i As Integer
         Me.nIterate()
@@ -266,12 +219,12 @@ Public Class ClassCrackedPoly
         Next
         Me.lineBuffer.Clear()
         For i = 0 To Me.triangles.Count - 1 Step 3
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i).Position, lc.ToArgb))
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 1).Position, lc.ToArgb))
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 1).Position, lc.ToArgb))
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 2).Position, lc.ToArgb))
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 2).Position, lc.ToArgb))
-            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i).Position, lc.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i).Position, Me.LineColor.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 1).Position, Me.LineColor.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 1).Position, Me.LineColor.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 2).Position, Me.LineColor.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i + 2).Position, Me.LineColor.ToArgb))
+            Me.lineBuffer.Add(New CustomVertex.PositionColored(Me.triangles(i).Position, Me.LineColor.ToArgb))
         Next
         Try
             If device IsNot Nothing Then
@@ -280,7 +233,7 @@ Public Class ClassCrackedPoly
                 Me.createMesh(Me.mesh.Device)
             End If
         Catch ex As Exception
-
+            Console.WriteLine(ex.Message)
         End Try
         rEventBufferRefreshed()
     End Sub
