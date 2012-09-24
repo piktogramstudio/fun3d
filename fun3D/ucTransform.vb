@@ -59,7 +59,24 @@ Public Class ucTransform
     End Sub
 
     Private Sub TrackBar1_Scroll(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles b.Format
-        Me.transformObject.tgeom = Me.transformObject.transform.getTransformedGeometry(Me.transformObject.geom)
+        Try
+            Me.transformObject.tgeom = Me.transformObject.transform.getTransformedGeometry(Me.transformObject.geom)
+        Catch ex As Exception
+            ' Console.WriteLine("Object has no geometry, using refreshBuffer function")
+            ' TODO Convert mesh to geometry for classes that inherits ClassFun3DObject
+            Try
+                Dim o As Object = Me.transformObject
+                Dim p() As Object = {Nothing}
+                Dim mi As System.Reflection.MethodInfo = mf.Scena.SelectedObject.GetType().GetMethod("refreshBuffer")
+                If mi.GetParameters().Length > 0 Then
+                    mi.Invoke(o, p)
+                Else
+                    mi.Invoke(o, Nothing)
+                End If
+            Catch exx As Exception
+                Console.WriteLine(exx.Message)
+            End Try
+        End Try
         cf3D.Invalidate()
     End Sub
 End Class
