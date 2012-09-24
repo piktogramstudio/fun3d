@@ -1,26 +1,75 @@
 Imports Microsoft.DirectX
 Imports Microsoft.DirectX.Direct3D
 Imports System.ComponentModel
+''' <summary>
+''' Cracked Poly is mesh created using modified "Recepie for Cracking" from "Pamphlet Architecture 27 - Tooling" by ARANDA/LASCH http://issuu.com/papress/docs/9781568985473/1
+''' </summary>
 <System.Serializable()> _
 Public Class ClassCrackedPoly
     Inherits ClassFun3DObject
+#Region "Non Serialized Fields"
+    ''' <summary>
+    ''' DirectX mesh of cracking structure
+    ''' </summary>
     <System.NonSerialized()> _
     Public mesh As Mesh
+    ''' <summary>
+    ''' Triangles of cracking structure
+    ''' </summary>
     <System.NonSerialized()> _
     Public triangles As New List(Of CustomVertex.PositionNormalTextured)
+    ''' <summary>
+    ''' Line buffer
+    ''' </summary>
     <System.NonSerialized()> _
     Public lineBuffer As New List(Of CustomVertex.PositionColored)
+    ''' <summary>
+    ''' Drawing device
+    ''' </summary>
     <System.NonSerialized()> _
     Dim dev As Device = Nothing
+#End Region
+#Region "Fields"
+    ''' <summary>
+    ''' Amount of extrusion
+    ''' </summary>
     Dim extr As Single = 0.4
+    ''' <summary>
+    ''' Extrusion central point
+    ''' </summary>
     Dim cExtr As Single = 2
+    ''' <summary>
+    ''' Number of iterations
+    ''' </summary>
     Dim iter As Integer = 2
+#End Region
+#Region "Properties"
+    ''' <summary>
+    ''' Edges color
+    ''' </summary>
+    ''' <value>Color of edges</value>
+    ''' <returns>Color of edges</returns>
     <Category("2. Appearance")> _
     Public Property LineColor() As Color = Drawing.Color.Black
+    ''' <summary>
+    ''' Faces color
+    ''' </summary>
+    ''' <value>Color of faces</value>
+    ''' <returns>Color of faces</returns>
     <Category("2. Appearance")> _
     Public Property color() As Color = Drawing.Color.Red
+    ''' <summary>
+    ''' Transparency of cracking structure
+    ''' </summary>
+    ''' <value>Value between 0 and 255 (0 = transparent, 255 = opaque)</value>
+    ''' <returns>Value between 0 and 255 (0 = transparent, 255 = opaque)</returns>
     <Category("2. Appearance")> _
     Public Property transparency() As Byte = 255
+    ''' <summary>
+    ''' Number of iterations
+    ''' </summary>
+    ''' <value>Positive number</value>
+    ''' <returns>Number of iterations</returns>
     <Category("2. Appearance")> _
     Public Property Iterations() As Integer
         Get
@@ -35,6 +84,11 @@ Public Class ClassCrackedPoly
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>
+    ''' Extrusion of central point
+    ''' </summary>
+    ''' <value>Single unit value</value>
+    ''' <returns>Single unit value</returns>
     <Category("2. Appearance")> _
     Public Property CentralPointExtrusion() As Single
         Get
@@ -45,6 +99,11 @@ Public Class ClassCrackedPoly
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>
+    ''' Extrusion for each iteration
+    ''' </summary>
+    ''' <value>Extrusion</value>
+    ''' <returns>Extrusion</returns>
     <Category("2. Appearance")> _
     Public Property PointExtrusion() As Single
         Get
@@ -55,10 +114,25 @@ Public Class ClassCrackedPoly
             Me.refreshBuffer()
         End Set
     End Property
+    ''' <summary>
+    ''' Points of cracked polygon
+    ''' </summary>
+    ''' <value>List of polygon coordinates</value>
+    ''' <returns>List of polygon coordinates</returns>
     <Category("2. Appearance")> _
     Public Property PolygonPoints() As List(Of Vector3) = New List(Of Vector3)
+    ''' <summary>
+    ''' Cracking type
+    ''' </summary>
+    ''' <value>Cracking type</value>
+    ''' <returns>Cracking type</returns>
     <Category("2. Appearance")> _
     Public Property TypeOfCracking() As crackingType = crackingType.NormalExtrude
+    ''' <summary>
+    ''' Editable points of cracked polygon
+    ''' </summary>
+    ''' <value>Polygon coordinates</value>
+    ''' <returns>Polygon coordinates</returns>
     <Category("2. Appearance")> _
     Public Property edgePoints() As String()
         Get
@@ -80,6 +154,12 @@ Public Class ClassCrackedPoly
             Next
         End Set
     End Property
+#End Region
+#Region "Constructors"
+    ''' <summary>
+    ''' Creates cracked poly structure with default polygon points
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub New()
         Me.Name = "New cracked poly"
         Me.PolygonPoints.Add(New Vector3(0, 0, 0))
@@ -90,11 +170,25 @@ Public Class ClassCrackedPoly
         Me.PolygonPoints.Add(New Vector3(-5, 5, 0))
         Me.refreshBuffer()
     End Sub
+    ''' <summary>
+    ''' Creates cracked poly structure for specified device
+    ''' </summary>
+    ''' <param name="Name">Object name</param>
+    ''' <param name="device">Drawing device</param>
     Public Sub New(ByVal Name As String, ByVal device As Device)
         Me.Name = Name
         Me.refreshBuffer(device)
         dev = device
     End Sub
+#End Region
+#Region "Methods"
+    ''' <summary>
+    ''' Determines the center of polygon extruded by extrusion value
+    ''' </summary>
+    ''' <param name="shp">Polygon points</param>
+    ''' <param name="extr">Extrusion</param>
+    ''' <returns>Center of polygon</returns>
+    ''' <remarks>Center position also depends on cracking type</remarks>
     Public Function cCenter(ByVal shp As List(Of Vector3), ByVal extr As Single) As Vector3
         Dim rv As Vector3 = Nothing
         Dim rv1 As Vector3 = Nothing
@@ -128,6 +222,9 @@ Public Class ClassCrackedPoly
         End If
         Return rv
     End Function
+    ''' <summary>
+    ''' Triangulates cracked polygon structure
+    ''' </summary>
     Public Sub triangulatePoly()
         Dim cnt As Vector3 = cCenter(PolygonPoints, cExtr)
         Dim i As Integer
@@ -141,6 +238,9 @@ Public Class ClassCrackedPoly
         triangles.Add(New CustomVertex.PositionNormalTextured(PolygonPoints(0), Vector3.Cross(PolygonPoints(0), cnt), 0, 1))
         triangles.Add(New CustomVertex.PositionNormalTextured(cnt, Vector3.Cross(cnt, PolygonPoints(PolygonPoints.Count - 1)), 1, 0))
     End Sub
+    ''' <summary>
+    ''' One iteration
+    ''' </summary>
     Public Sub iterate()
         extr = -extr
         If PolygonPoints.Count > 2 Then
@@ -166,6 +266,9 @@ Public Class ClassCrackedPoly
             triangles.AddRange(newTriangles)
         End If
     End Sub
+    ''' <summary>
+    ''' Iterate for given iterations number
+    ''' </summary>
     Public Sub nIterate()
         If Me.PolygonPoints.Count > 2 Then
             Me.triangulatePoly()
@@ -175,6 +278,11 @@ Public Class ClassCrackedPoly
             Next
         End If
     End Sub
+    ''' <summary>
+    ''' Creates DirectX mesh definition
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub createMesh(ByVal device As Device)
         Try
             Me.mesh.Dispose()
@@ -208,8 +316,13 @@ Public Class ClassCrackedPoly
             Console.WriteLine(ex.Message)
         End Try
     End Sub
+    ''' <summary>
+    ''' Recreates a geometry of object
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub refreshBuffer(Optional ByVal device As Device = Nothing)
-        Dim m As Matrix = Me.TransformMatrix
+        Dim m As Matrix = Me.transform.getTransformMatrix()
         Dim v As New CustomVertex.PositionNormalTextured
         Dim i As Integer
         Me.nIterate()
@@ -237,18 +350,32 @@ Public Class ClassCrackedPoly
         End Try
         rEventBufferRefreshed()
     End Sub
+    ''' <summary>
+    ''' Recreates a geometry of object in creating mode
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub refreshBufferMI()
         Me.refreshBuffer(dev)
     End Sub
+    ''' <summary>
+    ''' Used for Undo/Redo operations
+    ''' </summary>
+    ''' <param name="device">3D device</param>
+    ''' <remarks></remarks>
     Public Sub afterPaste(ByVal device As Device)
         triangles = New List(Of CustomVertex.PositionNormalTextured)
         lineBuffer = New List(Of CustomVertex.PositionColored)
         refreshBuffer(device)
     End Sub
+    ''' <summary>
+    ''' The type of cracking extrusion
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Enum crackingType As Byte
         NormalExtrude = 0
         ZAxisExtrude = 1
         NonInverseNormalExtrude = 2
         NonInverseZAxisExtrude = 3
     End Enum
+#End Region
 End Class

@@ -152,7 +152,7 @@ Public Class ClassPacking
             device = Me.device
         End If
         Me.maxRT = Me.maxR
-        Dim m As Matrix = Me.TransformMatrix
+        Dim m As Matrix = Me.transform.getTransformMatrix()
         If Me.bnd IsNot Nothing Then
             If Me.bnd.mesh IsNot Nothing Then
                 Me.bnd.mesh.Dispose()
@@ -191,17 +191,17 @@ Public Class ClassPacking
             Next
         End If
         For Each cm In Me.cMesh
-            cm.xPolozaj += Me.xPolozaj
-            cm.yPolozaj += Me.yPolozaj
-            cm.zPolozaj += Me.zPolozaj
+            cm.xPolozaj += Me.transform.tx
+            cm.yPolozaj += Me.transform.ty
+            cm.zPolozaj += Me.transform.tz
 
-            cm.xRotation += Me.xRotation
-            cm.yRotation += Me.yRotation
-            cm.zRotation += Me.zRotation
+            cm.xRotation += Me.transform.rx
+            cm.yRotation += Me.transform.ry
+            cm.zRotation += Me.transform.rz
 
-            cm.scaleX = Me.scaleX
-            cm.scaleY = Me.scaleY
-            cm.scaleZ = Me.scaleZ
+            cm.scaleX = Me.transform.sx
+            cm.scaleY = Me.transform.sy
+            cm.scaleZ = Me.transform.sz
             cm.refreshBuffer(device)
         Next
         'Dim i, ii As Integer
