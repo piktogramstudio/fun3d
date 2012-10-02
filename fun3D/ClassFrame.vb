@@ -5,10 +5,29 @@
 <System.Serializable()> _
 Public Class ClassFrame
     ''' <summary>
-    ''' Angle and position of camera
+    ''' Camera rotation around x axis
     ''' </summary>
-    ''' <remarks></remarks>
-    Public ax, ay, az, xc, yc, zc As Single
+    Public ax As Single
+    ''' <summary>
+    ''' Camera rotation around y axis
+    ''' </summary>
+    Public ay As Single
+    ''' <summary>
+    ''' Camera rotation around z axis
+    ''' </summary>
+    Public az As Single
+    ''' <summary>
+    ''' Camera X position
+    ''' </summary>
+    Public xc As Single
+    ''' <summary>
+    ''' Camera Y position
+    ''' </summary>
+    Public yc As Single
+    ''' <summary>
+    ''' Camera Z position
+    ''' </summary>
+    Public zc As Single
     Dim ime As String = "NewFrame"
     ''' <summary>
     ''' Creates frame with current camera angle and position
