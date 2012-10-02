@@ -234,7 +234,6 @@
     </Compile>
     <Compile Include="ClassCA.vb" />
     <Compile Include="ClassCrackedPoly.vb" />
-    <Compile Include="ClassDynamicParametri.vb" />
     <Compile Include="ClassFrame.vb" />
     <Compile Include="ClassFun3DObject.vb" />
     <Compile Include="ClassHUD.vb" />
