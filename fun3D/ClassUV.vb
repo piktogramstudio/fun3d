@@ -43,7 +43,6 @@ Public Class ClassUV
     Public u As Single = 0
     Public v As Single = 0
     Public prm As New List(Of ClassParametri)
-    Public dynprm As New List(Of ClassDynamicParametri)
     <System.NonSerialized()> _
     Public vBuffer As New List(Of CustomVertex.PositionNormalTextured)
     <System.NonSerialized()> _
@@ -197,26 +196,8 @@ Public Class ClassUV
             Me.mhatch = value
         End Set
     End Property
-    <Category("4. Parameters"), DisplayName("Dynamic Parameters")> _
-    Public Property dynapicParameters() As List(Of ClassDynamicParametri)
-        Get
-            Return Me.dynprm
-        End Get
-        Set(ByVal value As List(Of ClassDynamicParametri))
-            Me.dynprm = value
-        End Set
-    End Property
-    <Category("4. Parameters")> _
-    Public Property dParam(ByVal index As Integer) As Single
-        Get
-            Return Me.dynprm(index).value
-        End Get
-        Set(ByVal value As Single)
-            Me.dynprm(index).value = value
-        End Set
-    End Property
     <Category("8. U"), DisplayName("Minimal Umax Value")> _
-    Public Property sliderMinimumUmax() As Single
+        Public Property sliderMinimumUmax() As Single
         Get
             Return Me.minSUm
         End Get
@@ -394,7 +375,6 @@ Public Class ClassUV
 
             End Try
             .Parameters = UV.Parameters
-            .dynapicParameters = UV.dynapicParameters
         End With
         Me.refreshBuffer(device)
     End Sub

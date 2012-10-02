@@ -1,7 +1,19 @@
+''' <summary>
+''' Describes key frame for animation
+''' </summary>
+''' <remarks></remarks>
 <System.Serializable()> _
 Public Class ClassFrame
+    ''' <summary>
+    ''' Angle and position of camera
+    ''' </summary>
+    ''' <remarks></remarks>
     Public ax, ay, az, xc, yc, zc As Single
     Dim ime As String = "NewFrame"
+    ''' <summary>
+    ''' Creates frame with current camera angle and position
+    ''' </summary>
+    ''' <remarks></remarks>
     Public Sub New()
         ax = cf3D.angleX
         ay = cf3D.angleY
@@ -10,6 +22,16 @@ Public Class ClassFrame
         yc = cf3D.ycam
         zc = cf3D.zcam
     End Sub
+    ''' <summary>
+    ''' Creates frame with given angle and position
+    ''' </summary>
+    ''' <param name="anglex">Rotation around x axis</param>
+    ''' <param name="angley">Rotation around y axis</param>
+    ''' <param name="anglez">Rotation around z axis</param>
+    ''' <param name="xcamera">X position</param>
+    ''' <param name="ycamera">Y position</param>
+    ''' <param name="zcamera">Z position</param>
+    ''' <remarks></remarks>
     Public Sub New(ByVal anglex As Single, ByVal angley As Single, ByVal anglez As Single, ByVal xcamera As Single, ByVal ycamera As Single, ByVal zcamera As Single)
         ax = anglex
         ay = angley
@@ -18,6 +40,12 @@ Public Class ClassFrame
         yc = ycamera
         zc = zcamera
     End Sub
+    ''' <summary>
+    ''' Frame name (label)
+    ''' </summary>
+    ''' <value>Name for frame</value>
+    ''' <returns>Name of frame</returns>
+    ''' <remarks></remarks>
     Public Property Name() As String
         Get
             Return Me.ime

@@ -400,13 +400,6 @@ Module mdTools
                             plAdd.sliderStep = op.stepS
                             .Parameters.Add(plAdd)
                         Next
-                        Dim odp As dsProjekat.dynParametriRow
-                        For Each odp In ouv.GetdynParametriRows
-                            Dim dp As New ClassDynamicParametri
-                            dp.Name = odp.Name
-                            dp.funkcija = odp.funkcija
-                            .dynprm.Add(dp)
-                        Next
                     End With
                     rvalue.UVList.Add(UV)
                 Next
