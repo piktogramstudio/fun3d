@@ -4,7 +4,6 @@ Imports System.Math
 Imports System.ComponentModel
 <System.Serializable()> _
 Public Class ClassScena
-    Implements iFun3DScene
     Private minV As Single = -100
     Private maxV As Single = 100
     Private gridStep As Single = 10
@@ -64,7 +63,7 @@ Public Class ClassScena
     Public Shared Event progressEnd()
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
     Dim rgbv As Integer = 0
-    Public Property Fun3DFileVersion As Integer Implements iFun3DScene.Fun3DFileVersion
+    Public Property Fun3DFileVersion As Integer
     Public Sub New()
         Me.LightClass.Clear()
         Me.LightClass.Add(New ClassLight)
