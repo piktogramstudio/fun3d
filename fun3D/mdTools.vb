@@ -299,7 +299,7 @@ Module mdTools
             Dim rv As ClassScena = Nothing
             Dim mem As New IO.FileStream(fnm, IO.FileMode.Open)
             Dim bin As New System.Runtime.Serialization.Formatters.Binary.BinaryFormatter()
-            Dim obj As iFun3DScene
+            Dim obj As Object
             Try
                 obj = bin.Deserialize(mem)
                 If obj.Fun3DFileVersion < 2 Then
