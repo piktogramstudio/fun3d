@@ -13,7 +13,6 @@ Public Class ClassScena
     Private ISOclass As New List(Of ClassISO)
     Private CAclass As New List(Of ClassCA)
     Private LSclass As New List(Of ClassLS)
-    Private HUDClass As New List(Of ClassHUD)
     Private MeshClass As New List(Of ClassMesh)
     Private CrackedPolyClass As New List(Of ClassCrackedPoly)
     Private PackingClass As New List(Of ClassPacking)
@@ -339,16 +338,7 @@ Public Class ClassScena
         End Set
     End Property
     <Browsable(False)> _
-    Public Property HUDList() As List(Of ClassHUD)
-        Get
-            Return Me.HUDClass
-        End Get
-        Set(ByVal value As List(Of ClassHUD))
-            Me.HUDClass = value
-        End Set
-    End Property
-    <Browsable(False)> _
-    Public Property MeshList() As List(Of ClassMesh)
+        Public Property MeshList() As List(Of ClassMesh)
         Get
             Return Me.MeshClass
         End Get
@@ -517,11 +507,6 @@ Public Class ClassScena
             device.VertexFormat = CustomVertex.PositionColored.Format
             device.DrawUserPrimitives(PrimitiveType.PointList, vvv.Count, vvv.ToArray)
         End If
-    End Sub
-    Public Sub drawHUD(ByVal device As Direct3D.Device, ByVal HUD As ClassHUD)
-        HUD.s.Begin(SpriteFlags.AlphaBlend)
-        HUD.s.Draw2D(HUD.t, New Point(0, 0), 0, New Point(0, 0), Color.White)
-        HUD.s.End()
     End Sub
     Public Sub drawLS(ByVal device As Direct3D.Device, ByVal LS As ClassLS)
 
@@ -1116,7 +1101,6 @@ Public Class ClassScena
         Dim ISO As ClassISO
         Dim CA As ClassCA
         Dim LS As ClassLS
-        Dim HUD As ClassHUD
         Dim CM As ClassMesh
         Dim CP As ClassCrackedPoly
         For Each CM In Me.MeshClass
@@ -1136,9 +1120,6 @@ Public Class ClassScena
         Next
         For Each LS In Me.LSclass
             LS.afterPaste(device)
-        Next
-        For Each HUD In Me.HUDClass
-            HUD.afterPaste(device)
         Next
         If Me.CrackedPolyClass Is Nothing Then
             Me.CrackedPolyClass = New List(Of ClassCrackedPoly)
