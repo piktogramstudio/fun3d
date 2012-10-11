@@ -63,7 +63,6 @@ Public Class cf3D
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Me.SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.Opaque, True) 'Do not draw form?s background\
         Initialize()
-        mf.Scena.HUDList.Add(New ClassHUD(mf.Scena, device))
     End Sub
 
     Private Sub cf3D_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseDoubleClick
