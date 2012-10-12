@@ -71,7 +71,7 @@ Public Class ClassFun3DObject
 #End Region
 #Region "Methods"
     ''' <summary>
-    ''' Draws object using drwaing device
+    ''' Draws object using drawing device
     ''' </summary>
     ''' <param name="device">Drawing device</param>
     Public Sub draw(ByVal device As Direct3D.Device) Implements IFun3DObject.draw

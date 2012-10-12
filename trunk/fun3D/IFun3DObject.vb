@@ -52,7 +52,7 @@ Public Interface IFun3DObject
 #End Region
 #Region "Methods"
     ''' <summary>
-    ''' Draws object using drwaing device
+    ''' Draws object using drawing device
     ''' </summary>
     ''' <param name="device">Drawing device</param>
     Sub draw(ByVal device As Microsoft.DirectX.Direct3D.Device)
