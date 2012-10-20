@@ -8,22 +8,51 @@ Imports Microsoft.DirectX.Direct3D
 <System.Serializable()> _
 Public Class ClassISO
 #Region "Non Serialized Fields"
+    ''' <summary>
+    ''' DirectX mesh definision
+    ''' </summary>
     <System.NonSerialized()> _
     Public ISOMesh As Mesh
+    ''' <summary>
+    ''' Vertex buffer
+    ''' </summary>
     <System.NonSerialized()> _
     Public vBuffer As New List(Of CustomVertex.PositionNormalTextured)
 #End Region
 #Region "Public Fields"
+    ''' <summary>
+    ''' Indices buffer
+    ''' </summary>
     Public iBuffer As New List(Of Integer)
 #End Region
 #Region "Private Fields"
+    ''' <summary>
+    ''' Array of x, y, z formula values (coordinates)
+    ''' </summary>
     Dim pp(,,) As Vector3 = {}
+    ''' <summary>
+    ''' Array of calculated values
+    ''' </summary>
     Dim pi(,,) As Single = {}
 #End Region
 #Region "Events"
+    ''' <summary>
+    ''' Geometry description buffer is refreshed
+    ''' </summary>
     Public Shared Event bufferRefreshed()
+    ''' <summary>
+    ''' Calculation process started
+    ''' </summary>
     Public Shared Event progressStart()
+    ''' <summary>
+    ''' Calculation process ended
+    ''' </summary>
     Public Shared Event progressEnd()
+    ''' <summary>
+    ''' Calculation process progress
+    ''' </summary>
+    ''' <param name="p">Progress percent (0-100)</param>
+    ''' <param name="m">Message describing progress</param>
     Public Shared Event progress(ByVal p As Integer, ByVal m As String)
 #End Region
 #Region "Browsable Properties"
