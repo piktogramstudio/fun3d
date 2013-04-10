@@ -447,18 +447,7 @@ Public Class ClassCA
                         End Try
                     End If
                     ' Create material subset
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
-                    Me.subset.Add(level)
+                    Me.subset.AddRange({level, level, level, level, level, level, level, level, level, level, level, level})
 
                     ' Calculate cube coordinates 
                     v(0) = New Vector3(CSng((mi - Int(mi / Me.xFields) * Me.xFields) * w1), CSng(Int(mi / Me.xFields) * l1), ni * h1)

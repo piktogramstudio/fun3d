@@ -364,11 +364,7 @@ Public Class ClassScena
             Me.PackingClass = value
         End Set
     End Property
-    Public Sub drawScene(ByVal device As Direct3D.Device)
-
-        Me.setRenderState(device)
-        Me.setLights(device)
-        Me.drawGrid(device)
+    Public Sub drawObjects(device As Direct3D.Device)
         Dim UVC As ClassUV
         Dim UC As ClassU
         Dim ISO As ClassISO
@@ -381,7 +377,6 @@ Public Class ClassScena
         If Not moMesh Is Nothing Then
             Me.drawMesh(device)
         End If
-
         For Each UVC In Me.UVclass
             Me.drawUV(device, UVC)
         Next
@@ -397,7 +392,6 @@ Public Class ClassScena
         For Each LS In Me.LSclass
             Me.drawLS(device, LS)
         Next
-
         For Each CM In Me.MeshClass
             Me.drawMesh(CM, device)
         Next
@@ -410,42 +404,19 @@ Public Class ClassScena
         'For Each HUD In Me.HUDClass
         '    Me.drawHUD(device, HUD)
         'Next
+    End Sub
+    Public Sub drawScene(ByVal device As Direct3D.Device)
+
+        Me.setRenderState(device)
+        Me.setLights(device)
+        Me.drawGrid(device)
+        Me.drawObjects(device)
         If Me.showShadows Then
             Dim om As Matrix = device.Transform.World
             Dim nm As Matrix = device.Transform.World
             nm.Shadow(New Vector4(lv(0), lv(1), lv(2), 1), New Plane(0, 0, 1, 0))
             device.Transform.World = Matrix.Multiply(nm, device.Transform.World)
-            If Not moMesh Is Nothing Then
-                Me.drawMesh(device)
-            End If
-
-            For Each UVC In Me.UVclass
-                Me.drawUV(device, UVC)
-            Next
-            For Each UC In Me.Uclass
-                Me.drawU(device, UC, True)
-            Next
-            For Each ISO In Me.ISOclass
-                Me.drawISO(device, ISO)
-            Next
-            For Each CA In Me.CAclass
-                Me.drawCA(device, CA)
-            Next
-            For Each LS In Me.LSclass
-                Me.drawLS(device, LS)
-            Next
-            'For Each HUD In Me.HUDClass
-            '    Me.drawHUD(device, HUD)
-            'Next
-            For Each CM In Me.MeshClass
-                Me.drawMesh(CM, device)
-            Next
-            For Each CP In Me.CrackedPolyClass
-                Me.drawCrackedPoly(device, CP)
-            Next
-            For Each PC In Me.PackingClass
-                Me.drawPacking(device, PC)
-            Next
+            Me.drawObjects(device)
             device.Transform.World = om
         End If
         Dim ll As ClassLight
