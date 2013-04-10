@@ -1020,34 +1020,11 @@ Public Class ClassScena
         Me.sceneList.Add(cf)
     End Sub
     Function DoesMouseHitMesh(ByVal mesh As Mesh, ByVal x As Single, ByVal y As Single, ByVal device As Direct3D.Device) As Boolean
-        Dim viewport As Viewport
-        Dim world As Matrix
-        Dim proj As Matrix
-        Dim view As Matrix
-
-        Dim vIn As Vector3, vNear As Vector3, vFar As Vector3, vDir As Vector3
         Dim ClosestHit As IntersectInformation
-
-        viewport = device.Viewport
-        world = device.Transform.World
-        proj = device.Transform.Projection
-        view = device.Transform.View
-
-        vIn.X = x * device.Viewport.Width / cf3D.Width : vIn.Y = y * device.Viewport.Height / cf3D.Height
-
-        'Najblize kursoru
-        vIn.Z = 0
-        vNear = Microsoft.DirectX.Vector3.Unproject(vIn, viewport, proj, view, world)
-
-        'Udaljeno od kursora
-        vIn.Z = 1
-        vFar = Microsoft.DirectX.Vector3.Unproject(vIn, viewport, proj, view, world)
-
-        'Pravac zraka
-        vDir = Microsoft.DirectX.Vector3.Subtract(vFar, vNear)
+        Dim cursorRay As New sCursorRay(x, y, device)
 
         Try
-            If mesh.Intersect(vNear, vDir, ClosestHit) = True Then
+            If mesh.Intersect(cursorRay.vNear, cursorRay.vDirection, ClosestHit) = True Then
                 Return True
             End If
         Catch ex As Exception
@@ -1056,35 +1033,11 @@ Public Class ClassScena
 
     End Function
     Public Function LocMouseHitPlane(ByVal pln As Plane, ByVal x As Single, ByVal y As Single, ByVal device As Direct3D.Device) As Vector3
-        Dim viewport As Viewport
-        Dim world As Matrix
-        Dim proj As Matrix
-        Dim view As Matrix
-
-        Dim vIn As Vector3, vNear As Vector3, vFar As Vector3, vDir As Vector3
-
-
-        viewport = device.Viewport
-        world = device.Transform.World
-        proj = device.Transform.Projection
-        view = device.Transform.View
-
-        vIn.X = x * device.Viewport.Width / cf3D.Width : vIn.Y = y * device.Viewport.Height / cf3D.Height
-
-        'Najblize kursoru
-        vIn.Z = 0
-        vNear = Microsoft.DirectX.Vector3.Unproject(vIn, viewport, proj, view, world)
-
-        'Udaljeno od kursora
-        vIn.Z = 1
-        vFar = Microsoft.DirectX.Vector3.Unproject(vIn, viewport, proj, view, world)
-
-        'Pravac zraka
-        vDir = Microsoft.DirectX.Vector3.Subtract(vFar, vNear)
+        Dim cursorRay As New sCursorRay(x, y, device)
 
         Try
 
-            Return Plane.IntersectLine(pln, vNear, vFar)
+            Return Plane.IntersectLine(pln, cursorRay.vNear, cursorRay.vFar)
 
         Catch ex As Exception
             'console.writeline(ex.Message)

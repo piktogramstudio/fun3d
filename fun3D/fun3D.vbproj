@@ -163,12 +163,10 @@
       <DependentUpon>dsF3D.xsd</DependentUpon>
     </Compile>
     <Compile Include="mEnums.vb" />
-    <Compile Include="sLineAppearance.vb" />
     <Compile Include="cParametersPropertyEditor.vb" />
     <Compile Include="cTrackBarPropertyEditor.vb" />
     <Compile Include="cTransformPropertyEditor.vb" />
-    <Compile Include="sMetaData.vb" />
-    <Compile Include="sSurfaceAppearance.vb" />
+    <Compile Include="structures.vb" />
     <Compile Include="tfEquation.Designer.vb">
       <DependentUpon>tfEquation.vb</DependentUpon>
     </Compile>
