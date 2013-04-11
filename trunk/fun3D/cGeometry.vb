@@ -50,8 +50,8 @@ Public Class cGeometry
     ''' <remarks></remarks>
     Public Sub setGeometry(ByVal vb() As Vector3, ByVal ib() As Int32, ByVal eb() As Int32)
         Me.vb = vb
-        Me.ncwb = Me.calculateNormalsClockWise(vb, ib)
-        Me.nccwb = Me.calculateNormalsCounterClockWise(vb, ib)
+        Me.ncwb = Me.calculateNormals(vb, ib, Direct3D.Cull.Clockwise)
+        Me.nccwb = Me.calculateNormals(vb, ib, Direct3D.Cull.CounterClockwise)
         Me.ib = ib
         Me.eb = eb
         RaiseEvent geometryChanged()
@@ -115,47 +115,27 @@ Public Class cGeometry
         RaiseEvent geometryChanged()
     End Sub
     ''' <summary>
-    ''' Calculate normals for front faces (ClockWise oriented vertices)
+    ''' Calculate normals for front faces
     ''' </summary>
     ''' <param name="vb">Vertex buffer</param>
     ''' <param name="ib">Indices buffer</param>
+    ''' <param name="culling">Normal direction</param>
     ''' <returns>Returns normals buffer</returns>
     ''' <remarks></remarks>
-    Public Function calculateNormalsClockWise(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
+    Public Function calculateNormals(ByVal vb() As Vector3, ByVal ib() As Int32, culling As Direct3D.Cull) As Vector3()
         Dim rv As New List(Of Vector3)
         Dim i As Int32
         Dim v, v1, v2, v3 As Vector3
         For i = 0 To ib.Length - 1 Step 3
-            v1 = vb(ib(i))
-            v2 = vb(ib(i + 1))
-            v3 = vb(ib(i + 2))
-            v = Vector3.Cross(v2 - v1, v3 - v1)
-            v.Normalize()
-            rv.Add(v)
-            v = Vector3.Cross(v3 - v2, v1 - v2)
-            v.Normalize()
-            rv.Add(v)
-            v = Vector3.Cross(v1 - v3, v2 - v3)
-            v.Normalize()
-            rv.Add(v)
-        Next
-        Return rv.ToArray
-    End Function
-    ''' <summary>
-    ''' Calculate normals for back faces (CounterClockWise oriented vertices)
-    ''' </summary>
-    ''' <param name="vb">Vertex buffer</param>
-    ''' <param name="ib">Indices buffer</param>
-    ''' <returns>Returns normals buffer</returns>
-    ''' <remarks></remarks>
-    Public Function calculateNormalsCounterClockWise(ByVal vb() As Vector3, ByVal ib() As Int32) As Vector3()
-        Dim rv As New List(Of Vector3)
-        Dim i As Int32
-        Dim v, v1, v2, v3 As Vector3
-        For i = 0 To ib.Length - 1 Step 3
-            v1 = vb(ib(i + 2))
-            v2 = vb(ib(i + 1))
-            v3 = vb(ib(i))
+            If culling = Direct3D.Cull.Clockwise Then
+                v1 = vb(ib(i))
+                v2 = vb(ib(i + 1))
+                v3 = vb(ib(i + 2))
+            Else
+                v1 = vb(ib(i + 2))
+                v2 = vb(ib(i + 1))
+                v3 = vb(ib(i))
+            End If
             v = Vector3.Cross(v2 - v1, v3 - v1)
             v.Normalize()
             rv.Add(v)
