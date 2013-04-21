@@ -597,22 +597,8 @@ Public Class ClassScena
         sc = 100
 
         ' VISUAL STYLE
-        Dim textureDefault As Texture = Nothing
+        Dim textureDefault As Texture = getTextureForStyle(device, UV.selectedStyle)
         Select Case UV.selectedStyle
-            Case VisualStyles.defaultStyle
-                textureDefault = Nothing
-            Case VisualStyles.FlatTransparent
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassflat.png")
-            Case VisualStyles.GlassCube
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasstry.png")
-            Case VisualStyles.Sketchy
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/strongline.png")
-            Case VisualStyles.GlassSky
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasssky.png")
-            Case VisualStyles.GlassBlur
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassblur.png")
-            Case VisualStyles.KohInor2B
-                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/kohinor.png")
             Case VisualStyles.Fluid
                 Dim m As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
                 Dim g As Graphics = Graphics.FromImage(m)
@@ -879,28 +865,32 @@ Public Class ClassScena
         End Try
         device.RenderState.CullMode = Cull.None
     End Sub
+    Private Function getTextureForStyle(device As Direct3D.Device, style As VisualStyles) As Texture
+        Dim textureDefault As Texture = Nothing
+        Select Case style
+            Case VisualStyles.defaultStyle
+                textureDefault = Nothing
+            Case VisualStyles.FlatTransparent
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassflat.png")
+            Case VisualStyles.GlassCube
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasstry.png")
+            Case VisualStyles.Sketchy
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/strongline.png")
+            Case VisualStyles.GlassSky
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasssky.png")
+            Case VisualStyles.GlassBlur
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassblur.png")
+            Case VisualStyles.KohInor2B
+                textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/kohinor.png")
+        End Select
+        Return textureDefault
+    End Function
     Public Sub drawCA(ByVal device As Direct3D.Device, ByVal ca As ClassCA)
         Try
 
             Dim mat As New Direct3D.Material
             mat.SpecularSharpness = 22
-            Dim textureDefault As Texture = Nothing
-            Select Case ca.Style
-                Case VisualStyles.defaultStyle
-                    textureDefault = Nothing
-                Case VisualStyles.FlatTransparent
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassflat.png")
-                Case VisualStyles.GlassCube
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasstry.png")
-                Case VisualStyles.Sketchy
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/strongline.png")
-                Case VisualStyles.GlassSky
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glasssky.png")
-                Case VisualStyles.GlassBlur
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/glassblur.png")
-                Case VisualStyles.KohInor2B
-                    textureDefault = TextureLoader.FromFile(device, My.Application.Info.DirectoryPath + "/shaders/kohinor.png")
-            End Select
+            Dim textureDefault As Texture = getTextureForStyle(device, ca.Style)
             device.SetTexture(0, textureDefault)
             device.VertexFormat = CustomVertex.PositionNormalTextured.Format
 
