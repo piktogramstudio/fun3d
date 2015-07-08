@@ -1,0 +1,3 @@
+  1. Download [featured version of Fun3D](http://code.google.com/p/fun3d/downloads/list).
+  1. Extract in desired folder.
+  1. If necessary install [Microsoft .NET Framework 3.5](http://www.microsoft.com/downloads/en/details.aspx?familyid=AB99342F-5D1A-413D-8319-81DA479AB0D7&displaylang=en) and [Microsoft DirectX](http://www.microsoft.com/downloads/en/details.aspx?FamilyID=2DA43D38-DB71-4C1B-BC6A-9B6652CD92A3)
